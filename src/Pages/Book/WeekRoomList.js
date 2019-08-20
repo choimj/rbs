@@ -1,26 +1,21 @@
 import React from "react";
 import styled from "styled-components";
+import TimeBlock from "./TimeBlock";
 
 const Root = styled.div`
   clear: both;
   text-align: left;
   padding-top: 5px;
-  & > ul > li {
-    background-color: #ffffff;
-  }
-
-  & > ul > li > span:first-child {
-    background-color: #1C90FB;    
-    display: block;     
-    color: #ffffff;
-    border: none;        
+  
+  & > ul > li > span:first-child {   
+    display: block;      
     font-size: 15px;
     width:15%;
     text-align: center;
     float: left;
     padding: 8px 0;
   }
-  & > ul > li > span {
+  & > ul > li > span:nth-child(2) {
     border: 1px solid #cfd3dc;
     display: block;
     width: 80%;
@@ -29,126 +24,96 @@ const Root = styled.div`
     float: left;
   }
 `;
-const TimeBlock = styled.div`  
-  position: relative;
-  width: 40px;
-  height: 20px;
-  display: inline-block;
-  margin: 5px;
-  
-  &:first-child {
-    margin-left: 15px;
-  }
-  & > p > span {
-    width: 20px;
-    height: 20px;
-    border: 1px solid #cfd3dc;
-    display: inline-block;
-    cursor: pointer;
-  }
-  & > p:last-child {    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    padding-top: 3px;
-    font-size: 13px;
-  }
-  
+
+const DayColor = styled.span`
+  display: block;
+  border-radius: 20px / 20px;
+  background-color: ${props => {
+    switch(props.dayofweek){
+        case 0:
+        case 6:
+          return "#ffffff";
+        default:
+          return "#1C90FB";
+      }
+  }};
+  color: ${props => {
+      switch(props.dayofweek){
+        case 0:
+          return "#A81515";
+        case 6:
+          return "blue";
+        default:
+          return "#ffffff";
+      }
+    }};    
+    border:  ${props => {
+      switch(props.dayofweek){
+          case 0:
+              case 6:
+          return "1px solid #1C90FB";
+          default:
+            return "none";
+        }
+    }};      
+    font-size: 15px;
+    width:15%;
+    text-align: center;
+    float: left;
+    padding: 8px 0;
+`;
+const WeekSpan = styled.span`
+  background-color: ${props => (props.istoday === 1 ? "rgb(251, 247, 209)" : "")};
 `;
 
-class WeekRoomList extends React.Component {
-  state = {
-    curTime: null
-  }
 
-  render() {
-    setInterval(function(){this.setState({curTime: new  Date().toLocaleString()});}.bind(this), 1000);
-   
-    return (
-      <Root>
+const WeekRoomList = (props) => {  
+  const {thisWeek, openTime, closeTime, roomCode} = props;
+  //query
+  //각 회의실의 일자에 예약된 내용이 있는가
+  /**
+   * select * 
+   * from bookingTable
+   * where roomCode="r1" 
+   * and (bookDate >= 2019-08-18 and bookDate <= 2019-08-24)
+   * order by bookDate, startTime
+   */
+  const bookingList = [
+    {bookDate: "2019-08-19", bookTitle: "Title1", bookDept: "UI/UX Core", bookName: "홍길동",  startTime: "09:00", endTime: "10:00"},
+    {bookDate: "2019-08-20",bookTitle: "Title2", bookDept: "Cell6", bookName: "최민지", startTime: "13:00", endTime: "15:00"},
+    {bookDate: "2019-08-20",bookTitle: "Title3", bookDept: "경영관리", bookName: "홍길동", startTime: "16:00", endTime: "16:30"}    
+  ];
+
+  // const bookingList = {
+  //   "r1" : [
+  //     {"2019-08-18" : []},
+  //     {
+  //       "2019-08-19" : [
+  //         {bookTitle: "Title1", bookDept: "UI/UX Core", bookName: "홍길동",  startTime: "09:00", endTime: "10:00"},
+  //         {bookTitle: "Title2", bookDept: "Cell6", bookName: "최민지", startTime: "13:00", endTime: "15:00"},
+  //         {bookTitle: "Title3", bookDept: "경영관리", bookName: "홍길동", startTime: "16:00", endTime: "16:30"} 
+  //       ]
+  //     },
+  //     {"2019-08-18" : []},
+  //   ]
+  // };
+  
+
+  return (    
+    <>
+    {thisWeek.map((item, i) => (      
+      <Root key={i}>      
         <ul>
           <li>         
-              <span>2019-08-19</span>
-              <span>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>9</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>10</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>11</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>12</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>13</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>14</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>15</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>16</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>17</p>     
-                </TimeBlock>
-                <TimeBlock>
-                  <p>
-                    <span></span> 
-                    <span></span>                   
-                  </p>       
-                  <p>18</p>     
-                </TimeBlock>
-              </span>         
+              <DayColor dayofweek={item.dayOfWeek}>{item.day}</DayColor>
+              <WeekSpan istoday={item.isToday}><TimeBlock openTime={openTime} closeTime={closeTime} /></WeekSpan>         
           </li>
         </ul>
-      </Root>
-    );
-  }
-
-
+      </Root>   
+    ))}
+    </>
+    
+  );
 }
 
 export default WeekRoomList;

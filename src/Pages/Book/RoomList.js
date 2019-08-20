@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import WeekRoomList from "./WeekRoomList";
+import * as Utills from "../../Utills/Date";
 
 const Accordion = styled.div` 
   padding-top: 20px;
@@ -31,7 +32,6 @@ const Accordion = styled.div`
   & > ul > li:last-child {
     border-bottom: none;
   }
-
   /* 아코디언 스타일 */
   & > ul > li  a + div {        
     height: 0;
@@ -86,6 +86,9 @@ const WeekRoomListBox = styled.div`
 `;
 
 const RoomList = ({compRoomList}) => {
+ const thisWeek = Utills.getWeek();
+ const thisMonth = Utills.getMonth();
+ 
   return (
     <Accordion>
       <ul>
@@ -98,7 +101,7 @@ const RoomList = ({compRoomList}) => {
               <span>회의실 정보 자세히보기</span>
             </a>
             <div>
-              <h1>8월</h1>
+              <h1>{thisMonth}월</h1>
               <p>
                 <span></span>
                 <span>예약불가</span>
@@ -106,13 +109,7 @@ const RoomList = ({compRoomList}) => {
                 <span>예약가능</span>
               </p>
               <WeekRoomListBox>
-                <WeekRoomList/> 
-                <WeekRoomList/>
-                <WeekRoomList/>
-                <WeekRoomList/>
-                <WeekRoomList/>
-                <WeekRoomList/>
-                <WeekRoomList/>
+                <WeekRoomList thisWeek={thisWeek} openTime={item.roomOpenTime} closeTime={item.roomCloseTime} roomCode={item.roomCode}/>                
               </WeekRoomListBox>
             </div>              
            </div>           

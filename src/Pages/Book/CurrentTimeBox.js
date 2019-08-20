@@ -8,12 +8,15 @@ const Root = styled.div`
 
 class CurrentTimeBox extends React.Component {
   state = {
-    curTime: null
+    curTime: null,
+    toDay: null
   }
 
   render() {
     const {curTime} = this.state;
-    setInterval(function(){this.setState({curTime: new Date().toLocaleString()});}.bind(this), 1000);
+    setInterval(() => {
+      this.setState({curTime: new Date().toLocaleString()});
+    }, 1000);
     
     return (
       <Root>current time {curTime}</Root>
