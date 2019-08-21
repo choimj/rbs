@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import WeekRoomList from "./WeekRoomList";
-import * as Utills from "../../Utills/Date";
+import * as Utils from "../../Utils/Date";
 
 const Accordion = styled.div` 
   padding-top: 20px;
@@ -86,8 +86,8 @@ const WeekRoomListBox = styled.div`
 `;
 
 const RoomList = ({compRoomList}) => {
- const thisWeek = Utills.getWeek();
- const thisMonth = Utills.getMonth();
+ 
+ const thisMonth = Utils.getMonth();
  
   return (
     <Accordion>
@@ -109,7 +109,7 @@ const RoomList = ({compRoomList}) => {
                 <span>예약가능</span>
               </p>
               <WeekRoomListBox>
-                <WeekRoomList thisWeek={thisWeek} openTime={item.roomOpenTime} closeTime={item.roomCloseTime} roomCode={item.roomCode}/>                
+                <WeekRoomList openTime={item.roomOpenTime} closeTime={item.roomCloseTime} roomCode={item.roomCode}/>                
               </WeekRoomListBox>
             </div>              
            </div>           

@@ -22,7 +22,7 @@ export const getWeek = () => {
 
     if(currentDate.toDateString() === resultDay.toDateString()){ isToday = 1; }
 
-    thisWeek[i] = {day : yyyy + "-" + mm + "-" + dd, dayOfWeek: dayOfWeek, isToday: isToday};
+    thisWeek[i] = {day : yyyy + "-" + mm + "-" + dd, date: dd, dayOfWeek: dayOfWeek, isToday: isToday};
   }
 
   return thisWeek;
@@ -33,4 +33,18 @@ export const getMonth = () => {
   const theMonth = currentDate.getMonth();
 
   return Number(theMonth) + 1;
+}
+
+export const isSameDate = (date1, date2) => {
+  const date1Arr = date1.split("-");
+  const date2Arr = date2.split("-");
+
+  const dateObj1 = new Date(date1Arr[0], date1Arr[1], date1Arr[2]).toString();
+  const dateObj2 = new Date(date2Arr[0], date2Arr[1], date2Arr[2]).toString();
+  
+  if(dateObj1 === dateObj2){
+    return true;
+  }else{
+    return false;
+  }
 }
