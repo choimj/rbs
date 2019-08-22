@@ -46,7 +46,7 @@ const LeftArea = styled.div`
 
 const Title = styled.h3`
   font-size: 18px;
-  padding: 20px 0;
+  padding: 30px 0 20px 0;
 `;
 
 const ChoiceTimeBox = styled.div`
@@ -152,6 +152,22 @@ const TimeElement = styled.div`
     font-size: 13px;
   }  
 `;
+const TimeDetailArea = styled.div`
+  /* border: 1px solid red; */
+  margin-top: 20px;
+  text-align: center;
+  & select {
+    width: 50px;
+    font-size: 15px;
+  }
+  & input {
+    width: 50px;
+    font-size: 15px;
+  }
+  & span {
+    padding: 3px;
+  }
+`;
 
 const BookStep = (props) => {
   const thisMonth = Utils.getMonth();
@@ -237,6 +253,41 @@ const BookStep = (props) => {
             </div> 
             <span>&#62;</span>                   
           </TimeArea>
+          <TimeDetailArea>            
+            <span>
+              <select>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+              </select>
+              <span>시</span>
+              <input type="number"/>
+              <span>분</span>
+            </span>
+            <span>~</span>
+            <span>
+              <select>
+                <option>9</option>
+                <option>10</option>
+                <option>11</option>
+                <option>12</option>
+                <option>13</option>
+                <option>14</option>
+                <option>15</option>
+                <option>16</option>
+                <option>17</option>
+              </select>
+              <span>시</span>
+              <input type="number"/>
+              <span>분</span>
+            </span>
+          </TimeDetailArea>
             
           <div>         
             <Title>> 시간 간편 선택</Title>     
