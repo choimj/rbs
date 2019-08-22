@@ -4,7 +4,7 @@ import styled from "styled-components";
 const Root = styled.div`  
   & > h1 {
     background-color: #1C90FB;
-    padding: 10px 10px;    
+    padding: 15px 10px;    
     color: #ffffff;
   }
   & > div {    

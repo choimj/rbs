@@ -4,7 +4,7 @@ import WeekRoomList from "./WeekRoomList";
 import * as Utils from "../../Utils/Date";
 
 const Accordion = styled.div` 
-  padding-top: 20px;
+  /* padding-top: 20px; */
   
   & > ul {    
     border-left: 1px solid #cfd3dc;
