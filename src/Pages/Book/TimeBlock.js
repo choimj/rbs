@@ -70,8 +70,6 @@ const createTimeBlock = (openTime, closeTime, day, bookingList) => {
    
   }
 
-  
-
   // console.log(timeSpan);
   timeSpan.map((item, i) => {
     resultArray.push(

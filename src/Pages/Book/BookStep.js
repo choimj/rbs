@@ -41,8 +41,12 @@ const LeftArea = styled.div`
   & > table > tbody > tr > td > input {
     width: 100%;
     padding: 2px;
-  }
-  
+  }  
+`;
+
+const Title = styled.h3`
+  font-size: 18px;
+  padding: 20px 0;
 `;
 
 const ChoiceTimeBox = styled.div`
@@ -81,38 +85,59 @@ const RightArea = styled.div`
     padding: 10px 0;
   }
 `;
-const TimeArea = styled.div`
-  margin: 30px 0;
-  
-`;
+
 const ButtonArea = styled.div`
-  margin-top: 30px;
+  display: flex;
   & > h3 {
     padding: 10px 0;
   }
   & > button {
-    padding: 5px 20px;
-    margin-right: 30px;
-    
+    padding: 5px;
+    flex: 1;
   }
   & > button:last-child {
     margin-right: 0;
   }
 `;
+const TimeArea = styled.div`
+  /* border: 1px solid red; */
+  width: 100%;
+  height: 25px;
+  overflow: hidden;
+  position: relative;
+  & > div {
+    width: 90%;
+    /* border: 1px solid blue; */
+    margin: auto;
+  }
+  & > span {
+    /* border: 1px solid greenyellow; */
+  }
+  & > span:first-child {
+    position: absolute;
+    top: 7px;
+    left: 0;
+  }
+  & > span:last-child {
+    position: absolute;
+    top: 7px;
+    right: 0;    
+  }
+`;
 const TimeElement = styled.div`
   position: relative;
-  width: 40px;
-  height: 20px;
+  width: 50px;
+  height: 25px;
   display: inline-block;
-  margin: 5px;
+  margin: 0 2px;
   background-color: ${props => (props.istoday === 1) ? "rgb(251, 247, 209)" : ""};
   
   &:first-child {
     margin-left: 15px;
   }
   & > p > span {
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
     border: 1px solid #cfd3dc;
     display: inline-block;
     cursor: pointer;
@@ -142,7 +167,10 @@ const BookStep = (props) => {
               <ThisWeekSpan key={i} istoday={item.isToday}>{item.date}</ThisWeekSpan>
             ))}
           </ThisWeekBox>
-          <TimeArea>
+          
+          <TimeArea>         
+          <span>&#60;</span>   
+              <div>
             <TimeElement>
               <p>
                 <span></span>
@@ -164,19 +192,63 @@ const BookStep = (props) => {
               </p>
               <p>11</p>
             </TimeElement>
-            <div>              
-              <ButtonArea>
-                <h3>시간 간편 선택</h3>
-                <button>30분</button>
-                <button>1시간</button>
-                <button>1시간 30분</button>
-                <button>2시간</button>
-              </ButtonArea>
-            </div>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>12</p>
+            </TimeElement>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>13</p>
+            </TimeElement>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>14</p>
+            </TimeElement>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>15</p>
+            </TimeElement>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>16</p>
+            </TimeElement>
+            <TimeElement>
+              <p>
+                <span></span>
+                <span></span>
+              </p>
+              <p>17</p>
+            </TimeElement>  
+            </div> 
+            <span>&#62;</span>                   
           </TimeArea>
-          
+            
+          <div>         
+            <Title>> 시간 간편 선택</Title>     
+            <ButtonArea>                
+              <button>30분</button>
+              <button>1시간</button>
+              <button>1시간 30분</button>
+              <button>2시간</button>
+            </ButtonArea>
+          </div>          
         </ChoiceTimeBox>
-        <h3>예약폼 작성</h3>
+        <Title>> 예약폼 작성</Title>
         <table>
           <tbody>
             <tr>
@@ -196,12 +268,14 @@ const BookStep = (props) => {
       </LeftArea>
       <RightArea>
         <ul>
+          <li>회사명 : </li>
+          <li></li>
           <li>카테고리 : </li>
           <li></li>
           <li>회의실 : </li>
           <li></li>
-          <li>시간 : </li>
-          <li></li>
+          {/* <li>시간 : </li>
+          <li></li> */}
         </ul>
       </RightArea>
     </Root>
