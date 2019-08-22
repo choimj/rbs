@@ -41,7 +41,7 @@ const createTimeBlock = (openTime, closeTime, day, bookingList) => {
    
     let leftSpanStartTime = new Date(day + " " + i + ":0");
     // let leftSpanEndTime = new Date(day + " " + i + ":29");
-    let rightSpanStartTime = new Date(day + " " + i + ":30");
+    // let rightSpanStartTime = new Date(day + " " + i + ":30");
     // let rightSpanEndTime = new Date(day + " " + i + ":59");
     const tmp = [];
     //console.log(bookElement.length);

@@ -139,7 +139,7 @@ const BookStep = (props) => {
           <h1>{thisMonth}월</h1>
           <ThisWeekBox>
             {thisWeek.map((item, i) => (
-              <ThisWeekSpan istoday={item.isToday}>{item.date}</ThisWeekSpan>
+              <ThisWeekSpan key={i} istoday={item.isToday}>{item.date}</ThisWeekSpan>
             ))}
           </ThisWeekBox>
           <TimeArea>
