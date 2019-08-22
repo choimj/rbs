@@ -38,6 +38,7 @@ const Header = (props) => {
       <div>RBS - {props.compInfo.compTitle}</div>
       <div><Link to="/">Home</Link></div>
       <div><Link to="/Book">예약현황</Link></div>
+      <div><Link to="/BookStep">예약</Link></div>
       <div><Link to="/Manage">관리</Link></div>
     </Root>
   );
