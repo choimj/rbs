@@ -11,12 +11,23 @@ class CurrentTimeBox extends React.Component {
     curTime: null,
     toDay: null
   }
+  setIntervalEvent = null;
+
+  componentWillUnmount = () => {
+    if(this.setIntervalEvent !== null){
+      clearInterval(this.setIntervalEvent);
+    }     
+  }
+
+  componentDidMount = () => {
+    this.setIntervalEvent = setInterval(() => {
+      this.setState({curTime: new Date().toLocaleString()});
+    }, 1000);
+  }
 
   render() {
     const {curTime} = this.state;
-    setInterval(() => {
-      this.setState({curTime: new Date().toLocaleString()});
-    }, 1000);
+    
     
     return (
       <Root>current time {curTime}</Root>

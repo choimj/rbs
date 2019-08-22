@@ -19,7 +19,7 @@ const RoomRight = styled.div`
   flex: 1;
 `;
 
-const Book = (props) => {
+const Booking = (props) => {
   return (
     <>
     <Root>
@@ -39,4 +39,4 @@ const Book = (props) => {
   );
 }
 
-export default Book;
+export default Booking;

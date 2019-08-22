@@ -4,9 +4,9 @@ import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Header from "./Header";
 import Home from "./Home";
 // import Book from "./Book";
-import BookContainer from "../Containers/BookContainer";
-import BookStep from "./Book/BookStep";
-import Manage from "./Manage";
+import BookingInitContainer from "../Containers/BookingInitContainer";
+import BookStep from "./Booking/BookStep";
+import Management from "./Management";
 
 
 const App = (props) => {
@@ -16,9 +16,9 @@ const App = (props) => {
         <Header compInfo={props.compInfo}/>
         <Switch>
           <Route exact path="/" component={Home}/>
-          <Route path="/Book" component={BookContainer}/>
+          <Route path="/Book" component={BookingInitContainer}/>
           <Route path="/BookStep" component={BookStep}/>
-          <Route path="/Manage" component={Manage}/>
+          <Route path="/Manage" component={Management}/>
         </Switch>
       </BrowserRouter>
     </>

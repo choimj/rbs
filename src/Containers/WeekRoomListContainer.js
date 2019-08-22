@@ -1,5 +1,5 @@
 import React from "react";
-import TimeBlock from "../Pages/Book/TimeBlock";
+import TimeBlock from "../Pages/Booking/TimeBlock";
 import styled from "styled-components";
 import * as Utils from "../Utils/Date";
 

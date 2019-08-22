@@ -185,7 +185,7 @@ const BookStep = (props) => {
           </ThisWeekBox>
           
           <TimeArea>         
-          <span>&#60;</span>   
+          <span><a href="#left">&#60;</a></span>   
               <div>
             <TimeElement>
               <p>
@@ -251,7 +251,7 @@ const BookStep = (props) => {
               <p>17</p>
             </TimeElement>  
             </div> 
-            <span>&#62;</span>                   
+            <span><a href="#right">&#62;</a></span>                   
           </TimeArea>
           <TimeDetailArea>            
             <span>

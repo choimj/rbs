@@ -48,7 +48,7 @@ const createTimeBlock = (openTime, closeTime, day, bookingList) => {
     if(bookElement.length>0) {
       //console.log("aaaa");
       let bookStartTime = new Date(day + " " + bookElement[0].startHour + ":" + bookElement[0].startMinute);
-      console.log(bookStartTime);
+      // console.log(bookStartTime);
       if(leftSpanStartTime >= bookStartTime){
         tmp.push(<span >{bookElement[0].startHour + ":" + bookElement[0].startMinute}</span>);
       }
@@ -61,8 +61,8 @@ const createTimeBlock = (openTime, closeTime, day, bookingList) => {
         <>
         <p>            
           {/* {tmp} */}
-          <span ></span>
-          <span ></span>
+          <span></span>
+          <span></span>
         </p>
         <p>{i}</p>
         </>

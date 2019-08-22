@@ -1,13 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
-import Book from "../Pages/Book";
+import Booking from "../Pages/Booking";
 
-class BookInitContainer extends React.Component {
+class BookingInitContainer extends React.Component {
   
   render() {
     const {compInfo, compCategoryList, compRoomList} = this.props;
     return (
-      <Book compInfo={compInfo} compCategoryList={compCategoryList} compRoomList={compRoomList}/>
+      <Booking compInfo={compInfo} compCategoryList={compCategoryList} compRoomList={compRoomList}/>
     );
   }
 }
@@ -22,4 +22,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   null
-)(BookInitContainer);
+)(BookingInitContainer);
