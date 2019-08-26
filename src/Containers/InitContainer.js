@@ -7,6 +7,7 @@ import * as homeActions from "../Store/Modules/Home";
 
 class InitContainer extends React.Component {
   state = {
+    isLogin : false,
     compInfo: {compCode: "douzone", compTitle: "더존비즈온"},
     compCategoryList: [
         {cateCode: "c1", cateTitle: "부산지사 11층"}
@@ -16,8 +17,8 @@ class InitContainer extends React.Component {
     ],
     compRoomList: [
       {roomCode: "r1", roomTitle: "대회의실", roomOpenTime: 9, roomCloseTime: 18},
-      // {roomCode: "r2", roomTitle: "중회의실", roomOpenTime: 9, roomCloseTime: 18},
-      // {roomCode: "r3", roomTitle: "소회의실", roomOpenTime: 9, roomCloseTime: 17},
+      {roomCode: "r2", roomTitle: "중회의실", roomOpenTime: 9, roomCloseTime: 18},
+      {roomCode: "r3", roomTitle: "소회의실", roomOpenTime: 9, roomCloseTime: 17},
       // {roomCode: "r4", roomTitle: "임원실", roomOpenTime: 9, roomCloseTime: 15}
     ]
   }
@@ -27,9 +28,26 @@ class InitContainer extends React.Component {
     homeActions.setCompany(this.state.compInfo);
     homeActions.setCategory(this.state.compCategoryList);   
     homeActions.setRoomList(this.state.compRoomList);
+    let location = "";
+
+    // if(this.state.isLogin) {
+    //   location = "/dashboard";
+    //   return (
+    //     //history
+    //     history.push()
+    //   );
+    // }else {
+    //   location = "/home";
+    // }
+
     return (
+      //history.push(location)
+      // <div></div>
       <App compInfo={this.state.compInfo} compCategoryList={this.state.compCategoryList}/>
     );
+    // return (
+    //   <App compInfo={this.state.compInfo} compCategoryList={this.state.compCategoryList}/>
+    // );
   }
 }
 

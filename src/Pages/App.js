@@ -1,30 +1,25 @@
-import React from 'react';
+import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-
 import Header from "./Header";
 import Home from "./Home";
-// import Book from "./Book";
-import BookingInitContainer from "../Containers/BookingInitContainer";
-import BookStep from "./Booking/BookStep";
-import Management from "./Management";
-// import ManagementContainer from "../Containers/ManagementContainer";
+import LandingContainer from "../Containers/LandingContainer";
+import Login from "./Login";
+import NotFound from "./NotFound";
 
-
-const App = (props) => {
+const App = props => {
   return (
-    <>    
+    <>
       <BrowserRouter>
-        <Header compInfo={props.compInfo}/>
+        <Header />
         <Switch>
-          <Route exact path="/" component={Home}/>
-          <Route path="/book" component={BookingInitContainer}/>
-          <Route path="/bookstep" component={BookStep}/>
-          {/* <Route path="/Manage" component={ManagementContainer}/> */}
-          <Route path="/manage" component={Management}/>
+          <Route exact path="/" component={Home} />
+          <Route path="/login" component={Login} />
+          <Route component={NotFound} />
         </Switch>
+        <LandingContainer />
       </BrowserRouter>
     </>
   );
-}
+};
 
 export default App;

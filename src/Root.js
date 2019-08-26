@@ -1,8 +1,8 @@
 import React from "react";
 import { Provider } from "react-redux";
 import GlobalStyles from "./Styles/GlobalStyles";
-// import App from './Pages/App';
-import InitContainer from "./Containers/InitContainer";
+import App from './Pages/App';
+// import InitContainer from "./Containers/InitContainer";
 import store from "./Store";
 
 const Root = () => {
@@ -10,7 +10,7 @@ const Root = () => {
     <Provider store={store}>
       <>
         <GlobalStyles />      
-        <InitContainer/>      
+        <App/>      
       </> 
     </Provider>
   );

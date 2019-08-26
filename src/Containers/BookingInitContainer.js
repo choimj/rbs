@@ -13,6 +13,7 @@ class BookingInitContainer extends React.Component {
 }
 const mapStateToProps = state => {
   return {
+    isLogin: state.Home.isLogin,
     compInfo: state.Home.compInfo,
     compCategoryList: state.Home.compCategoryList,
     compRoomList: state.Home.compRoomList
