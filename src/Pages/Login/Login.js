@@ -3,10 +3,7 @@ import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
-
-// import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
-// import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -31,12 +28,12 @@ const useStyles = makeStyles(theme => ({
     backgroundColor: "#cfe8fc",
     height: "60vh",
     padding: "30px",
-    "& > div": {
+    "& > form > div": {
       // marginBottom: "20px"
       paddingBottom: "2%"
     },
 
-    "& > div label": {
+    "& > form > div label": {
       color: "#3f51b5",
       lineHeight: "15px"
     }
@@ -47,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     fontSize: "34px",
     fontWeight: "bold",
     marginTop: "16px",
+    marginBottom: "16px",
     lineHeight: "46px",
     color: "#3f51b5",
 
@@ -74,6 +72,7 @@ const useStyles = makeStyles(theme => ({
 const Login = props => {
   const { history } = props;
   const classes = useStyles();
+  // console.log(classes);
   const [values, setValues] = React.useState({
     email: ""
   });
@@ -95,30 +94,32 @@ const Login = props => {
       <Container maxWidth="sm" className={classes.container}>
         <Typography component="div" className={classes.loginBox}>
           <div className={classes.title}>Login</div>
-          <div>
-            <TextField
-              id="outlined-email-input"
-              label="Email"
-              className={classes.textField}
-              type="email"
-              name="email"
-              autoComplete="email"
-              margin="normal"
-              variant="outlined"
-              onChange={handleChangeInput("email")}
-            />
-          </div>
-          <div>
-            <TextField
-              id="outlined-password-input"
-              label="Password"
-              className={classes.textField}
-              type="password"
-              autoComplete="current-password"
-              margin="normal"
-              variant="outlined"
-            />
-          </div>
+          <form noValidate autoComplete="off">
+            <div>
+              <TextField
+                id="outlined-email-input"
+                label="Email"
+                className={classes.textField}
+                type="email"
+                name="email"
+                autoComplete="email"
+                margin="normal"
+                variant="outlined"
+                onChange={handleChangeInput("email")}
+              />
+            </div>
+            <div>
+              <TextField
+                id="outlined-password-input"
+                label="Password"
+                className={classes.textField}
+                type="password"
+                autoComplete="current-password"
+                margin="normal"
+                variant="outlined"
+              />
+            </div>
+          </form>
           <div>
             <label>
               <Checkbox
@@ -135,7 +136,7 @@ const Login = props => {
           </div>
           <div>
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <Button
                   variant="outlined"
                   color="primary"
@@ -144,7 +145,7 @@ const Login = props => {
                   Login
                 </Button>
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={6}>
                 <Button
                   variant="outlined"
                   color="secondary"
