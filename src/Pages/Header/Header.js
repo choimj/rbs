@@ -3,13 +3,12 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+// import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
 
 // Nested List
-// import ListSubheader from "@material-ui/core/ListSubheader";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -22,7 +21,8 @@ import Link from "@material-ui/core/Link";
 
 const useHeaderStyles = makeStyles(theme => ({
   root: {
-    flexGrow: 1
+    flexGrow: 1,
+    height: "10vh"
   },
   menuButton: {
     marginRight: theme.spacing(2)
@@ -35,6 +35,9 @@ const useHeaderStyles = makeStyles(theme => ({
   },
   fullList: {
     width: "auto"
+  },
+  link: {
+    fontSize: "18px"
   }
 }));
 
@@ -92,14 +95,22 @@ const Header = props => {
   };
 
   const toggleDrawer = (side, open) => event => {
-    if (event.type === "keydown" && (event.key === "Tab" || event.key === "Shift")) {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
       return;
     }
     setState({ ...state, [side]: open });
   };
+
   const sideList = side => (
     <div className={headerClasses.list} role="presentation">
-      <List component="nav" aria-labelledby="nested-list-subheader" className={sideClassed.root}>
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className={sideClassed.root}
+      >
         {menu.map((item, i) => {
           if (item.sub.length > 0) {
             return (
@@ -111,11 +122,16 @@ const Header = props => {
                   <ListItemText primary={item.title} />
                   {open.isOpen[i] ? <ExpandLess /> : <ExpandMore />}
                 </ListItem>
-                <Collapse in={open.isOpen[i]} timeout="auto" unmountOnExit key={i}>
+                <Collapse
+                  in={open.isOpen[i]}
+                  timeout="auto"
+                  unmountOnExit
+                  key={i}
+                >
                   <List component="div" disablePadding>
                     {item.sub.map((list, j) => (
                       <Link href={list.url} color="inherit" key={j}>
-                        <ListItem button className={sideClassed.nested}>
+                        <ListItem className={sideClassed.nested}>
                           <ListItemText primary={list.title} />
                         </ListItem>
                       </Link>
@@ -127,7 +143,7 @@ const Header = props => {
           } else {
             return (
               <Link href={item.url} color="inherit" key={i}>
-                <ListItem button>
+                <ListItem>
                   <ListItemIcon>
                     <SendIcon />
                   </ListItemIcon>
@@ -157,7 +173,9 @@ const Header = props => {
           <Typography variant="h6" className={headerClasses.title}>
             RBS
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Link href="/login" color="inherit" className={headerClasses.link}>
+            Login
+          </Link>
         </Toolbar>
       </AppBar>
       <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
