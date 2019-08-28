@@ -70,24 +70,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Login = props => {
-  const { history } = props;
+  const {
+    handleChangeInput,
+    handleChangeCheckbox,
+    handleMoveUrl,
+    handleLogin
+  } = props;
   const classes = useStyles();
-  // console.log(classes);
-  const [values, setValues] = React.useState({
-    email: ""
-  });
+  // const [values, setValues] = React.useState({
+  //   email: ""
+  // });
 
-  const handleChangeInput = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
+  // const handleChangeInput = name => event => {
+  //   setValues({ ...values, [name]: event.target.value });
+  // };
 
-  const [state, setState] = React.useState({
-    checkedA: true
-  });
+  // const [state, setState] = React.useState({
+  //   checkedA: true
+  // });
 
-  const handleChangeCheckbox = name => event => {
-    setState({ ...state, [name]: event.target.checked });
-  };
+  // const handleChangeCheckbox = name => event => {
+  //   setState({ ...state, [name]: event.target.checked });
+  // };
+
   return (
     <React.Fragment>
       <CssBaseline />
@@ -105,7 +110,7 @@ const Login = props => {
                 autoComplete="email"
                 margin="normal"
                 variant="outlined"
-                onChange={handleChangeInput("email")}
+                onChange={handleChangeInput}
               />
             </div>
             <div>
@@ -117,20 +122,21 @@ const Login = props => {
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
+                onChange={handleChangeInput}
               />
             </div>
           </form>
           <div>
             <label>
               <Checkbox
-                checked={state.checkedB}
-                onChange={handleChangeCheckbox("checkedA")}
+                // checked={state.checkedB}
+                onChange={handleChangeCheckbox}
                 value="checkedA"
                 color="primary"
                 inputProps={{
                   "aria-label": "secondary checkbox"
                 }}
-              />{" "}
+              />
               Remember me
             </label>
           </div>
@@ -141,6 +147,7 @@ const Login = props => {
                   variant="outlined"
                   color="primary"
                   className={classes.button}
+                  onClick={handleLogin}
                 >
                   Login
                 </Button>
@@ -150,9 +157,7 @@ const Login = props => {
                   variant="outlined"
                   color="secondary"
                   className={classes.button}
-                  onClick={() => {
-                    history.push("/join");
-                  }}
+                  onClick={handleMoveUrl}
                 >
                   Register
                 </Button>

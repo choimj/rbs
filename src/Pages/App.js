@@ -1,11 +1,14 @@
 import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
 import Header from "./Header";
-import Home from "./Home";
-import LandingContainer from "../Containers/LandingContainer";
-import Login from "./Login";
+import Home from "./Landing/Home";
+// import LandingContainer from "../Containers/LandingContainer";
+import AuthContainer from "../Containers/AuthContainer";
 import Join from "./Join";
 import NotFound from "./NotFound";
+
+// Landing
+import Landing from "./Landing";
 
 const App = props => {
   return (
@@ -14,8 +17,9 @@ const App = props => {
         <Header />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route path="/login" component={Login} />
+          <Route path="/login" component={AuthContainer} />
           <Route path="/join" component={Join} />
+          <Route path="/landing/:path?" component={Landing} />
           <Route component={NotFound} />
         </Switch>
         {/* <LandingContainer /> */}
