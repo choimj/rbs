@@ -1,42 +1,47 @@
 import React from "react";
-import styled from "styled-components";
+// import styled from "styled-components";
 import CategoryComboBox from "./CategoryComboBox";
 import RoomList from "./RoomList";
 import RoomInfo from "./RoomInfo";
+import { makeStyles } from "@material-ui/core/styles";
+import Paper from "@material-ui/core/Paper";
+import Grid from "@material-ui/core/Grid";
 
-const Root = styled.div`
-  margin: 10px;
-  border-bottom: 1px solid #cfd3dc;
-`;
-const RoomWrapper = styled.div`
-  display:flex;
-`;
-const RoomLeft = styled.div`
-  flex: 2;
-  height: 100%;  
-`;
-const RoomRight = styled.div`
-  flex: 1;
-`;
+const useStyles = makeStyles(theme => ({
+  root: {
+    flexGrow: 1
+  },
+  paper: {
+    padding: theme.spacing(2),
+    color: theme.palette.text.secondary
+  }
+}));
 
-const Booking = (props) => {
+const Booking = props => {
+  const { compCategoryList } = props;
+  const classes = useStyles();
+
   return (
-    <>
-    <Root>
-      <CategoryComboBox compCategoryList={props.compCategoryList}/>
-      <RoomWrapper>
-        <RoomLeft>
-          {/* 회의실 리스트 영역 */}
-          <RoomList compRoomList={props.compRoomList}/>  
-        </RoomLeft>
-        <RoomRight>
-          {/* 회의실 정보 등 information 노출 영역 */}
-          <RoomInfo/>
-        </RoomRight>
-      </RoomWrapper>
-    </Root>    
-    </>
+    <div className={classes.root}>
+      <Grid container spacing={3}>
+        <Grid item xs={12}>
+          <Paper className={classes.paper}>
+            <CategoryComboBox compCategoryList={compCategoryList} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={8}>
+          <Paper className={classes.paper}>
+            <RoomList compRoomList={props.compRoomList} />
+          </Paper>
+        </Grid>
+        <Grid item xs={12} sm={4}>
+          <Paper className={classes.paper}>
+            <RoomInfo />
+          </Paper>
+        </Grid>
+      </Grid>
+    </div>
   );
-}
+};
 
 export default Booking;

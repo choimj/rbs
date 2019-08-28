@@ -1,123 +1,114 @@
 import React from "react";
-import styled from "styled-components";
+
+import { withStyles, makeStyles } from "@material-ui/core/styles";
+import MuiExpansionPanel from "@material-ui/core/ExpansionPanel";
+import MuiExpansionPanelSummary from "@material-ui/core/ExpansionPanelSummary";
+import MuiExpansionPanelDetails from "@material-ui/core/ExpansionPanelDetails";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import Button from "@material-ui/core/Button";
+
 import WeekRoomList from "./WeekRoomList";
 import * as Utils from "../../Utils/Date";
 
-const Accordion = styled.div` 
-  /* padding-top: 20px; */
-  
-  & > ul {    
-    border-left: 1px solid #cfd3dc;
-    border-right: 1px solid #cfd3dc;
+const useStyles = makeStyles(theme => ({
+  button: {
+    margin: "0",
+    padding: "0",
+    fontWeight: "normal",
+    fontSize: "12px",
+    color: "#ffffff"
+  },
+  alignRightGrid: {
+    textAlign: "right"
   }
-  & > ul > li {    
-    background-color:#1C90FB;
-    border-bottom: 1px solid #cfd3dc;
-    position: relative;
-  }
-  & > ul > li > div a > span:first-child {
-    display: inline-block;
-    overflow: hidden;
-    background: url(https://static.wehago.com/imgs/common/sp_lux.png) -275px -260px;   
-    vertical-align: middle;
-    width: 12px;
-    height: 6px;  
-    margin-right: 10px;
-  }  
-  & > ul > li > div a > span:last-child {
-    font-size: 10px;
-    float:right;
-    text-decoration: underline;
-  }
-  & > ul > li:last-child {
-    border-bottom: none;
-  }
-  /* 아코디언 스타일 */
-  & > ul > li  a + div {        
-    height: 0;
-    overflow: hidden;  
-  }
-  & > ul > li a {
-    text-decoration: none;
-    color: #ffffff;
-    display: block;
-    padding: 15px 10px;
-  }
-  & > ul > li :target a + div{    
-    height: 400px; 
-    background-color: #ffffff;
-    padding: 10px;
-    text-align: center;
-    overflow: auto;
-  }
-  & > ul > li :target a span:first-child{
-    background: url(https://static.wehago.com/imgs/common/sp_lux.png) -275px -250px;
-  }
-  & > ul > li a + div h1 {
-    padding: 10px 0;
-    font-size: 24px;
-  }
+}));
 
-  & > ul > li a + div p:nth-child(2) {
-    float: right;    
-  }
-  & > ul > li a + div > p > span {
-    font-size: 12px;
-    display: inline-block;
-    vertical-align: middle;
-  }
-  & > ul > li a + div > p > span:nth-child(2n-1) {
-    width: 15px;
-    height: 15px;
-    margin-right: 5px;
-  }
-  & > ul > li a + div > p > span:nth-child(1) {    
-    background-color: #A81515;
-  }
-  & > ul > li a + div > p > span:nth-child(3) {    
-    background-color: #ffffff;
-    border: 1px solid #cfd3dc;
-    margin-left: 10px;
-  }  
-`;
-const WeekRoomListBox = styled.div`
-  padding-top: 15px;
-  clear: both;
-`;
+const ExpansionPanel = withStyles({
+  root: {
+    border: "1px solid rgba(0, 0, 0, .125)",
+    boxShadow: "none",
+    "&:not(:last-child)": {
+      borderBottom: 0
+    },
+    "&:before": {
+      display: "none"
+    },
+    "&$expanded": {
+      margin: "auto"
+    }
+  },
+  expanded: {}
+})(MuiExpansionPanel);
 
-const RoomList = ({compRoomList}) => {
- 
- const thisMonth = Utils.getMonth();
- 
+const ExpansionPanelSummary = withStyles({
+  root: {
+    backgroundColor: "#3f51b5",
+    color: "#ffffff",
+    borderBottom: "1px solid rgba(0, 0, 0, .125)",
+    marginBottom: -1,
+    minHeight: 56,
+    "&$expanded": {
+      minHeight: 56
+    }
+  },
+  content: {
+    "&$expanded": {
+      margin: "12px 0"
+    }
+  },
+  expanded: {}
+})(MuiExpansionPanelSummary);
+
+const ExpansionPanelDetails = withStyles(theme => ({
+  root: {
+    padding: theme.spacing(2)
+  }
+}))(MuiExpansionPanelDetails);
+
+const RoomList = ({ compRoomList }) => {
+  const thisMonth = Utils.getMonth();
+  const classes = useStyles();
+
+  const [expanded, setExpanded] = React.useState("panel1");
+  const handleChange = panel => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
   return (
-    <Accordion>
-      <ul>
-        {compRoomList.map((item, i) => (
-          <li key={i}>
-            <div id={"room_"+i}>
-            <a href={"#room_"+i}>
-              <span></span>
-              <span>{item.roomTitle}</span>
-              <span>회의실 정보 자세히보기</span>
-            </a>
-            <div>
-              <h1>{thisMonth}월</h1>
-              <p>
-                <span></span>
-                <span>예약불가</span>
-                <span></span>
-                <span>예약가능</span>
-              </p>
-              <WeekRoomListBox>
-                <WeekRoomList openTime={item.roomOpenTime} closeTime={item.roomCloseTime} roomCode={item.roomCode}/>                
-              </WeekRoomListBox>
-            </div>              
-           </div>           
-          </li>   
-        ))}
-      </ul>
-    </Accordion>
+    <div>
+      {compRoomList.map((item, i) => (
+        <ExpansionPanel
+          square
+          expanded={expanded === "panel" + i}
+          onChange={handleChange("panel" + i)}
+          key={i}
+        >
+          <ExpansionPanelSummary
+          // aria-controls="panel1d-content"
+          // id="panel1d-header"
+          >
+            <Grid container spacing={0}>
+              <Grid item xs={12} sm={8}>
+                <Typography>{item.roomTitle}</Typography>
+              </Grid>
+              <Grid item xs={12} sm={4} className={classes.alignRightGrid}>
+                <Button className={classes.button}>회의실 자세히보기</Button>
+              </Grid>
+            </Grid>
+          </ExpansionPanelSummary>
+          <ExpansionPanelDetails>
+            <Typography>{thisMonth}월</Typography>
+            <WeekRoomList
+              openTime={item.roomOpenTime}
+              closeTime={item.roomCloseTime}
+              roomCode={item.roomCode}
+            />
+          </ExpansionPanelDetails>
+        </ExpansionPanel>
+      ))}
+    </div>
   );
-}
+};
 
 export default RoomList;

@@ -1,19 +1,19 @@
 import React from "react";
 import styled from "styled-components";
 
-const Root = styled.div`  
+const Root = styled.div`
   & > h1 {
-    background-color: #1C90FB;
-    padding: 15px 10px;    
+    background-color: #3f51b5;
+    padding: 15px 10px;
     color: #ffffff;
   }
-  & > div {    
+  & > div {
     width: 100%;
     height: 500px;
     padding: 5px;
   }
 `;
-const InfoBox = styled.table`  
+const InfoBox = styled.table`
   width: 100%;
   & > tbody > tr {
     border-bottom: 1px solid rgb(98, 199, 246);
@@ -23,15 +23,15 @@ const InfoBox = styled.table`
   }
 
   & > tbody > tr > th {
-    background-color: rgb(213, 235, 255);    
-    border-right: 3px solid #1C90FB; 
+    background-color: rgb(213, 235, 255);
+    border-right: 3px solid #3f51b5;
     width: 30%;
     font-size: 15px;
   }
   & > tbody > tr > td {
     font-size: 13px;
     padding: 10px;
-  }  
+  }
 `;
 const BookInfoBox = styled.table`
   margin-top: 15px;
@@ -43,8 +43,8 @@ const BookInfoBox = styled.table`
     border-bottom: none;
   }
   & > tbody > tr > th {
-    background-color: rgb(213, 235, 255);    
-    border-right: 3px solid #1C90FB; 
+    background-color: rgb(213, 235, 255);
+    border-right: 3px solid #3f51b5;
     width: 30%;
     font-size: 15px;
   }
@@ -54,7 +54,7 @@ const BookInfoBox = styled.table`
   }
 `;
 
-const RoomInfo = (props) => {
+const RoomInfo = props => {
   return (
     <Root>
       <h1>회의실 정보</h1>
@@ -74,7 +74,7 @@ const RoomInfo = (props) => {
               <td>11111</td>
             </tr>
             <tr>
-              <th>위    치</th>
+              <th>위 치</th>
               <td>11111</td>
             </tr>
             <tr>
@@ -90,11 +90,11 @@ const RoomInfo = (props) => {
               <td>UI/UX 바닐라스크립트 관련 스터디</td>
             </tr>
             <tr>
-              <th>부    서</th>
+              <th>부 서</th>
               <td>UI/UX Core 부산</td>
             </tr>
             <tr>
-              <th>이    름</th>
+              <th>이 름</th>
               <td>최 민 지</td>
             </tr>
           </tbody>
@@ -102,6 +102,6 @@ const RoomInfo = (props) => {
       </div>
     </Root>
   );
-}
+};
 
 export default RoomInfo;

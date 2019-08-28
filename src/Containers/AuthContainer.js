@@ -5,7 +5,7 @@ import { withRouter } from "react-router-dom";
 // import App from "../Pages/App";
 import Login from "../Pages/Login";
 
-import * as authActions from "../Store/Modules/";
+import * as authActions from "../Store/Modules";
 
 class AuthContainer extends React.Component {
   state = {
