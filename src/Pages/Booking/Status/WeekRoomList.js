@@ -1,7 +1,7 @@
 import React from "react";
 // import styled from "styled-components";
 // import TimeBlock from "./TimeBlock";
-import WeekRoomListContainer from "../../Containers/WeekRoomListContainer";
+import WeekRoomListContainer from "../../../Containers/WeekRoomListContainer";
 
 const WeekRoomList = props => {
   const { openTime, closeTime, roomCode } = props;

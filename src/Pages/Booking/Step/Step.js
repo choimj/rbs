@@ -1,9 +1,7 @@
 import React from "react";
-
 import * as Utils from "../../../Utils/Date";
-import BookLeft from "./BookLeft";
-import BookRight from "./BookRight";
-
+import BookLeft from "./Form";
+import BookRight from "./Nav";
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -17,7 +15,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BookStep = props => {
+const Step = props => {
   const classes = useStyles();
   const curDate = new Date();
   const [selectedDate, setSelectedDate] = React.useState({
@@ -27,10 +25,11 @@ const BookStep = props => {
   });
 
   const handleDateChange = date => {
+    const afterHoursTime = new Date(date);
     setSelectedDate({
       date: date,
-      startTime: curDate,
-      endTime: Utils.getAfterDate("h", date, 1)
+      startTime: date,
+      endTime: Utils.getAfterDate("h", afterHoursTime, 1)
     });
   };
 
@@ -72,4 +71,4 @@ const BookStep = props => {
   );
 };
 
-export default BookStep;
+export default Step;

@@ -1,1 +1,1 @@
-export { default } from "./BookStep";
+export { default } from "./Step";

@@ -6,7 +6,8 @@ import Home from "./Landing/Home";
 import AuthContainer from "../Containers/AuthContainer";
 import Join from "./Join";
 import NotFound from "./NotFound";
-import BookingInitContainer from "../Containers/BookingInitContainer";
+// import BookingContainer from "./Booking/BookingContainer";
+import Booking from "./Booking";
 
 // Landing
 import Landing from "./Landing";
@@ -21,7 +22,7 @@ const App = props => {
           <Route path="/login" component={AuthContainer} />
           <Route path="/join" component={Join} />
           <Route path="/landing/:path?" component={Landing} />
-          <Route path="/book/:path?" component={BookingInitContainer} />
+          <Route path="/book/:path?" component={Booking} />
           <Route component={NotFound} />
         </Switch>
         {/* <LandingContainer /> */}

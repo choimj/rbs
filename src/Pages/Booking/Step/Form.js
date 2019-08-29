@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
     width: 200
   }
 }));
-const BookLeft = props => {
+const Form = props => {
   const classes = useStyles();
   const { selectedDate, handleDateChange, handleChange, values } = props;
 
@@ -125,4 +125,4 @@ const BookLeft = props => {
   );
 };
 
-export default BookLeft;
+export default Form;

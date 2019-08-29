@@ -1,5 +1,4 @@
 import React from "react";
-// import styled from "styled-components";
 import CategoryComboBox from "./CategoryComboBox";
 import RoomList from "./RoomList";
 import RoomInfo from "./RoomInfo";
@@ -17,7 +16,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Booking = props => {
+const Status = props => {
   const { compCategoryList } = props;
   const classes = useStyles();
 
@@ -44,4 +43,4 @@ const Booking = props => {
   );
 };
 
-export default Booking;
+export default Status;

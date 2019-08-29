@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const BookRight = props => {
+const Nav = props => {
   const classes = useStyles();
   const { selectedDate } = props;
   return (
@@ -58,4 +58,4 @@ const BookRight = props => {
   );
 };
 
-export default BookRight;
+export default Nav;

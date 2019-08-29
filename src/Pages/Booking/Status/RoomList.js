@@ -9,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import Button from "@material-ui/core/Button";
 
 import WeekRoomList from "./WeekRoomList";
-import * as Utils from "../../Utils/Date";
+import * as Utils from "../../../Utils/Date";
 
 const useStyles = makeStyles(theme => ({
   button: {

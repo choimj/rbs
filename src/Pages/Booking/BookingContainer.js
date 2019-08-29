@@ -1,12 +1,8 @@
 import React from "react";
-import { bindActionCreators } from "redux";
-import { connect } from "react-redux";
-import Booking from "../Pages/Booking";
-import BookStep from "../Pages/Booking/Step";
+import Status from "./Status";
+import Step from "./Step";
 
-import * as initActions from "../Store/Modules/Init";
-
-class BookingInitContainer extends React.Component {
+class BookingContainer extends React.Component {
   state = {
     isLogin: false,
     compInfo: { compCode: "douzone", compTitle: "더존비즈온" },
@@ -48,13 +44,12 @@ class BookingInitContainer extends React.Component {
 
   render() {
     const { compInfo, compCategoryList, compRoomList, match } = this.props;
-    // console.log(match.params);
     switch (match.params.path) {
       case "step":
-        return <BookStep />;
+        return <Step />;
       default:
         return (
-          <Booking
+          <Status
             compInfo={compInfo}
             compCategoryList={compCategoryList}
             compRoomList={compRoomList}
@@ -63,22 +58,5 @@ class BookingInitContainer extends React.Component {
     }
   }
 }
-const mapStateToProps = state => {
-  return {
-    isLogin: state.Init.isLogin,
-    compInfo: state.Init.compInfo,
-    compCategoryList: state.Init.compCategoryList,
-    compRoomList: state.Init.compRoomList
-  };
-};
 
-const mapDispatchToPros = dispatch => {
-  return {
-    initActions: bindActionCreators(initActions, dispatch)
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToPros
-)(BookingInitContainer);
+export default BookingContainer;
