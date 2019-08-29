@@ -2,6 +2,7 @@ import React from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import Booking from "../Pages/Booking";
+import BookStep from "../Pages/Booking/Step";
 
 import * as initActions from "../Store/Modules/Init";
 
@@ -46,14 +47,20 @@ class BookingInitContainer extends React.Component {
   };
 
   render() {
-    const { compInfo, compCategoryList, compRoomList } = this.props;
-    return (
-      <Booking
-        compInfo={compInfo}
-        compCategoryList={compCategoryList}
-        compRoomList={compRoomList}
-      />
-    );
+    const { compInfo, compCategoryList, compRoomList, match } = this.props;
+    // console.log(match.params);
+    switch (match.params.path) {
+      case "step":
+        return <BookStep />;
+      default:
+        return (
+          <Booking
+            compInfo={compInfo}
+            compCategoryList={compCategoryList}
+            compRoomList={compRoomList}
+          />
+        );
+    }
   }
 }
 const mapStateToProps = state => {

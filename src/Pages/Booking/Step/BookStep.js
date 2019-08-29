@@ -1,0 +1,75 @@
+import React from "react";
+
+import * as Utils from "../../../Utils/Date";
+import BookLeft from "./BookLeft";
+import BookRight from "./BookRight";
+
+import { makeStyles } from "@material-ui/core/styles";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Container from "@material-ui/core/Container";
+import Grid from "@material-ui/core/Grid";
+
+const useStyles = makeStyles(theme => ({
+  container: {
+    backgroundColor: "#cfe8fc",
+    padding: "10px 30px"
+  }
+}));
+
+const BookStep = props => {
+  const classes = useStyles();
+  const curDate = new Date();
+  const [selectedDate, setSelectedDate] = React.useState({
+    date: curDate,
+    startTime: curDate,
+    endTime: Utils.getAfterDate("h", new Date(), 1)
+  });
+
+  const handleDateChange = date => {
+    setSelectedDate({
+      date: date,
+      startTime: curDate,
+      endTime: Utils.getAfterDate("h", date, 1)
+    });
+  };
+
+  const [values, setValues] = React.useState({
+    title: "",
+    dept: "",
+    name: "",
+    participants: []
+  });
+
+  const handleChange = name => event => {
+    setValues({ ...values, [name]: event.target.value });
+  };
+
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Typography component="div" className={classes.container}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} sm={8}>
+              <form noValidate autoComplete="off">
+                <BookLeft
+                  selectedDate={selectedDate}
+                  values={values}
+                  setSelectedDate={setSelectedDate}
+                  handleDateChange={handleDateChange}
+                  handleChange={handleChange}
+                />
+              </form>
+            </Grid>
+            <Grid item xs={12} sm={4} className={classes.container}>
+              <BookRight selectedDate={selectedDate} />
+            </Grid>
+          </Grid>
+        </Typography>
+      </Container>
+    </React.Fragment>
+  );
+};
+
+export default BookStep;

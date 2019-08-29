@@ -55,7 +55,11 @@ const useSideStyles = makeStyles(theme => ({
 const Header = props => {
   const menu = [
     { title: "Home", url: "/", sub: [] },
-
+    {
+      title: "예약",
+      url: "/book",
+      sub: [{ title: "예약", url: "/book/step" }]
+    },
     {
       title: "예약 현황",
       url: "/book",
