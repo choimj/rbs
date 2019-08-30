@@ -11,6 +11,7 @@ import Booking from "./Booking";
 
 // Landing
 import Landing from "./Landing";
+import Management from "./Management";
 
 const App = props => {
   return (
@@ -23,6 +24,7 @@ const App = props => {
           <Route path="/join" component={Join} />
           <Route path="/landing/:path?" component={Landing} />
           <Route path="/book/:path?" component={Booking} />
+          <Route path="/management/:path?" component={Management} />
           <Route component={NotFound} />
         </Switch>
         {/* <LandingContainer /> */}

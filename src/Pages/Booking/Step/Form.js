@@ -9,35 +9,15 @@ import {
   KeyboardDatePicker
 } from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
+import TitleBar from "../../../Components/TitleBar";
 
 const useStyles = makeStyles(theme => ({
-  title: {
-    width: "100%",
-    position: "relative",
-    fontSize: "26px",
-    fontWeight: "bold",
-    marginTop: "16px",
-    marginBottom: "16px",
-    lineHeight: "46px",
-    color: "#3f51b5",
-
-    "&:before": {
-      content: "''",
-      width: "5px",
-      height: "100%",
-      position: "absolute",
-      top: "0",
-      left: "-30px",
-      background: "#3f51b5"
-    }
-  },
   paper: {
     padding: theme.spacing(2)
   },
   textField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: 200
+    width: "100%",
+    display: "flex"
   }
 }));
 const Form = props => {
@@ -46,7 +26,7 @@ const Form = props => {
 
   return (
     <React.Fragment>
-      <div className={classes.title}>시간 선택</div>
+      <TitleBar title="시간 선택" />
       <Paper className={classes.paper}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
@@ -86,7 +66,7 @@ const Form = props => {
           </Grid>
         </MuiPickersUtilsProvider>
       </Paper>
-      <div className={classes.title}>예약</div>
+      <TitleBar title="예약폼 작성" />
       <Paper className={classes.paper}>
         <TextField
           id="title"
