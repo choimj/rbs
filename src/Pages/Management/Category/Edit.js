@@ -48,7 +48,7 @@ const Edit = () => {
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
         id="standard-name"
-        label="그룹 명"
+        label="카테고리 명"
         value={values.name}
         fullWidth
         required
@@ -58,7 +58,7 @@ const Edit = () => {
         className={classes.title}
       />
       <div className={classes.particiBox}>
-        <label>그룹 멤버*</label>
+        <label>카테고리 멤버*</label>
       </div>
       <Button
         variant="contained"
