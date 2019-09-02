@@ -10,14 +10,26 @@ import {
 } from "@material-ui/pickers";
 import TextField from "@material-ui/core/TextField";
 import TitleBar from "../../../Components/TitleBar";
+import InputChip from "../../../Components/InputChip";
 
 const useStyles = makeStyles(theme => ({
   paper: {
     padding: theme.spacing(2)
   },
-  textField: {
-    width: "100%",
-    display: "flex"
+  title: {
+    "& > label": {
+      color: "#3f51b5",
+      fontSize: "1rem"
+    }
+  },
+  particiBox: {
+    marginTop: "16px",
+    color: "#3f51b5",
+    fontSize: "12px",
+    textAlign: "left",
+    "& > div": {
+      paddingTop: "10px"
+    }
   }
 }));
 const Form = props => {
@@ -71,35 +83,40 @@ const Form = props => {
         <TextField
           id="title"
           label="회의제목"
-          className={classes.textField}
+          fullWidth
+          required
+          className={classes.title}
           value={values.title}
           onChange={handleChange("title")}
           margin="normal"
+          InputLabelProps={{ shrink: true }}
         />
         <TextField
           id="dept"
           label="부서명"
-          className={classes.textField}
+          fullWidth
+          required
+          className={classes.title}
           value={values.dept}
           onChange={handleChange("dept")}
           margin="normal"
+          InputLabelProps={{ shrink: true }}
         />
         <TextField
           id="name"
           label="이름"
-          className={classes.textField}
+          fullWidth
+          required
+          className={classes.title}
           value={values.name}
           onChange={handleChange("name")}
           margin="normal"
+          InputLabelProps={{ shrink: true }}
         />
-        <TextField
-          id="participants"
-          label="참여자"
-          className={classes.textField}
-          value={values.participants}
-          onChange={handleChange("participants")}
-          margin="normal"
-        />
+        <div className={classes.particiBox}>
+          <label>참석자*</label>
+          <InputChip />
+        </div>
       </Paper>
     </React.Fragment>
   );

@@ -6,13 +6,6 @@ import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
-
-// const { values, useInput, isValid } = useForm({
-//   email: "",
-//   userName: "",
-//   password: ""
-// });
 
 const Join = () => {
   const useStyles = makeStyles(theme => ({

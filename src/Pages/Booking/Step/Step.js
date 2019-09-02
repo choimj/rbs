@@ -71,7 +71,6 @@ const Step = props => {
                   variant="contained"
                   color="primary"
                   className={classes.submitButton}
-                  // onClick={handleLogin}
                 >
                   Submit
                 </Button>

@@ -1,31 +1,33 @@
 import React from "react";
-import * as Utils from "../../../Utils/Date";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import Grid from "@material-ui/core/Grid";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
 import DateFnsUtils from "@date-io/date-fns";
 import {
   MuiPickersUtilsProvider,
-  KeyboardTimePicker,
-  KeyboardDatePicker
+  KeyboardTimePicker
 } from "@material-ui/pickers";
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
-import FaceIcon from "@material-ui/icons/Face";
+import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles(theme => ({
   container: {
-    minHeight: "66vh"
+    minHeight: "66vh",
+    padding: "20px",
+    textAlign: "left",
+    justifyContent: "left",
+    position: "relative"
   },
-  root: {
-    display: "flex",
-    justifyContent: "center",
-    flexWrap: "wrap"
+  title: {
+    "& > label": {
+      color: "#3f51b5",
+      fontSize: "1rem"
+    }
   },
-  chip: {
-    margin: theme.spacing(1)
+  button: {
+    width: "100%",
+    fontSize: "20px",
+    position: "absolute",
+    bottom: "0",
+    left: "0"
   }
 }));
 
@@ -57,10 +59,6 @@ const Edit = () => {
     setValues({ ...values, [name]: event.target.value });
   };
 
-  const handleDelete = () => {
-    alert("You clicked the delete icon.");
-  };
-
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
@@ -71,76 +69,70 @@ const Edit = () => {
         required
         onChange={handleChange("roomTitle")}
         margin="normal"
+        InputLabelProps={{ shrink: true }}
+        className={classes.title}
       />
-      <MuiPickersUtilsProvider utils={DateFnsUtils}>
-        <Grid container justify="space-around">
-          <KeyboardTimePicker
-            margin="normal"
-            id="startTime"
-            label="운영 시작 시간"
-            required
-            value={selectedDate.startTime}
-            onChange={handleStartTimeChange}
-            KeyboardButtonProps={{
-              "aria-label": "change time"
-            }}
-          />
-          <KeyboardTimePicker
-            margin="normal"
-            id="endTime"
-            label="운영 종료 시간"
-            required
-            value={selectedDate.endTime}
-            onChange={handleEndTimeChange}
-            KeyboardButtonProps={{
-              "aria-label": "change time"
-            }}
-          />
-          <TextField
-            id="standard-number"
-            label="수용 인원"
-            required
-            value={values.minPerson}
-            onChange={handleChange("minPerson")}
-            type="number"
-            className={classes.textField}
-            InputLabelProps={{
-              shrink: true
-            }}
-            margin="normal"
-          />
-          <TextField
-            id="standard-name"
-            label="위치"
-            value={values.name}
-            fullWidth
-            required
-            onChange={handleChange("roomTitle")}
-            margin="normal"
-          />
-        </Grid>
-      </MuiPickersUtilsProvider>
-      <Typography variant="subtitle1" gutterBottom>
-        참석자
-      </Typography>
-      <div className={classes.root}>
-        <TextField
-          id="standard-name"
-          label="회의실 명"
-          value={values.name}
-          fullWidth
-          required
-          onChange={handleChange("roomTitle")}
+      <MuiPickersUtilsProvider
+        utils={DateFnsUtils}
+        style={{ justifyContent: "left" }}
+      >
+        <KeyboardTimePicker
           margin="normal"
+          id="startTime"
+          label="운영 시작 시간"
+          required
+          value={selectedDate.startTime}
+          onChange={handleStartTimeChange}
+          KeyboardButtonProps={{
+            "aria-label": "change time"
+          }}
+          className={classes.title}
         />
-        <Chip
-          icon={<FaceIcon />}
-          label="최민지"
-          onDelete={handleDelete}
-          className={classes.chip}
-          color="primary"
+        <KeyboardTimePicker
+          margin="normal"
+          id="endTime"
+          label="운영 종료 시간"
+          required
+          value={selectedDate.endTime}
+          onChange={handleEndTimeChange}
+          KeyboardButtonProps={{
+            "aria-label": "change time"
+          }}
+          className={classes.title}
         />
-      </div>
+      </MuiPickersUtilsProvider>
+      <TextField
+        id="standard-number"
+        label="수용 인원"
+        required
+        value={values.minPerson}
+        onChange={handleChange("minPerson")}
+        type="number"
+        InputLabelProps={{
+          shrink: true
+        }}
+        margin="normal"
+        className={classes.title}
+      />
+      <TextField
+        id="standard-name"
+        label="위치"
+        value={values.name}
+        fullWidth
+        required
+        onChange={handleChange("roomTitle")}
+        margin="normal"
+        InputLabelProps={{ shrink: true }}
+        className={classes.title}
+      />
+      <Button
+        variant="contained"
+        className={classes.button}
+        type="submit"
+        color="primary"
+      >
+        Submit
+      </Button>
     </form>
   );
 };
