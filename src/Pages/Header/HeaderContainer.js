@@ -6,26 +6,27 @@ import Header from "./Header";
 import * as authActions from "../../Store/Modules/Auth";
 
 class HeaderContainer extends React.Component {
-  componentDidMount = async () => {
-    /**
-     * /login, /join 페이지의 경우 인증 제외
-     */
+  componentWillMount = async () => {
     const { location, authActions, history } = this.props;
+    const isLogin = localStorage.getItem("isLogin");
+    if (isLogin) {
+      await authActions.checkUserSuccess();
+    }
     const re = /(login|join)/;
-    const isAuthPath = re.test(location.pathname);
+    let isAuthPath = re.test(location.pathname);
 
-    if (!isAuthPath) {
-      const isLogin = localStorage.getItem("isLogin");
-      if (!isLogin) {
-        // 로그인 정보가 없는 경우
-        alert("로그인이 필요합니다.");
-        history.push("/login");
-      } else {
-        // 로그인 정보가 있는 경우 store 의 isLogin props true 로 변경
-        await authActions.checkUserSuccess();
+    if (isAuthPath) {
+      if (isLogin) {
+        alert("이미 로그인 되어 있습니다. 로그아웃 후 시도해주세요.");
+        history.push("/");
       }
     } else {
-      localStorage.clear();
+      if (location.pathname !== "/" && location.pathname !== "/home") {
+        if (!isLogin) {
+          alert("로그인 후 이용 가능합니다.");
+          history.push("/login");
+        }
+      }
     }
   };
   handleLogout = async e => {

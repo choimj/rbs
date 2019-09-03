@@ -1,25 +1,42 @@
 import React from "react";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import { withRouter } from "react-router-dom";
+import * as authActions from "../../Store/Modules/Auth";
 import Home from "./Home";
 import Main from "../Main";
 
 class Landing extends React.Component {
-  state = {
-    isAuth: false
-  };
-  componentDidMount = () => {
-    this.setState({
-      isAuth: true
-    });
-  };
-  render() {
-    // const { match } = this.props;
-    const { isAuth } = this.state;
-    if (isAuth) {
-      return <Main />;
+  componentDidMount = async () => {
+    const { isLogin, history } = this.props;
+    // console.log(isLogin);
+    if (!isLogin) {
+      // history.push("/home");
+      window.location.href = "/home";
     } else {
-      return <Home />;
+      // history.push("/main");
+      window.location.href = "/main";
     }
+  };
+
+  render() {
+    return <div />;
   }
 }
 
-export default Landing;
+const mapStateToProps = state => {
+  return {
+    isLogin: state.Auth.isLogin,
+    message: state.Auth.message
+  };
+};
+const mapDispatchToPros = dispatch => {
+  return {
+    authActions: bindActionCreators(authActions, dispatch)
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToPros
+)(withRouter(Landing));
