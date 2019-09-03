@@ -1,5 +1,4 @@
 import React from "react";
-// import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -76,22 +75,6 @@ const Login = props => {
     handleLogin
   } = props;
   const classes = useStyles();
-  // const [values, setValues] = React.useState({
-  //   email: ""
-  // });
-
-  // const handleChangeInput = name => event => {
-  //   setValues({ ...values, [name]: event.target.value });
-  // };
-
-  // const [state, setState] = React.useState({
-  //   checkedA: true
-  // });
-
-  // const handleChangeCheckbox = name => event => {
-  //   setState({ ...state, [name]: event.target.checked });
-  // };
-
   return (
     <React.Fragment>
       <CssBaseline />

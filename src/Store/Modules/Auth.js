@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import * as AuthApi from "../../Api/Auth/Auth";
+import { AuthApi } from "../../Api";
 
 export const CHECK_USER = "auth/CHECK_USER";
 export const CHECK_USER_SUCCESS = "auth/CHECK_USER_SUCCESS";

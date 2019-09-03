@@ -37,8 +37,11 @@ class AuthContainer extends React.Component {
     const { history } = this.props;
     history.push("/join");
   };
+  /**
+   * 로그인 버튼 클릭 시 발생 이벤트
+   */
   handleLogin = async e => {
-    const { authActions, history } = this.props;
+    const { authActions } = this.props;
     const { email, password } = this.state;
     if (email === "") {
       alert("Email을 입력하세요.");
@@ -49,15 +52,15 @@ class AuthContainer extends React.Component {
     }
 
     try {
-      await authActions.checkUser(email, password);
+      await authActions.checkUser({ email, password });
       const { isLogin, message } = this.props;
       alert(message);
+      localStorage.setItem("isLogin", isLogin);
       if (isLogin) {
-        await authActions.checkUserSuccess();
         await authActions.setUser(email);
-        history.push("/");
+        localStorage.setItem("userInfo", { email: email });
+        window.location.href = "/main";
       }
-      // console.log(isLogin);
     } catch (e) {
       console.log(e);
     }

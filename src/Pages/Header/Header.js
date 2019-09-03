@@ -6,7 +6,6 @@ import Typography from "@material-ui/core/Typography";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
-
 // Nested List
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -18,7 +17,7 @@ import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Link from "@material-ui/core/Link";
 
-import { menu } from "./menu";
+import { loginMenu, notLoginMenu } from "./menu";
 
 const useHeaderStyles = makeStyles(theme => ({
   root: {
@@ -56,7 +55,7 @@ const useSideStyles = makeStyles(theme => ({
 const Header = props => {
   const headerClasses = useHeaderStyles();
   const sideClassed = useSideStyles();
-  const { isLogin } = props;
+  const { isLogin, handleLogout } = props;
 
   const [state, setState] = React.useState({
     left: false
@@ -65,8 +64,9 @@ const Header = props => {
     isOpen: []
   });
 
-  const handleClick = (event, id) => {
-    const openArray = new Array(menu.length);
+  const handleClick = (e, id, length) => {
+    // console.log(e);
+    const openArray = new Array(length);
     openArray.fill(false);
     openArray[id] = true;
 
@@ -90,11 +90,72 @@ const Header = props => {
         aria-labelledby="nested-list-subheader"
         className={sideClassed.root}
       >
-        {menu.map((item, i) => {
+        {loginMenu.map((item, i) => {
           if (item.sub.length > 0) {
             return (
               <React.Fragment key={"a" + i}>
-                <ListItem button onClick={e => handleClick(e, i)} key={"b" + i}>
+                <ListItem
+                  button
+                  onClick={e => handleClick(e, i, loginMenu.length)}
+                  key={"b" + i}
+                >
+                  <ListItemIcon>
+                    <SendIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} />
+                  {open.isOpen[i] ? <ExpandLess /> : <ExpandMore />}
+                </ListItem>
+                <Collapse
+                  in={open.isOpen[i]}
+                  timeout="auto"
+                  unmountOnExit
+                  key={i}
+                >
+                  <List component="div" disablePadding>
+                    {item.sub.map((list, j) => (
+                      <Link href={list.url} color="inherit" key={j}>
+                        <ListItem className={sideClassed.nested}>
+                          <ListItemText primary={list.title} />
+                        </ListItem>
+                      </Link>
+                    ))}
+                  </List>
+                </Collapse>
+              </React.Fragment>
+            );
+          } else {
+            return (
+              <Link href={item.url} color="inherit" key={i}>
+                <ListItem>
+                  <ListItemIcon>
+                    <SendIcon />
+                  </ListItemIcon>
+                  <ListItemText primary={item.title} />
+                </ListItem>
+              </Link>
+            );
+          }
+        })}
+      </List>
+    </div>
+  );
+
+  const notLoginSideList = side => (
+    <div className={headerClasses.list} role="presentation">
+      <List
+        component="nav"
+        aria-labelledby="nested-list-subheader"
+        className={sideClassed.root}
+      >
+        {notLoginMenu.map((item, i) => {
+          if (item.sub.length > 0) {
+            return (
+              <React.Fragment key={"a" + i}>
+                <ListItem
+                  button
+                  onClick={e => handleClick(e, i, notLoginMenu.length)}
+                  key={"b" + i}
+                >
                   <ListItemIcon>
                     <SendIcon />
                   </ListItemIcon>
@@ -153,7 +214,11 @@ const Header = props => {
             RBS
           </Typography>
           {isLogin ? (
-            <Link href="/logout" color="inherit" className={headerClasses.link}>
+            <Link
+              color="inherit"
+              className={headerClasses.link}
+              onClick={handleLogout}
+            >
               LOGOUT
             </Link>
           ) : (
@@ -164,7 +229,8 @@ const Header = props => {
         </Toolbar>
       </AppBar>
       <Drawer open={state.left} onClose={toggleDrawer("left", false)}>
-        {sideList("left")}
+        {isLogin ? sideList("left") : notLoginSideList("left")}
+        {/* {sideList("left")} */}
       </Drawer>
     </div>
   );

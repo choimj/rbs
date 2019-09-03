@@ -6,10 +6,15 @@ import * as authActions from "../../Store/Modules/Auth";
 
 class Logout extends React.Component {
   componentDidMount = async () => {
-    const { authActions, history, message } = this.props;
-    await authActions.logout();
-    alert(message);
-    history.push("/");
+    const { authActions } = this.props;
+    try {
+      await authActions.logout();
+      const { message } = this.props;
+      alert(message);
+      window.location.href = "/";
+    } catch (e) {
+      console.log(e);
+    }
   };
   render() {
     return <div />;

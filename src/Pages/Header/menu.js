@@ -1,5 +1,5 @@
-export const menu = [
-  { title: "Home", url: "/", sub: [] },
+export const loginMenu = [
+  { title: "Home", url: "/main", sub: [] },
   {
     title: "예약",
     url: "/book",
@@ -25,3 +25,5 @@ export const menu = [
     ]
   }
 ];
+
+export const notLoginMenu = [{ title: "Home", url: "/", sub: [] }];

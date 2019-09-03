@@ -7,7 +7,6 @@ import Logout from "./Logout";
 import Join from "./Join";
 import NotFound from "./NotFound";
 import Booking from "./Booking";
-// import Landing from "./Landing";
 import Management from "./Management";
 import Main from "./Main";
 
@@ -23,7 +22,6 @@ const App = props => {
           <Route path="/login" component={AuthContainer} />
           <Route path="/logout" component={Logout} />
           <Route path="/join" component={Join} />
-
           <Route path="/book/:path?" component={Booking} />
           <Route path="/management/:path?" component={Management} />
           <Route component={NotFound} />
