@@ -1,28 +1,29 @@
 import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import Header from "./Header";
+import HeaderContainer from "../Pages/Header/HeaderContainer";
 import Home from "./Landing/Home";
-// import LandingContainer from "../Containers/LandingContainer";
 import AuthContainer from "../Containers/AuthContainer";
+import Logout from "./Logout";
 import Join from "./Join";
 import NotFound from "./NotFound";
-// import BookingContainer from "./Booking/BookingContainer";
 import Booking from "./Booking";
-
-// Landing
-import Landing from "./Landing";
+// import Landing from "./Landing";
 import Management from "./Management";
+import Main from "./Main";
 
 const App = props => {
   return (
     <>
       <BrowserRouter>
-        <Header />
+        <HeaderContainer />
         <Switch>
           <Route exact path="/" component={Home} />
+          <Route path="/main" component={Main} />
+          {/* <Route exact path="/main" component={Home} /> */}
           <Route path="/login" component={AuthContainer} />
+          <Route path="/logout" component={Logout} />
           <Route path="/join" component={Join} />
-          <Route path="/landing/:path?" component={Landing} />
+
           <Route path="/book/:path?" component={Booking} />
           <Route path="/management/:path?" component={Management} />
           <Route component={NotFound} />

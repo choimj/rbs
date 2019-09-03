@@ -3,7 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-// import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Drawer from "@material-ui/core/Drawer";
@@ -18,6 +17,8 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Link from "@material-ui/core/Link";
+
+import { menu } from "./menu";
 
 const useHeaderStyles = makeStyles(theme => ({
   root: {
@@ -53,35 +54,9 @@ const useSideStyles = makeStyles(theme => ({
 }));
 
 const Header = props => {
-  const menu = [
-    { title: "Home", url: "/", sub: [] },
-    {
-      title: "예약",
-      url: "/book",
-      sub: [{ title: "예약", url: "/book/step" }]
-    },
-    {
-      title: "예약 현황",
-      url: "/book",
-      sub: [
-        { title: "월별", url: "/book/month" },
-        { title: "주별", url: "/book/week" },
-        { title: "일별", url: "/book/day" }
-      ]
-    },
-    {
-      title: "관리",
-      url: "/management",
-      sub: [
-        { title: "그룹관리", url: "/management/group" },
-        { title: "카테고리관리", url: "/management/category" },
-        { title: "회의실관리", url: "/management/room" },
-        { title: "예약폼관리", url: "/management/bookform" }
-      ]
-    }
-  ];
   const headerClasses = useHeaderStyles();
   const sideClassed = useSideStyles();
+  const { isLogin } = props;
 
   const [state, setState] = React.useState({
     left: false
@@ -177,9 +152,15 @@ const Header = props => {
           <Typography variant="h6" className={headerClasses.title}>
             RBS
           </Typography>
-          <Link href="/login" color="inherit" className={headerClasses.link}>
-            Login
-          </Link>
+          {isLogin ? (
+            <Link href="/logout" color="inherit" className={headerClasses.link}>
+              LOGOUT
+            </Link>
+          ) : (
+            <Link href="/login" color="inherit" className={headerClasses.link}>
+              LOGIN
+            </Link>
+          )}
         </Toolbar>
       </AppBar>
       <Drawer open={state.left} onClose={toggleDrawer("left", false)}>

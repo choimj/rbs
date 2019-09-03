@@ -49,7 +49,7 @@ const Join = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="standard-required"
+                  id="email"
                   label="Email"
                   defaultValue=""
                   className={classes.textField}
@@ -59,7 +59,7 @@ const Join = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="standard-required"
+                  id="userName"
                   label="UserName"
                   defaultValue=""
                   className={classes.textField}
@@ -69,7 +69,7 @@ const Join = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="standard-required"
+                  id="password"
                   label="Password"
                   defaultValue=""
                   className={classes.textField}

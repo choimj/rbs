@@ -1,5 +1,5 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+// import { withRouter } from "react-router-dom";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
@@ -29,7 +29,6 @@ const useStyles = makeStyles(theme => ({
     height: "60vh",
     padding: "30px",
     "& > form > div": {
-      // marginBottom: "20px"
       paddingBottom: "2%"
     },
 
@@ -119,6 +118,7 @@ const Login = props => {
                 label="Password"
                 className={classes.textField}
                 type="password"
+                name="password"
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
@@ -181,4 +181,4 @@ const Login = props => {
   );
 };
 
-export default withRouter(Login);
+export default Login;
