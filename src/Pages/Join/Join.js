@@ -7,7 +7,13 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-const Join = () => {
+import { Mutation } from "react-apollo";
+import gql from "graphql-tag";
+
+const Join = props => {
+  const { email, name, password, handleSubmit, handelChangeInput } = props;
+  // console.log(props);
+
   const useStyles = makeStyles(theme => ({
     container: {
       display: "flex",
@@ -28,11 +34,6 @@ const Join = () => {
     }
   }));
 
-  const handleSubmit = e => {
-    e.preventDefault();
-    console.log(e);
-  };
-
   const classes = useStyles();
 
   return (
@@ -51,7 +52,7 @@ const Join = () => {
                   required
                   id="email"
                   label="Email"
-                  defaultValue=""
+                  defaultValue={email}
                   className={classes.textField}
                   margin="normal"
                 />
@@ -59,11 +60,12 @@ const Join = () => {
               <Grid item xs={12}>
                 <TextField
                   required
-                  id="userName"
+                  id="name"
                   label="UserName"
                   defaultValue=""
                   className={classes.textField}
                   margin="normal"
+                  onChange={handelChangeInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -75,17 +77,25 @@ const Join = () => {
                   className={classes.textField}
                   margin="normal"
                   type="password"
+                  onChange={handelChangeInput}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Button
-                  variant="outlined"
-                  className={classes.button}
-                  type="submit"
-                  color="primary"
+                <Mutation
+                  mutation={CREATE_USER}
+                  variables={{ email, name, password }}
                 >
-                  Submit
-                </Button>
+                  {createUser => (
+                    <Button
+                      variant="outlined"
+                      className={classes.button}
+                      color="primary"
+                      onClick={createUser}
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </Mutation>
               </Grid>
             </Grid>
           </form>
@@ -95,4 +105,9 @@ const Join = () => {
   );
 };
 
+const CREATE_USER = gql`
+  mutation createUser($email: String!, $name: String!, $password: String!) {
+    createUser(email: $email, name: $name, password: $password)
+  }
+`;
 export default Join;

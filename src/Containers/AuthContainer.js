@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Login from "../Pages/Login";
+// import { GoogleOauthApi } from "../Api";
 
 import * as authActions from "../Store/Modules/Auth";
 
@@ -33,9 +34,13 @@ class AuthContainer extends React.Component {
       rememberChecked: e.target.checked
     });
   };
-  handleMoveUrl = e => {
-    const { history } = this.props;
-    history.push("/join");
+  handleMoveUrl = (e, url) => {
+    window.location.href = url;
+  };
+
+  googleOauthLogin = () => {
+    // GoogleOauthApi.getGoogleOauth();
+    window.location.href = "http://localhost:4000/auth/google";
   };
   /**
    * 로그인 버튼 클릭 시 발생 이벤트
@@ -73,6 +78,7 @@ class AuthContainer extends React.Component {
         handleChangeCheckbox={this.handleChangeCheckbox}
         handleMoveUrl={this.handleMoveUrl}
         handleLogin={this.handleLogin}
+        googleOauthLogin={this.googleOauthLogin}
       />
     );
   }

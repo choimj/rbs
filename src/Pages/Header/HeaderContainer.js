@@ -5,6 +5,9 @@ import { withRouter } from "react-router-dom";
 import Header from "./Header";
 import * as authActions from "../../Store/Modules/Auth";
 
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+
 class HeaderContainer extends React.Component {
   componentWillMount = async () => {
     const { location, authActions, history } = this.props;
@@ -38,21 +41,30 @@ class HeaderContainer extends React.Component {
     alert(message);
     window.location.href = "/";
   };
-  componentDidUpdate = (prevProps, prevState) => {
-    // prevProps, prevState > 이전에 가졌던 props, state
-    // const { isLogin } = this.props;
-    // if (prevProps.isLogin !== isLogin && isLogin) {
-    //   console.log(prevProps.isLogin, isLogin);
-    //   localStorage.setItem("isLogin", isLogin);
-    // } else {
-    // }
-  };
+  componentDidUpdate = (prevProps, prevState) => {};
 
   render() {
     const { isLogin } = this.props;
-    return <Header isLogin={isLogin} handleLogout={this.handleLogout} />;
+    return (
+      <Query query={CHECK_USER_QUERY}>
+        {({ data }) => {
+          console.log(data);
+          return <Header isLogin={isLogin} handleLogout={this.handleLogout} />;
+        }}
+      </Query>
+    );
   }
 }
+
+const CHECK_USER_QUERY = gql`
+  query {
+    users {
+      email
+      password
+    }
+  }
+`;
+
 const mapStateToProps = state => {
   return {
     isLogin: state.Auth.isLogin,

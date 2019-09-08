@@ -3,12 +3,12 @@ import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import * as authActions from "../../Store/Modules/Auth";
-import Home from "./Home";
-import Main from "../Main";
+// import Home from "./Home";
+// import Main from "../Main";
 
 class Landing extends React.Component {
   componentDidMount = async () => {
-    const { isLogin, history } = this.props;
+    const { isLogin } = this.props;
     // console.log(isLogin);
     if (!isLogin) {
       // history.push("/home");
