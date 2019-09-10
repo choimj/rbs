@@ -5,9 +5,6 @@ import { withRouter } from "react-router-dom";
 import Header from "./Header";
 import * as authActions from "../../Store/Modules/Auth";
 
-import { Query } from "react-apollo";
-import gql from "graphql-tag";
-
 class HeaderContainer extends React.Component {
   componentWillMount = async () => {
     const { location, authActions, history } = this.props;
@@ -45,25 +42,9 @@ class HeaderContainer extends React.Component {
 
   render() {
     const { isLogin } = this.props;
-    return (
-      <Query query={CHECK_USER_QUERY}>
-        {({ data }) => {
-          // console.log(data);
-          return <Header isLogin={isLogin} handleLogout={this.handleLogout} />;
-        }}
-      </Query>
-    );
+    return <Header isLogin={isLogin} handleLogout={this.handleLogout} />;
   }
 }
-
-const CHECK_USER_QUERY = gql`
-  query {
-    users {
-      email
-      password
-    }
-  }
-`;
 
 const mapStateToProps = state => {
   return {

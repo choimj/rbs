@@ -1,8 +1,6 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-// import Checkbox from "@material-ui/core/Checkbox";
-// import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -10,7 +8,6 @@ import Container from "@material-ui/core/Container";
 import { useStyles } from "./style";
 import googleLogo from "../../Images/google/logo.png";
 
-// import { Mutation, Query } from "react-apollo";
 import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 
@@ -29,7 +26,6 @@ const Login = props => {
     email,
     password,
     handleChangeInput,
-    // handleLogin,
     handleComparePassword,
     googleOauthLogin
   } = props;
@@ -49,7 +45,6 @@ const Login = props => {
   };
 
   const loginFormCheck = (email, password, opts) => {
-    // const { email, password } = this.state;
     if (email === "") {
       alert("Email을 입력하세요.");
       return false;
