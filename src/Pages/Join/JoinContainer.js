@@ -11,11 +11,18 @@ class JoinContainer extends React.Component {
 
   // handleSubmit = e => {
   //   // const { email, name, password } = this.state;
-  //   console.log(this.state);
+  //   // console.log(this.state);
+  //   const opts = {
+  //     variables: { email, name, password },
+  //     onCompleted: email => handleJoinCompleted(email)
+  //   };
+
+  //   createUser(opts);
+
   //   e.preventDefault();
   // };
 
-  handelChangeInput = e => {
+  handleChangeInput = e => {
     // console.log(e.target.id);
     this.setState({
       [e.target.id]: e.target.value
@@ -37,6 +44,35 @@ class JoinContainer extends React.Component {
     });
   };
 
+  handleJoinCompleted = data => {
+    alert("회원가입이 완료되었습니다.");
+    const obj = {
+      method: "POST",
+      body: JSON.stringify({
+        email: this.state.email
+      }),
+      headers: {
+        "Content-type": "application/json; charset=UTF-8"
+      }
+    };
+    const url = "http://localhost:4000/auth/jwt";
+    fetch(url, obj)
+      .then(response => response.json())
+      .then(json => {
+        const { message, jwtToken } = json;
+        console.log(json);
+        if (message === "success") {
+          localStorage.setItem("jwtToken", jwtToken);
+          // window.location.href="/";
+        }
+      })
+      .catch(err => console.log(err));
+    /**
+     * jwt token 발급
+     */
+    console.log("Completed!!!!");
+  };
+
   render() {
     const { email, name, password } = this.state;
     return (
@@ -45,7 +81,8 @@ class JoinContainer extends React.Component {
         name={name}
         password={password}
         handleSubmit={this.handleSubmit}
-        handelChangeInput={this.handelChangeInput}
+        handleChangeInput={this.handleChangeInput}
+        handleJoinCompleted={this.handleJoinCompleted}
       />
     );
   }

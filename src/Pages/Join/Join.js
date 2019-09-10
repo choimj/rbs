@@ -7,12 +7,25 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 
-import { Mutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
+// import { Mutation } from "react-apollo";
+
+const CREATE_USER = gql`
+  mutation createUser($email: String!, $name: String!, $password: String!) {
+    createUser(email: $email, name: $name, password: $password)
+  }
+`;
 
 const Join = props => {
-  const { email, name, password, handleSubmit, handelChangeInput } = props;
-  // console.log(props);
+  const {
+    email,
+    name,
+    password,
+    // handleSubmit,
+    handleChangeInput,
+    handleJoinCompleted
+  } = props;
 
   const useStyles = makeStyles(theme => ({
     container: {
@@ -36,16 +49,21 @@ const Join = props => {
 
   const classes = useStyles();
 
+  const [createUser] = useMutation(CREATE_USER, {
+    onCompleted: data => {
+      handleJoinCompleted(data);
+    }
+  });
+  const opts = {
+    variables: { email, name, password }
+  };
+
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm" className={classes.joinWrap}>
         <Typography component="div" className={classes.joinBox}>
-          <form
-            className={classes.container}
-            autoComplete="off"
-            onSubmit={handleSubmit}
-          >
+          <form className={classes.container} autoComplete="off">
             <Grid container spacing={3}>
               <Grid item xs={12}>
                 <TextField
@@ -65,7 +83,7 @@ const Join = props => {
                   defaultValue=""
                   className={classes.textField}
                   margin="normal"
-                  onChange={handelChangeInput}
+                  onChange={handleChangeInput}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -77,25 +95,18 @@ const Join = props => {
                   className={classes.textField}
                   margin="normal"
                   type="password"
-                  onChange={handelChangeInput}
+                  onChange={handleChangeInput}
                 />
               </Grid>
               <Grid item xs={12}>
-                <Mutation
-                  mutation={CREATE_USER}
-                  variables={{ email, name, password }}
+                <Button
+                  variant="outlined"
+                  className={classes.button}
+                  color="primary"
+                  onClick={() => createUser(opts)}
                 >
-                  {createUser => (
-                    <Button
-                      variant="outlined"
-                      className={classes.button}
-                      color="primary"
-                      onClick={createUser}
-                    >
-                      Submit
-                    </Button>
-                  )}
-                </Mutation>
+                  Submit
+                </Button>
               </Grid>
             </Grid>
           </form>
@@ -105,9 +116,4 @@ const Join = props => {
   );
 };
 
-const CREATE_USER = gql`
-  mutation createUser($email: String!, $name: String!, $password: String!) {
-    createUser(email: $email, name: $name, password: $password)
-  }
-`;
 export default Join;

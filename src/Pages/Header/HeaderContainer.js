@@ -48,7 +48,7 @@ class HeaderContainer extends React.Component {
     return (
       <Query query={CHECK_USER_QUERY}>
         {({ data }) => {
-          console.log(data);
+          // console.log(data);
           return <Header isLogin={isLogin} handleLogout={this.handleLogout} />;
         }}
       </Query>

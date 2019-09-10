@@ -1,11 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+// import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Login from "../Pages/Login";
 // import { GoogleOauthApi } from "../Api";
 
-import * as authActions from "../Store/Modules/Auth";
+// import * as authActions from "../Store/Modules/Auth";
 
 class AuthContainer extends React.Component {
   state = {
@@ -42,42 +42,53 @@ class AuthContainer extends React.Component {
     // GoogleOauthApi.getGoogleOauth();
     window.location.href = "http://localhost:4000/auth/google";
   };
-  /**
-   * 로그인 버튼 클릭 시 발생 이벤트
-   */
-  handleLogin = async e => {
-    const { authActions } = this.props;
-    const { email, password } = this.state;
-    if (email === "") {
-      alert("Email을 입력하세요.");
-      return false;
-    } else if (password === "") {
-      alert("Password를 입력하세요.");
-      return false;
+
+  handleComparePassword = (data, err) => {
+    // console.log(data.comparePassword);
+    const { comparePassword } = data;
+    if (comparePassword === "success") {
+      const obj = {
+        method: "POST",
+        body: JSON.stringify({
+          email: this.state.email
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8"
+        }
+      };
+      const url = "http://localhost:4000/auth/jwt";
+      fetch(url, obj)
+        .then(response => response.json())
+        .then(json => {
+          const { message, jwtToken } = json;
+          console.log(json);
+          if (message === "success") {
+            localStorage.setItem("jwtToken", jwtToken);
+            // window.location.href="/";
+          }
+        })
+        .catch(err => console.log(err));
+      /**
+       * jwt token 발급
+       */
+      console.log("Completed!!!!");
+    } else {
     }
 
-    try {
-      await authActions.checkUser({ email, password });
-      const { isLogin, message } = this.props;
-      alert(message);
-      localStorage.setItem("isLogin", isLogin);
-      if (isLogin) {
-        await authActions.setUser(email);
-        localStorage.setItem("userInfo", { email: email });
-        window.location.href = "/main";
-      }
-    } catch (e) {
-      console.log(e);
-    }
+    console.log(data);
   };
 
   render() {
+    const { email, password } = this.state;
     return (
       <Login
+        email={email}
+        password={password}
         handleChangeInput={this.handleChangeInput}
         handleChangeCheckbox={this.handleChangeCheckbox}
         handleMoveUrl={this.handleMoveUrl}
         handleLogin={this.handleLogin}
+        handleComparePassword={this.handleComparePassword}
         googleOauthLogin={this.googleOauthLogin}
       />
     );
@@ -92,13 +103,13 @@ const mapStateToProps = state => {
   };
 };
 
-const mapDispatchToPros = dispatch => {
-  return {
-    authActions: bindActionCreators(authActions, dispatch)
-  };
-};
+// const mapDispatchToPros = dispatch => {
+//   return {
+//     authActions: bindActionCreators(authActions, dispatch)
+//   };
+// };
 
 export default connect(
   mapStateToProps,
-  mapDispatchToPros
+  null
 )(withRouter(AuthContainer));

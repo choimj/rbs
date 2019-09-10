@@ -10,15 +10,55 @@ import Container from "@material-ui/core/Container";
 import { useStyles } from "./style";
 import googleLogo from "../../Images/google/logo.png";
 
+// import { Mutation, Query } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
+import gql from "graphql-tag";
+
+const COMPARE_PASSWORD = gql`
+  mutation comparePassword($email: String!, $password: String!) {
+    comparePassword(email: $email, password: $password) {
+      id
+      email
+      message
+    }
+  }
+`;
+
 const Login = props => {
   const {
+    email,
+    password,
     handleChangeInput,
-    // handleChangeCheckbox,
-    // handleMoveUrl,
-    handleLogin,
+    // handleLogin,
+    handleComparePassword,
     googleOauthLogin
   } = props;
   const classes = useStyles();
+
+  const [comparePassword] = useMutation(COMPARE_PASSWORD, {
+    onCompleted: data => {
+      handleComparePassword(data);
+    },
+    onError: err => {
+      console.log(err);
+    }
+  });
+
+  const opts = {
+    variables: { email, password }
+  };
+
+  const loginFormCheck = (email, password, opts) => {
+    // const { email, password } = this.state;
+    if (email === "") {
+      alert("Email을 입력하세요.");
+      return false;
+    } else if (password === "") {
+      alert("Password를 입력하세요.");
+      return false;
+    }
+    comparePassword(opts);
+  };
   return (
     <React.Fragment>
       <CssBaseline />
@@ -53,20 +93,7 @@ const Login = props => {
               />
             </div>
           </form>
-          {/* <div>
-            <label>
-              <Checkbox
-                // checked={state.checkedB}
-                onChange={handleChangeCheckbox}
-                value="checkedA"
-                color="primary"
-                inputProps={{
-                  "aria-label": "secondary checkbox"
-                }}
-              />
-              Remember me
-            </label>
-          </div> */}
+
           <div>
             <Grid container spacing={2}>
               <Grid item xs={12}>
@@ -74,21 +101,11 @@ const Login = props => {
                   variant="outlined"
                   color="primary"
                   className={classes.button}
-                  onClick={handleLogin}
+                  onClick={() => loginFormCheck(email, password, opts)}
                 >
                   Login
                 </Button>
               </Grid>
-              {/* <Grid item xs={6}>
-                <Button
-                  variant="outlined"
-                  color="secondary"
-                  className={classes.button}
-                  onClick={e => handleMoveUrl(e, "/join")}
-                >
-                  Register
-                </Button>
-              </Grid> */}
             </Grid>
             <Grid item xs={12}>
               <div className={classes.googleButtonArea}>
@@ -110,17 +127,6 @@ const Login = props => {
                 </Button>
               </div>
             </Grid>
-          </div>
-          <div>
-            {/* <p>
-              <Link
-                href="/findPassword"
-                color="inherit"
-                className={classes.link}
-              >
-                Forgot your password?
-              </Link>
-            </p> */}
           </div>
         </Typography>
       </Container>
