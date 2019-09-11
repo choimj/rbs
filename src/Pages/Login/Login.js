@@ -17,6 +17,7 @@ const COMPARE_PASSWORD = gql`
       id
       email
       message
+      flag
     }
   }
 `;

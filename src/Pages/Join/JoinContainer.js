@@ -9,21 +9,7 @@ class JoinContainer extends React.Component {
     password: ""
   };
 
-  // handleSubmit = e => {
-  //   // const { email, name, password } = this.state;
-  //   // console.log(this.state);
-  //   const opts = {
-  //     variables: { email, name, password },
-  //     onCompleted: email => handleJoinCompleted(email)
-  //   };
-
-  //   createUser(opts);
-
-  //   e.preventDefault();
-  // };
-
   handleChangeInput = e => {
-    // console.log(e.target.id);
     this.setState({
       [e.target.id]: e.target.value
     });
@@ -55,22 +41,20 @@ class JoinContainer extends React.Component {
         "Content-type": "application/json; charset=UTF-8"
       }
     };
+    /**
+     * jwt token 발급
+     */
     const url = "http://localhost:4000/auth/jwt";
     fetch(url, obj)
       .then(response => response.json())
       .then(json => {
-        const { message, jwtToken } = json;
-        console.log(json);
-        if (message === "success") {
+        const { flag, jwtToken } = json;
+        if (flag) {
           localStorage.setItem("jwtToken", jwtToken);
-          // window.location.href="/";
+          window.location.href = "/main";
         }
       })
       .catch(err => console.log(err));
-    /**
-     * jwt token 발급
-     */
-    console.log("Completed!!!!");
   };
 
   render() {

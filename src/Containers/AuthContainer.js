@@ -1,11 +1,6 @@
 import React from "react";
-import { connect } from "react-redux";
-// import { bindActionCreators } from "redux";
 import { withRouter } from "react-router-dom";
 import Login from "../Pages/Login";
-// import { GoogleOauthApi } from "../Api";
-
-// import * as authActions from "../Store/Modules/Auth";
 
 class AuthContainer extends React.Component {
   state = {
@@ -16,11 +11,11 @@ class AuthContainer extends React.Component {
 
   componentDidUpdate = (prevProps, prevState) => {
     // prevProps, prevState > 이전에 가졌던 props, state
-    const { isLogin } = this.props;
-    if (prevProps.isLogin !== isLogin && isLogin) {
-      localStorage.setItem("isLogin", isLogin);
-    } else {
-    }
+    // const { isLogin } = this.props;
+    // if (prevProps.isLogin !== isLogin && isLogin) {
+    //   localStorage.setItem("isLogin", isLogin);
+    // } else {
+    // }
   };
 
   handleChangeInput = e => {
@@ -39,14 +34,12 @@ class AuthContainer extends React.Component {
   };
 
   googleOauthLogin = () => {
-    // GoogleOauthApi.getGoogleOauth();
     window.location.href = "http://localhost:4000/auth/google";
   };
 
   handleComparePassword = (data, err) => {
-    // console.log(data.comparePassword);
-    const { comparePassword } = data;
-    if (comparePassword === "success") {
+    const { flag, message } = data.comparePassword;
+    if (flag) {
       const obj = {
         method: "POST",
         body: JSON.stringify({
@@ -56,60 +49,39 @@ class AuthContainer extends React.Component {
           "Content-type": "application/json; charset=UTF-8"
         }
       };
+      /**
+       * jwt token 발급
+       */
       const url = "http://localhost:4000/auth/jwt";
       fetch(url, obj)
         .then(response => response.json())
         .then(json => {
-          const { message, jwtToken } = json;
-          console.log(json);
-          if (message === "success") {
+          const { flag, jwtToken } = json;
+          // console.log(json);
+          if (flag) {
             localStorage.setItem("jwtToken", jwtToken);
-            // window.location.href="/";
+            window.location.href = "/main";
           }
         })
         .catch(err => console.log(err));
-      /**
-       * jwt token 발급
-       */
-      console.log("Completed!!!!");
     } else {
+      alert(message);
+      return false;
     }
-
-    console.log(data);
+    // console.log(data);
   };
 
   render() {
     const { email, password } = this.state;
-    return (
-      <Login
-        email={email}
-        password={password}
-        handleChangeInput={this.handleChangeInput}
-        handleChangeCheckbox={this.handleChangeCheckbox}
-        handleMoveUrl={this.handleMoveUrl}
-        handleLogin={this.handleLogin}
-        handleComparePassword={this.handleComparePassword}
-        googleOauthLogin={this.googleOauthLogin}
-      />
-    );
+    const param = {
+      email: email,
+      password: password,
+      handleChangeInput: this.handleChangeInput,
+      handleComparePassword: this.handleComparePassword,
+      googleOauthLogin: this.googleOauthLogin
+    };
+    return <Login {...param} />;
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    isLogin: state.Auth.isLogin,
-    userInfo: state.Auth.userInfo,
-    message: state.Auth.message
-  };
-};
-
-// const mapDispatchToPros = dispatch => {
-//   return {
-//     authActions: bindActionCreators(authActions, dispatch)
-//   };
-// };
-
-export default connect(
-  mapStateToProps,
-  null
-)(withRouter(AuthContainer));
+export default withRouter(AuthContainer);

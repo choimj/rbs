@@ -11,6 +11,7 @@ class Logout extends React.Component {
       await authActions.logout();
       const { message } = this.props;
       alert(message);
+      localStorage.clear();
       window.location.href = "/";
     } catch (e) {
       console.log(e);

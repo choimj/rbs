@@ -8,13 +8,10 @@ import * as authActions from "../../Store/Modules/Auth";
 
 class Landing extends React.Component {
   componentDidMount = async () => {
-    const { isLogin } = this.props;
-    // console.log(isLogin);
-    if (!isLogin) {
-      // history.push("/home");
+    const jwtToken = localStorage.getItem("jwtToken");
+    if (!jwtToken) {
       window.location.href = "/home";
     } else {
-      // history.push("/main");
       window.location.href = "/main";
     }
   };

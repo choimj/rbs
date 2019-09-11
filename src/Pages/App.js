@@ -10,7 +10,7 @@ import Home from "./Landing/Home";
 import Main from "./Main";
 import Landing from "../Pages/Landing";
 import JoinContainer from "../Pages/Join/JoinContainer";
-import CallbackContainer from "../Pages/Join/CallbackContainer";
+import CallbackContainer from "../Containers/CallbackContainer";
 
 const App = props => {
   return (
@@ -24,7 +24,7 @@ const App = props => {
           <Route exact path="/login" component={AuthContainer} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/join" component={JoinContainer} />
-          <Route exact path="/join/callback" component={CallbackContainer} />
+          <Route exact path="/callback/:path" component={CallbackContainer} />
           <Route exact path="/book/:path?" component={Booking} />
           <Route exact path="/management/:path?" component={Management} />
           <Route component={NotFound} />
