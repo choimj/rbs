@@ -13,7 +13,7 @@ import TitleBar from "../../../Components/TitleBar";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
 import { useQuery } from "@apollo/react-hooks";
-import { GET_GROUPS } from "./Query";
+import { GET_GROUP } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -37,20 +37,22 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Group = () => {
-  const { error, data } = useQuery(GET_GROUPS);
+  const classes = useStyles();
+  const [groupId, setGroupId] = React.useState();
+
+  const variables = groupId ? { id: groupId } : { id: "" };
+  const { error, data } = useQuery(GET_GROUP, {
+    variables: variables
+  });
   if (error) {
     console.log(error);
   }
 
-  const [groupId, setGroupId] = React.useState();
-
   const handleGroupClick = (e, id) => {
     e.preventDefault();
-    console.log(id);
     setGroupId(id);
   };
 
-  const classes = useStyles();
   return (
     <React.Fragment>
       <CssBaseline />
@@ -70,10 +72,7 @@ const Group = () => {
                       <GroupAddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents
-                    groups={data}
-                    handleGroupClick={handleGroupClick}
-                  />
+                  <ListContents handleGroupClick={handleGroupClick} />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>

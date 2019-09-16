@@ -12,6 +12,9 @@ import GroupIcon from "@material-ui/icons/Group";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 
+import { useQuery } from "@apollo/react-hooks";
+import { GET_GROUPS } from "./Query";
+
 const useStyles = makeStyles(theme => ({
   root: {
     flexGrow: 1,
@@ -34,14 +37,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ListContents = ({ groups, handleGroupClick }) => {
+const ListContents = ({ handleGroupClick }) => {
+  const { error, data } = useQuery(GET_GROUPS);
+  if (error) {
+    console.log(error);
+  }
+
   const classes = useStyles();
   return (
     <Grid item xs={12}>
       <div className={classes.root}>
         <List dense={true}>
-          {groups ? (
-            groups.groups.map(item => (
+          {data ? (
+            data.groups.map(item => (
               <ListItem className={classes.listItem} key={item.id}>
                 <ListItemAvatar className={classes.avatar}>
                   <Avatar>
@@ -52,7 +60,6 @@ const ListContents = ({ groups, handleGroupClick }) => {
                   className={classes.listItemText}
                   primary={item.name}
                   onClick={e => handleGroupClick(e, item.id)}
-                  // secondary={false ? "Secondary text" : null}
                 />
                 <ListItemSecondaryAction>
                   <IconButton

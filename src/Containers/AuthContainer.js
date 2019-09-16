@@ -9,15 +9,6 @@ class AuthContainer extends React.Component {
     rememberChecked: false
   };
 
-  componentDidUpdate = (prevProps, prevState) => {
-    // prevProps, prevState > 이전에 가졌던 props, state
-    // const { isLogin } = this.props;
-    // if (prevProps.isLogin !== isLogin && isLogin) {
-    //   localStorage.setItem("isLogin", isLogin);
-    // } else {
-    // }
-  };
-
   handleChangeInput = e => {
     const name = e.target.name;
     this.setState({
@@ -57,7 +48,6 @@ class AuthContainer extends React.Component {
         .then(response => response.json())
         .then(json => {
           const { flag, jwtToken } = json;
-          // console.log(json);
           if (flag) {
             localStorage.setItem("jwtToken", jwtToken);
             window.location.href = "/main";
@@ -68,7 +58,6 @@ class AuthContainer extends React.Component {
       alert(message);
       return false;
     }
-    // console.log(data);
   };
 
   render() {

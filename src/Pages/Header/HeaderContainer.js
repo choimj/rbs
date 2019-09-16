@@ -5,7 +5,6 @@ import * as authActions from "../../Store/Modules/Auth";
 
 class HeaderContainer extends React.Component {
   componentDidMount = async () => {
-    // console.log("componentDidMount");
     const { location, history } = this.props;
     const jwtToken = localStorage.getItem("jwtToken");
     if (jwtToken) {
@@ -20,7 +19,6 @@ class HeaderContainer extends React.Component {
         history.push("/");
       }
     } else {
-      // console.log(jwtToken);
       const obj = {
         method: "POST",
         headers: {
@@ -28,14 +26,13 @@ class HeaderContainer extends React.Component {
           Authorization: "Bearer " + jwtToken
         }
       };
-      // console.log(obj);
       if (jwtToken) {
         //token 이 있는 경우
         const url = "http://localhost:4000/auth/jwt/check";
         fetch(url, obj)
           .then(response => response.json())
           .then(json => {
-            console.log("fetch Result >>> ", json);
+            // console.log("fetch Result >>> ", json);
           })
           .catch(err => {
             console.log(err);
