@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_GROUP } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,12 +35,28 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = () => {
+const Edit = ({ groupId }) => {
+  console.log("edit >> ", groupId);
   const classes = useStyles();
+
+  const variables = groupId ? { id: groupId } : { id: "" };
+
+  const { error, data } = useQuery(GET_GROUP, {
+    variables: variables
+  });
+
+  console.log(data);
+
+  if (error) {
+    console.log(error);
+  }
+
   const [values, setValues] = React.useState({
     groupName: "",
     participant: []
   });
+
+  // console.log(groupId);
 
   const handleChange = name => event => {
     setValues({ ...values, [name]: event.target.value });
@@ -46,8 +64,9 @@ const Edit = () => {
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
+      {/* <input type="hidden" name="" value={groupId} /> */}
       <TextField
-        id="standard-name"
+        id="groupName"
         label="그룹 명"
         value={values.name}
         fullWidth

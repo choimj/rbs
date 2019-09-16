@@ -12,6 +12,9 @@ import Edit from "./Edit";
 import TitleBar from "../../../Components/TitleBar";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
+import { useQuery } from "@apollo/react-hooks";
+import { GET_GROUPS } from "./Query";
+
 const useStyles = makeStyles(theme => ({
   container: {
     backgroundColor: "#cfe8fc",
@@ -34,6 +37,19 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const Group = () => {
+  const { error, data } = useQuery(GET_GROUPS);
+  if (error) {
+    console.log(error);
+  }
+
+  const [groupId, setGroupId] = React.useState();
+
+  const handleGroupClick = (e, id) => {
+    e.preventDefault();
+    console.log(id);
+    setGroupId(id);
+  };
+
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -54,12 +70,15 @@ const Group = () => {
                       <GroupAddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents />
+                  <ListContents
+                    groups={data}
+                    handleGroupClick={handleGroupClick}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit />
+                  <Edit groupId={groupId} />
                 </Paper>
               </Grid>
             </Grid>
