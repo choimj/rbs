@@ -11,9 +11,8 @@ import ListContents from "./ListContents";
 import Edit from "./Edit";
 import TitleBar from "../../../Components/TitleBar";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
-
 import { useQuery } from "@apollo/react-hooks";
-import { GET_GROUP } from "./Query";
+import { GET_GROUP, GET_USERS } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -38,15 +37,26 @@ const useStyles = makeStyles(theme => ({
 
 const Group = () => {
   const classes = useStyles();
-  const [groupId, setGroupId] = React.useState();
-
+  const [groupId, setGroupId] = React.useState("");
+  const [groups, setGroups] = React.useState({});
+  const [users, setUsers] = React.useState({});
   const variables = groupId ? { id: groupId } : { id: "" };
-  const { error, data } = useQuery(GET_GROUP, {
-    variables: variables
+  useQuery(GET_GROUP, {
+    variables: variables,
+    onCompleted: data => {
+      if (data) {
+        if (data.group) {
+          setGroups(data.group);
+          // console.log(data.group);
+        }
+      }
+    }
   });
-  if (error) {
-    console.log(error);
-  }
+  useQuery(GET_USERS, {
+    onCompleted: data => {
+      setUsers(data.users);
+    }
+  });
 
   const handleGroupClick = (e, id) => {
     e.preventDefault();
@@ -77,7 +87,7 @@ const Group = () => {
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit groupId={groupId} />
+                  <Edit groups={groups} users={users} />
                 </Paper>
               </Grid>
             </Grid>

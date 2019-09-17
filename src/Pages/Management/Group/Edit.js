@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
-// import { useQuery } from "@apollo/react-hooks";
-// import { GET_GROUP } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -35,21 +33,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = ({ groupId }) => {
+const Edit = ({ groups, users }) => {
   const classes = useStyles();
   const [values, setValues] = React.useState({
     groupName: "",
-    participant: []
+    participants: []
   });
-
-  useEffect(() => {
-    console.log("useEffect");
-    // setValues({ groupName: groupId });
-  });
-
   const handleChange = e => {
     setValues({ ...values, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    if (groups.name) {
+      setValues({
+        groupName: groups.name,
+        participants: groups.groupParticipants
+      });
+    }
+  }, [groups]);
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
@@ -75,7 +76,7 @@ const Edit = ({ groupId }) => {
       >
         Submit
       </Button>
-      <InputChip />
+      <InputChip participants={values.participants} users={users} />
     </form>
   );
 };

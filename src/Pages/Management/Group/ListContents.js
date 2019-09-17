@@ -11,7 +11,6 @@ import Grid from "@material-ui/core/Grid";
 import GroupIcon from "@material-ui/icons/Group";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
-
 import { useQuery } from "@apollo/react-hooks";
 import { GET_GROUPS } from "./Query";
 
@@ -38,10 +37,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ListContents = ({ handleGroupClick }) => {
-  const { error, data } = useQuery(GET_GROUPS);
-  if (error) {
-    console.log(error);
-  }
+  const { data } = useQuery(GET_GROUPS);
 
   const classes = useStyles();
   return (

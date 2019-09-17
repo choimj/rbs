@@ -10,13 +10,25 @@ export const GET_GROUPS = gql`
 `;
 
 export const GET_GROUP = gql`
-  query getGroup($id: String) {
+  query getGroup($id: ID) {
     group(id: $id) {
+      id
       name
       groupParticipants {
-        id
-        name
+        userId {
+          value: id
+          label: name
+        }
       }
+    }
+  }
+`;
+
+export const GET_USERS = gql`
+  query getUsers {
+    users {
+      value: id
+      label: name
     }
   }
 `;

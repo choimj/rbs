@@ -8,7 +8,6 @@ import Booking from "./Booking";
 import Management from "./Management";
 import Home from "./Landing/Home";
 import Main from "./Main";
-import Landing from "../Pages/Landing";
 import JoinContainer from "../Pages/Join/JoinContainer";
 import CallbackContainer from "../Containers/CallbackContainer";
 
@@ -18,7 +17,7 @@ const App = props => {
       <BrowserRouter>
         <HeaderContainer />
         <Switch>
-          <Route exact path="/" component={Landing} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/main" component={Main} />
           <Route exact path="/login" component={AuthContainer} />
