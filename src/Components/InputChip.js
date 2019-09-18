@@ -1,29 +1,30 @@
-import React, { useState, useEffect } from "react";
+import React, { useMemo } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
 
 const animatedComponents = makeAnimated();
 
-const InputChip = ({ participants, users }) => {
-  const [selectOption, setSelectOption] = useState([]);
-  const handleSelectChange = selectedOption => {
-    setSelectOption(selectedOption);
-  };
-
-  useEffect(() => {
+const InputChip = ({
+  participants,
+  users,
+  selectParticipantOption,
+  setSelectParticipantOption,
+  handleSelectChange
+}) => {
+  useMemo(() => {
     let participantTmp = [];
     participants.forEach(element => {
       participantTmp = [...participantTmp, element.userId];
     });
-    setSelectOption(participantTmp);
-  }, [participants]);
+    setSelectParticipantOption(participantTmp);
+  }, [participants, setSelectParticipantOption]);
 
   return (
     <Select
+      isMulti
       closeMenuOnSelect={false}
       components={animatedComponents}
-      value={selectOption}
-      isMulti
+      value={selectParticipantOption}
       options={users}
       onChange={handleSelectChange}
     />

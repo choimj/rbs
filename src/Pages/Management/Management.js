@@ -1,15 +1,14 @@
 import React from "react";
-import Group from "./Group";
+// import Group from "./Group";
+import GroupContainer from "./Group/GroupContainer";
 import Category from "./Category";
 import Room from "./Room";
 import BookForm from "./BookForm";
 
 const Management = ({ match }) => {
-  // console.log(match);
-
   switch (match.params.path) {
     case "group":
-      return <Group />;
+      return <GroupContainer />;
     case "category":
       return <Category />;
     case "room":

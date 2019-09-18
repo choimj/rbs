@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
+// import { useMutation } from "@apollo/react-hooks";
+// import { CREATE_GROUP } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -33,34 +35,37 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = ({ groups, users }) => {
+const Edit = ({
+  groupItem,
+  users,
+  editValues,
+  setEditValues,
+  selectParticipantOption,
+  setSelectParticipantOption,
+  handleGroupNameChange,
+  handleGroupSubmit
+}) => {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    groupName: "",
-    participants: []
-  });
-  const handleChange = e => {
-    setValues({ ...values, [e.target.name]: e.target.value });
-  };
-
-  useEffect(() => {
-    if (groups.name) {
-      setValues({
-        groupName: groups.name,
-        participants: groups.groupParticipants
+  // const { id, name, groupParticipants } = groupItem;
+  useMemo(() => {
+    if (groupItem.name) {
+      setEditValues({
+        groupId: groupItem.id,
+        groupName: groupItem.name,
+        participants: groupItem.groupParticipants
       });
     }
-  }, [groups]);
+  }, [groupItem, setEditValues]);
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
         name="groupName"
         label="그룹 명"
-        value={values.groupName}
+        value={editValues.groupName}
         fullWidth
         required
-        onChange={handleChange}
+        onChange={handleGroupNameChange}
         margin="normal"
         InputLabelProps={{ shrink: true }}
         className={classes.title}
@@ -71,12 +76,17 @@ const Edit = ({ groups, users }) => {
       <Button
         variant="contained"
         className={classes.button}
-        type="submit"
+        onClick={handleGroupSubmit}
         color="primary"
       >
         Submit
       </Button>
-      <InputChip participants={values.participants} users={users} />
+      <InputChip
+        participants={editValues.participants}
+        users={users}
+        selectParticipantOption={selectParticipantOption}
+        setSelectParticipantOption={setSelectParticipantOption}
+      />
     </form>
   );
 };

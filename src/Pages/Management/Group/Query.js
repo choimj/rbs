@@ -32,3 +32,16 @@ export const GET_USERS = gql`
     }
   }
 `;
+
+export const CREATE_GROUP = gql`
+  mutation createGroup($data: GroupCreateInput!) {
+    createGroup(data: $data) {
+      id
+      name
+    }
+  }
+`;
+
+// export const CREATE_GROUP_PARTICIPANT = gql`
+//   mutation
+// `;

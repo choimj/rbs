@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -36,16 +36,32 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ListContents = ({ handleGroupClick }) => {
-  const { data } = useQuery(GET_GROUPS);
+const ListContents = ({
+  groupId,
+  groupList,
+  setGroupList,
+  handleGroupClick
+}) => {
+  const { refetch } = useQuery(GET_GROUPS, {
+    onCompleted: data => {
+      if (data) {
+        setGroupList(data);
+      }
+    }
+  });
+  useMemo(() => {
+    if (groupId) {
+      refetch();
+    }
+  }, [groupId, refetch]);
 
   const classes = useStyles();
   return (
     <Grid item xs={12}>
       <div className={classes.root}>
         <List dense={true}>
-          {data ? (
-            data.groups.map(item => (
+          {groupList.groups ? (
+            groupList.groups.map(item => (
               <ListItem className={classes.listItem} key={item.id}>
                 <ListItemAvatar className={classes.avatar}>
                   <Avatar>

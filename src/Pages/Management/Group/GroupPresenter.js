@@ -11,8 +11,6 @@ import ListContents from "./ListContents";
 import Edit from "./Edit";
 import TitleBar from "../../../Components/TitleBar";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
-import { useQuery } from "@apollo/react-hooks";
-import { GET_GROUP, GET_USERS } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -35,34 +33,21 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Group = () => {
+const GroupPresenter = ({
+  groupId,
+  groupItem,
+  groupList,
+  setGroupList,
+  users,
+  editValues,
+  setEditValues,
+  selectParticipantOption,
+  setSelectParticipantOption,
+  handleGroupClick,
+  handleGroupNameChange,
+  handleGroupSubmit
+}) => {
   const classes = useStyles();
-  const [groupId, setGroupId] = React.useState("");
-  const [groups, setGroups] = React.useState({});
-  const [users, setUsers] = React.useState({});
-  const variables = groupId ? { id: groupId } : { id: "" };
-  useQuery(GET_GROUP, {
-    variables: variables,
-    onCompleted: data => {
-      if (data) {
-        if (data.group) {
-          setGroups(data.group);
-          // console.log(data.group);
-        }
-      }
-    }
-  });
-  useQuery(GET_USERS, {
-    onCompleted: data => {
-      setUsers(data.users);
-    }
-  });
-
-  const handleGroupClick = (e, id) => {
-    e.preventDefault();
-    setGroupId(id);
-  };
-
   return (
     <React.Fragment>
       <CssBaseline />
@@ -82,12 +67,27 @@ const Group = () => {
                       <GroupAddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents handleGroupClick={handleGroupClick} />
+                  <ListContents
+                    groupId={groupId}
+                    groupList={groupList}
+                    setGroupList={setGroupList}
+                    handleGroupClick={handleGroupClick}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit groups={groups} users={users} />
+                  <Edit
+                    groupId={groupId}
+                    groupItem={groupItem}
+                    users={users}
+                    editValues={editValues}
+                    setEditValues={setEditValues}
+                    selectParticipantOption={selectParticipantOption}
+                    setSelectParticipantOption={setSelectParticipantOption}
+                    handleGroupNameChange={handleGroupNameChange}
+                    handleGroupSubmit={handleGroupSubmit}
+                  />
                 </Paper>
               </Grid>
             </Grid>
@@ -98,4 +98,4 @@ const Group = () => {
   );
 };
 
-export default Group;
+export default GroupPresenter;
