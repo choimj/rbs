@@ -45,7 +45,8 @@ const GroupPresenter = ({
   setSelectParticipantOption,
   handleGroupClick,
   handleGroupNameChange,
-  handleGroupSubmit
+  handleGroupSubmit,
+  handleSelectChange
 }) => {
   const classes = useStyles();
   return (
@@ -87,6 +88,7 @@ const GroupPresenter = ({
                     setSelectParticipantOption={setSelectParticipantOption}
                     handleGroupNameChange={handleGroupNameChange}
                     handleGroupSubmit={handleGroupSubmit}
+                    handleSelectChange={handleSelectChange}
                   />
                 </Paper>
               </Grid>

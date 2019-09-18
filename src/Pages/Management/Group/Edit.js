@@ -43,7 +43,8 @@ const Edit = ({
   selectParticipantOption,
   setSelectParticipantOption,
   handleGroupNameChange,
-  handleGroupSubmit
+  handleGroupSubmit,
+  handleSelectChange
 }) => {
   const classes = useStyles();
   // const { id, name, groupParticipants } = groupItem;
@@ -86,6 +87,7 @@ const Edit = ({
         users={users}
         selectParticipantOption={selectParticipantOption}
         setSelectParticipantOption={setSelectParticipantOption}
+        handleSelectChange={handleSelectChange}
       />
     </form>
   );

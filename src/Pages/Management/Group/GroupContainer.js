@@ -1,7 +1,12 @@
 import React, { useState } from "react";
 import GroupPresenter from "./GroupPresenter";
 import { useQuery, useMutation } from "@apollo/react-hooks";
-import { GET_GROUP, GET_USERS, CREATE_GROUP } from "./Query";
+import {
+  GET_GROUP,
+  GET_USERS,
+  CREATE_GROUP,
+  CREATE_GROUP_PARTICIPANT
+} from "./Query";
 
 const GroupContainer = () => {
   const [groupId, setGroupId] = useState("");
@@ -46,10 +51,30 @@ const GroupContainer = () => {
 
   const [createGroup] = useMutation(CREATE_GROUP, {
     onCompleted: data => {
+      console.log(data);
+      selectParticipantOption.forEach(element => {
+        const opt = {
+          variables: {
+            data: {
+              groupId: data.createGroup.id,
+              userId: element.value,
+              name: element.label
+            }
+          }
+        };
+        createGroupParticipant(opt);
+      });
+
       alert(data.createGroup.name + "이 생성되었습니다.");
-      console.log("createGroup============", data.createGroup);
       setGroupId(data.createGroup.id);
     },
+    onError: err => {
+      console.log(err);
+    }
+  });
+
+  const [createGroupParticipant] = useMutation(CREATE_GROUP_PARTICIPANT, {
+    onCompleted: data => {},
     onError: err => {
       console.log(err);
     }

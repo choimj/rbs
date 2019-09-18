@@ -42,6 +42,11 @@ export const CREATE_GROUP = gql`
   }
 `;
 
-// export const CREATE_GROUP_PARTICIPANT = gql`
-//   mutation
-// `;
+export const CREATE_GROUP_PARTICIPANT = gql`
+  mutation createGroupParticipant($data: GroupParticipantCreateInput!) {
+    createGroupParticipant(data: $data) {
+      id
+      name
+    }
+  }
+`;
