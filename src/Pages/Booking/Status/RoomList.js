@@ -85,8 +85,8 @@ const RoomList = ({ compRoomList }) => {
           key={i}
         >
           <ExpansionPanelSummary
-          // aria-controls="panel1d-content"
-          // id="panel1d-header"
+            aria-controls="panel1d-content"
+            id="panel1d-header"
           >
             <Grid container spacing={0}>
               <Grid item xs={12} sm={8}>
@@ -98,12 +98,16 @@ const RoomList = ({ compRoomList }) => {
             </Grid>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Typography>{thisMonth}월</Typography>
-            <WeekRoomList
-              openTime={item.roomOpenTime}
-              closeTime={item.roomCloseTime}
-              roomCode={item.roomCode}
-            />
+            <Grid container spacing={0}>
+              <Grid item xs={12}>
+                <Typography>{thisMonth}월</Typography>
+                <WeekRoomList
+                  openTime={item.roomOpenTime}
+                  closeTime={item.roomCloseTime}
+                  roomCode={item.roomCode}
+                />
+              </Grid>
+            </Grid>
           </ExpansionPanelDetails>
         </ExpansionPanel>
       ))}

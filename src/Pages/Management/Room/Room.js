@@ -20,7 +20,8 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     flexGrow: 1,
-    position: "relative"
+    position: "relative",
+    paddingBottom: "20px"
   },
   paper: {
     padding: theme.spacing(2),

@@ -19,12 +19,14 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     flexGrow: 1,
-    position: "relative"
+    position: "relative",
+    marginBottom: "15px"
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    minHeight: "537px"
   },
   tooltip: {
     width: "46px",
@@ -43,10 +45,12 @@ const GroupPresenter = ({
   setEditValues,
   selectParticipantOption,
   setSelectParticipantOption,
-  handleGroupClick,
+  handleGroupEditClick,
   handleGroupNameChange,
   handleGroupSubmit,
-  handleSelectChange
+  handleSelectChange,
+  handleAddGroup,
+  handleGroupDeleteClick
 }) => {
   const classes = useStyles();
   return (
@@ -63,6 +67,7 @@ const GroupPresenter = ({
                     title="그룹 등록"
                     aria-label="add"
                     className={classes.tooltip}
+                    onClick={handleAddGroup}
                   >
                     <Fab color="primary" className={classes.fab}>
                       <GroupAddIcon />
@@ -72,7 +77,8 @@ const GroupPresenter = ({
                     groupId={groupId}
                     groupList={groupList}
                     setGroupList={setGroupList}
-                    handleGroupClick={handleGroupClick}
+                    handleGroupEditClick={handleGroupEditClick}
+                    handleGroupDeleteClick={handleGroupDeleteClick}
                   />
                 </Paper>
               </Grid>

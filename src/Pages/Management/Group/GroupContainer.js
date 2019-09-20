@@ -5,8 +5,12 @@ import {
   GET_GROUP,
   GET_USERS,
   CREATE_GROUP,
-  CREATE_GROUP_PARTICIPANT
+  CREATE_GROUP_PARTICIPANT,
+  UPDATE_GROUP,
+  DELETE_GROUP
 } from "./Query";
+
+import DialogBox from "../../../Components/DialogBox";
 
 const GroupContainer = () => {
   const [groupId, setGroupId] = useState("");
@@ -19,11 +23,14 @@ const GroupContainer = () => {
     participants: []
   });
   const [selectParticipantOption, setSelectParticipantOption] = useState([]);
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const variables = groupId ? { id: groupId } : { id: "" };
 
   useQuery(GET_GROUP, {
     variables: variables,
     onCompleted: data => {
+      // console.log("GET_GROUP", data);
       if (data) {
         if (data.group) {
           setGroupItem(data.group);
@@ -37,9 +44,14 @@ const GroupContainer = () => {
     }
   });
 
-  const handleGroupClick = (e, id) => {
+  const handleGroupEditClick = (e, id) => {
     e.preventDefault();
     setGroupId(id);
+  };
+  const handleGroupDeleteClick = (e, id) => {
+    e.preventDefault();
+    setGroupId(id);
+    setDialogOpen(true);
   };
 
   const handleSelectChange = selectedOption => {
@@ -51,7 +63,6 @@ const GroupContainer = () => {
 
   const [createGroup] = useMutation(CREATE_GROUP, {
     onCompleted: data => {
-      console.log(data);
       selectParticipantOption.forEach(element => {
         const opt = {
           variables: {
@@ -76,38 +87,136 @@ const GroupContainer = () => {
   const [createGroupParticipant] = useMutation(CREATE_GROUP_PARTICIPANT, {
     onCompleted: data => {},
     onError: err => {
-      console.log(err);
+      alert("그룹 멤버 등록에 실패했습니다. 다시 시도해주세요.");
+      console.log("createGroupParticipant error!! ", err);
+    }
+  });
+
+  const [updateGroup] = useMutation(UPDATE_GROUP, {
+    onCompleted: data => {
+      alert("수정 되었습니다.");
+      // console.log("UPDATE_GROUP completed!! ", data);
+    },
+    onError: err => {
+      console.log("UPDATE_GROUP error!! ", err);
+    }
+  });
+
+  const [deleteGroup] = useMutation(DELETE_GROUP, {
+    onCompleted: data => {
+      console.log("deleteGroup", data);
+      alert("삭제 되었습니다.");
+      setGroupId("delete");
+      setInputEdit();
+    },
+    onError: err => {
+      console.log("DELETE_GROUP error!! ", err);
     }
   });
 
   const handleGroupSubmit = e => {
-    const { groupName } = editValues;
+    const { groupId, groupName } = editValues;
+    const opts = {};
+    let action = "";
+    let tmpParticipants = [];
+
+    if (groupId && groupId !== "") {
+      // 수정
+      if (selectParticipantOption) {
+        selectParticipantOption.forEach(element => {
+          tmpParticipants = [
+            ...tmpParticipants,
+            { groupId: groupId, userId: element.value, name: element.label }
+          ];
+        });
+      }
+      action = "update";
+      opts.variables = {
+        data: {
+          id: groupId,
+          name: groupName,
+          groupParticipants: tmpParticipants
+        }
+      };
+    } else {
+      // 생성
+      action = "create";
+      opts.variables = {
+        data: {
+          name: groupName
+        }
+      };
+    }
+
     if (!groupName || groupName === "") {
       alert("그룹 명을 입력하세요.");
     }
-    const opts = {
-      variables: {
-        data: { name: groupName }
-      }
-    };
-    createGroup(opts);
+
+    submitAction(action, opts);
   };
+
+  const submitAction = (action, opts) => {
+    if (action === "create") {
+      createGroup(opts);
+    } else if (action === "update") {
+      updateGroup(opts);
+    }
+  };
+
+  const handleAddGroup = e => {
+    setInputEdit();
+  };
+
+  const setInputEdit = () => {
+    setEditValues({
+      groupId: "",
+      groupName: "",
+      participants: []
+    });
+  };
+
+  const handleConfirm = op => {
+    if (op === "yes") {
+      setDialogOpen(false);
+      const opts = {
+        variables: {
+          data: {
+            id: editValues.groupId
+          }
+        }
+      };
+      deleteGroup(opts);
+    } else if (op === "no") {
+      setDialogOpen(false);
+    }
+  };
+
   return (
-    <GroupPresenter
-      groupId={groupId}
-      groupItem={groupItem}
-      groupList={groupList}
-      setGroupList={setGroupList}
-      users={users}
-      editValues={editValues}
-      setEditValues={setEditValues}
-      selectParticipantOption={selectParticipantOption}
-      setSelectParticipantOption={setSelectParticipantOption}
-      handleGroupClick={handleGroupClick}
-      handleSelectChange={handleSelectChange}
-      handleGroupNameChange={handleGroupNameChange}
-      handleGroupSubmit={handleGroupSubmit}
-    />
+    <>
+      <GroupPresenter
+        groupId={groupId}
+        groupItem={groupItem}
+        groupList={groupList}
+        setGroupList={setGroupList}
+        users={users}
+        editValues={editValues}
+        setEditValues={setEditValues}
+        selectParticipantOption={selectParticipantOption}
+        setSelectParticipantOption={setSelectParticipantOption}
+        handleGroupEditClick={handleGroupEditClick}
+        handleSelectChange={handleSelectChange}
+        handleGroupNameChange={handleGroupNameChange}
+        handleGroupSubmit={handleGroupSubmit}
+        handleAddGroup={handleAddGroup}
+        handleGroupDeleteClick={handleGroupDeleteClick}
+      />
+      <DialogBox
+        open={dialogOpen}
+        title="정말로 삭제하시겠습니까?"
+        text="삭제 시 복구가 불가합니다."
+        handleConfirm={handleConfirm}
+      />
+    </>
   );
 };
 

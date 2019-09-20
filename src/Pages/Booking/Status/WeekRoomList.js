@@ -8,13 +8,13 @@ const WeekRoomList = props => {
 
   // console.log("=============== WeekRoomList",roomCode);
   return (
-    <>
+    <div>
       <WeekRoomListContainer
         openTime={openTime}
         closeTime={closeTime}
         roomCode={roomCode}
       />
-    </>
+    </div>
   );
 };
 

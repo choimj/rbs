@@ -1,6 +1,5 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-// import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -12,6 +11,8 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import AccessTimeIcon from "@material-ui/icons/AccessTime";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
+import Box from "@material-ui/core/Box";
+import PieChartApp from "../../Components/PieChartApp";
 
 const Main = () => {
   const useStyles = makeStyles(theme => ({
@@ -30,26 +31,42 @@ const Main = () => {
       minWidth: 400
     },
     container: {},
-    timeIcon: {
-      width: "50%",
-      height: "50%",
-      verticalAlign: "bottom"
-    },
     tableWrap: {
       marginTop: theme.spacing(3),
       width: "100%",
       overflowX: "auto",
       marginBottom: theme.spacing(2)
     },
-    iconWrap: {
-      width: "30%",
-      position: "absolute",
-      top: "-100%",
+    timeIconWrap: {
+      width: "13vh",
+      background: "linear-gradient(60deg, #ffa726, #fb8c00)",
+      boxShadow:
+        "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(255, 152, 0,.4)"
+    },
+    timeIcon: {
+      verticalAlign: "bottom",
+      color: "#ffffff",
+      width: "70%",
+      height: "70%",
+      margin: "10px 5px",
       padding: "10px"
     },
+    chartIconWrap: {
+      width: "13vh",
+      background: "linear-gradient(60deg, #66bb6a, #43a047)",
+      boxShadow:
+        "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)"
+    },
     title: {
-      position: "relative",
-      color: "#3f51b5"
+      color: "#999",
+      fontSize: "14px",
+      textAlign: "right"
+    },
+    textAlignRight: {
+      textAlign: "right"
+    },
+    subTitle: {
+      fontSize: "10px"
     }
   }));
   const classes = useStyles();
@@ -58,11 +75,27 @@ const Main = () => {
     return { name, calories, fat, carbs, protein };
   };
   const rows = [
-    createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-    createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-    createData("Eclair", 262, 16.0, 24, 6.0),
-    createData("Cupcake", 305, 3.7, 67, 4.3),
-    createData("Gingerbread", 356, 16.0, 49, 3.9)
+    createData(
+      "부산 UIUX 스터디",
+      "최민지, 이제훈 ...",
+      "2019/09/20 9:00",
+      "UIUX Core System",
+      "최민지"
+    ),
+    createData(
+      "위하고 게시판",
+      "백화현, 김성훈, 김기덕, ...",
+      "2019/09/20 9:00",
+      "UIUX Core System",
+      "최민지"
+    ),
+    createData(
+      "신규사원 교육",
+      "이제훈, 정지연, 임채형, ...",
+      "2019/09/20 9:00",
+      "UIUX Core System",
+      "최민지"
+    )
   ];
 
   return (
@@ -71,45 +104,93 @@ const Main = () => {
         <Grid container spacing={3}>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <Typography variant="h6" gutterBottom className={classes.title}>
-                나의 예약현황
-                <Paper className={classes.iconWrap}>
-                  <AccessTimeIcon className={classes.timeIcon} />
-                </Paper>
-              </Typography>
-              <Paper>
-                <p>전체 : 6건</p>
-                <p>이전예약 : 2건</p>
-                <p>이후예약 : 4건</p>
-              </Paper>
+              <Grid container spacing={0}>
+                <Grid item xs={12} sm={4}>
+                  <Paper className={classes.timeIconWrap}>
+                    <AccessTimeIcon
+                      className={classes.timeIcon}
+                      fontSize="large"
+                    />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className={classes.title}
+                  >
+                    나의 예약 건수
+                  </Typography>
+                  <Grid container spacing={0}>
+                    <Grid item xs={12} sm={9}>
+                      <Typography variant="h6">
+                        <Box textAlign="right">2/4</Box>
+                      </Typography>
+                      <Typography component="div">
+                        <Box textAlign="right" fontSize={10}>
+                          (Prev/Next)
+                        </Box>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={3}>
+                      <Typography variant="h3">6</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Paper>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Paper className={classes.paper}>
-              <Typography variant="h6" gutterBottom className={classes.title}>
-                자주이용 예약현황
-                <Paper className={classes.iconWrap}>
-                  <EqualizerIcon className={classes.timeIcon} />
-                </Paper>
-              </Typography>
-              <Paper>
-                <p>대회의실</p>
-                <p>2019-08-28</p>
-                <p>9:00~10:00</p>
-                <p>13:00~15:00</p>
-                <p>2019-08-29</p>
-                <p>9:00~10:00</p>
-                <p>13:00~15:00</p>
-              </Paper>
+              <Grid container spacing={0}>
+                <Grid item xs={12} sm={4}>
+                  <Paper className={classes.chartIconWrap}>
+                    <EqualizerIcon
+                      className={classes.timeIcon}
+                      fontSize="large"
+                    />
+                  </Paper>
+                </Grid>
+                <Grid item xs={12} sm={8}>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    className={classes.title}
+                  >
+                    자주 이용하는 회의실 예약 건수
+                  </Typography>
+                  <Grid container spacing={0}>
+                    <Grid item xs={12} sm={9}>
+                      <Typography component="div">
+                        <Box
+                          textAlign="right"
+                          m={0}
+                          style={{ padding: "14px 0" }}
+                        >
+                          대회의실
+                        </Box>
+                      </Typography>
+                    </Grid>
+                    <Grid item xs={12} sm={3}>
+                      <Typography variant="h3">6</Typography>
+                    </Grid>
+                  </Grid>
+                </Grid>
+              </Grid>
             </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.paper}>
+              <PieChartApp />
+            </Paper>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Paper className={classes.paper}></Paper>
           </Grid>
           <Grid item xs={12} sm={12}>
             <Paper className={classes.paper}>
               <Typography variant="h6" gutterBottom className={classes.title}>
                 참석해야하는 회의 리스트
-                {/* <Paper className={classes.iconWrap}>
-                  <AccessTimeIcon className={classes.timeIcon} />
-                </Paper> */}
               </Typography>
               <Paper className={classes.tableWrap}>
                 <Table className={classes.table} size="small">

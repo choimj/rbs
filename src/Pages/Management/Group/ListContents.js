@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
     paddingRight: "70px"
   },
   listItemText: {
-    cursor: "pointer"
+    // cursor: "pointer"
   },
   button: {
     padding: "7px"
@@ -40,7 +40,8 @@ const ListContents = ({
   groupId,
   groupList,
   setGroupList,
-  handleGroupClick
+  handleGroupEditClick,
+  handleGroupDeleteClick
 }) => {
   const { refetch } = useQuery(GET_GROUPS, {
     onCompleted: data => {
@@ -71,13 +72,13 @@ const ListContents = ({
                 <ListItemText
                   className={classes.listItemText}
                   primary={item.name}
-                  onClick={e => handleGroupClick(e, item.id)}
                 />
                 <ListItemSecondaryAction>
                   <IconButton
                     edge="end"
                     aria-label="edit"
                     className={classes.button}
+                    onClick={e => handleGroupEditClick(e, item.id)}
                   >
                     <EditIcon />
                   </IconButton>
@@ -85,6 +86,7 @@ const ListContents = ({
                     edge="end"
                     aria-label="delete"
                     className={classes.button}
+                    onClick={e => handleGroupDeleteClick(e, item.id)}
                   >
                     <DeleteIcon />
                   </IconButton>

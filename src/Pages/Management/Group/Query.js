@@ -50,3 +50,21 @@ export const CREATE_GROUP_PARTICIPANT = gql`
     }
   }
 `;
+
+export const UPDATE_GROUP = gql`
+  mutation updateGroup($data: GroupUpdateInput!) {
+    updateGroup(data: $data) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_GROUP = gql`
+  mutation deleteGroup($data: GroupWhereUniqueInput!) {
+    deleteGroup(data: $data) {
+      id
+      name
+    }
+  }
+`;

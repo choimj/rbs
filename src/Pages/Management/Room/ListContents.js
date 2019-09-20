@@ -33,14 +33,6 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const generate = element => {
-  return [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12].map(value =>
-    React.cloneElement(element, {
-      key: value
-    })
-  );
-};
-
 const ListContents = () => {
   const classes = useStyles();
   // const [dense, setDense] = React.useState(false);
@@ -49,36 +41,88 @@ const ListContents = () => {
   return (
     <Grid item xs={12}>
       <div className={classes.root}>
-        <List dense={false}>
-          {generate(
-            <ListItem className={classes.listItem}>
-              <ListItemAvatar className={classes.avatar}>
-                <Avatar>
-                  <MeetingRoomIcon />
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText
-                primary="Room"
-                secondary={false ? "Secondary text" : null}
-              />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  aria-label="edit"
-                  className={classes.button}
-                >
-                  <EditIcon />
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  className={classes.button}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
-            </ListItem>
-          )}
+        <List dense={true}>
+          <ListItem className={classes.listItem}>
+            <ListItemAvatar className={classes.avatar}>
+              <Avatar>
+                <MeetingRoomIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="대회의실"
+              // secondary={false ? "Secondary text" : null}
+            />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                className={classes.button}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                className={classes.button}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemAvatar className={classes.avatar}>
+              <Avatar>
+                <MeetingRoomIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="중회의실"
+              // secondary={false ? "Secondary text" : null}
+            />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                className={classes.button}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                className={classes.button}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
+          <ListItem className={classes.listItem}>
+            <ListItemAvatar className={classes.avatar}>
+              <Avatar>
+                <MeetingRoomIcon />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary="소회의실"
+              // secondary={false ? "Secondary text" : null}
+            />
+            <ListItemSecondaryAction>
+              <IconButton
+                edge="end"
+                aria-label="edit"
+                className={classes.button}
+              >
+                <EditIcon />
+              </IconButton>
+              <IconButton
+                edge="end"
+                aria-label="delete"
+                className={classes.button}
+              >
+                <DeleteIcon />
+              </IconButton>
+            </ListItemSecondaryAction>
+          </ListItem>
         </List>
       </div>
     </Grid>

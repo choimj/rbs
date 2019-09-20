@@ -13,10 +13,12 @@ const InputChip = ({
 }) => {
   useMemo(() => {
     let participantTmp = [];
-    participants.forEach(element => {
-      participantTmp = [...participantTmp, element.userId];
-    });
-    setSelectParticipantOption(participantTmp);
+    if (participants) {
+      participants.forEach(element => {
+        participantTmp = [...participantTmp, element.userId];
+      });
+      setSelectParticipantOption(participantTmp);
+    }
   }, [participants, setSelectParticipantOption]);
 
   return (

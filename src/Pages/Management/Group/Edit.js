@@ -3,8 +3,6 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
-// import { useMutation } from "@apollo/react-hooks";
-// import { CREATE_GROUP } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -47,7 +45,6 @@ const Edit = ({
   handleSelectChange
 }) => {
   const classes = useStyles();
-  // const { id, name, groupParticipants } = groupItem;
   useMemo(() => {
     if (groupItem.name) {
       setEditValues({
@@ -56,6 +53,7 @@ const Edit = ({
         participants: groupItem.groupParticipants
       });
     }
+    // console.log(groupItem);
   }, [groupItem, setEditValues]);
 
   return (

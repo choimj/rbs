@@ -19,12 +19,14 @@ const useStyles = makeStyles(theme => ({
   },
   root: {
     flexGrow: 1,
-    position: "relative"
+    position: "relative",
+    paddingBottom: "20px"
   },
   paper: {
     padding: theme.spacing(2),
     textAlign: "center",
-    color: theme.palette.text.secondary
+    color: theme.palette.text.secondary,
+    minHeight: "537px"
   },
   tooltip: {
     width: "46px",

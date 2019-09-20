@@ -63,23 +63,23 @@ const RoomInfo = props => {
           <tbody>
             <tr>
               <th>회의실 명</th>
-              <td>111111</td>
+              <td>대회의실</td>
             </tr>
             <tr>
               <th>운영 시간</th>
-              <td>111111</td>
+              <td>09:00 ~ 18:00</td>
             </tr>
             <tr>
               <th>수용 인원</th>
-              <td>11111</td>
+              <td>11</td>
             </tr>
             <tr>
               <th>위 치</th>
-              <td>11111</td>
+              <td>15층 R</td>
             </tr>
             <tr>
               <th>이용 불가</th>
-              <td>111111</td>
+              <td>-</td>
             </tr>
           </tbody>
         </InfoBox>
