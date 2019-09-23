@@ -30,7 +30,10 @@ class HeaderContainer extends React.Component {
       };
       if (jwtToken) {
         //token 이 있는 경우
-        const url = "http://localhost:4000/auth/jwt/check";
+        // Local test
+        // const url = "http://localhost:4000/auth/jwt/check";
+        // Heroku
+        const url = "https://heroku-rbs-backend.herokuapp.com/auth/jwt/check";
         fetch(url, obj)
           .then(response => response.json())
           .then(json => {
