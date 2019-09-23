@@ -30,7 +30,7 @@ class CallbackContainer extends React.Component {
         .then(response => response.json())
         .then(json => {
           const { flag, jwtToken } = json;
-          // console.log(json);
+          console.log(json);
           if (flag) {
             localStorage.setItem("jwtToken", jwtToken);
             window.location.href = "/main";
