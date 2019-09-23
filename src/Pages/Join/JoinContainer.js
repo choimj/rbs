@@ -48,7 +48,7 @@ class JoinContainer extends React.Component {
     /**
      * jwt token 발급
      */
-    const url = "http://localhost:4000/auth/jwt";
+    const url = process.env.REACT_APP_HEROKU_URL + "/auth/jwt";
     fetch(url, obj)
       .then(response => response.json())
       .then(json => {
