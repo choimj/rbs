@@ -2,6 +2,9 @@ import React from "react";
 import { connect } from "react-redux";
 import Join from "../Join/Join";
 
+import dotenv from "dotenv";
+dotenv.config(); //.env 파일 로드
+
 class JoinContainer extends React.Component {
   state = {
     email: "",
@@ -18,7 +21,8 @@ class JoinContainer extends React.Component {
   isEmailCheck = email => {
     if (email === "") {
       alert("구글 인증 후 진행해주세요.");
-      window.location.href = "http://localhost:4000/auth/google";
+      // window.location.href = "http://localhost:4000/auth/google";
+      window.location.href = process.env.REACT_APP_HEROKU_URL + "/auth/google";
     }
   };
 
