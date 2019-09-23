@@ -2,6 +2,9 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import Login from "../Pages/Login";
 
+import dotenv from "dotenv";
+dotenv.config(); //.env 파일 로드
+
 class AuthContainer extends React.Component {
   state = {
     email: "",
@@ -25,7 +28,10 @@ class AuthContainer extends React.Component {
   };
 
   googleOauthLogin = () => {
-    window.location.href = "http://localhost:4000/auth/google";
+    // window.location.href = "http://localhost:4000/auth/google";
+    const url = process.env.REACT_APP_HEROKU_URL + "/auth/google";
+    // const url = process.env.REACT_APP_LOCAL_URL + ":5000/auth/google";
+    window.location.href = url;
   };
 
   handleComparePassword = (data, err) => {
@@ -43,7 +49,8 @@ class AuthContainer extends React.Component {
       /**
        * jwt token 발급
        */
-      const url = "http://localhost:4000/auth/jwt";
+      // const url = "http://localhost:4000/auth/jwt";
+      const url = process.env.REACT_APP_HEROKU_URL + "/auth/jwt";
       fetch(url, obj)
         .then(response => response.json())
         .then(json => {

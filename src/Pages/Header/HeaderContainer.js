@@ -3,6 +3,9 @@ import { withRouter } from "react-router-dom";
 import Header from "./Header";
 import * as authActions from "../../Store/Modules/Auth";
 
+import dotenv from "dotenv";
+dotenv.config(); //.env 파일 로드
+
 class HeaderContainer extends React.Component {
   componentDidMount = async () => {
     const { location, history } = this.props;
@@ -33,7 +36,8 @@ class HeaderContainer extends React.Component {
         // Local test
         // const url = "http://localhost:4000/auth/jwt/check";
         // Heroku
-        const url = "https://heroku-rbs-backend.herokuapp.com/auth/jwt/check";
+        // const url = "https://heroku-rbs-backend.herokuapp.com/auth/jwt/check";
+        const url = process.env.HEROKU_URL + "/auth/jwt/check";
         fetch(url, obj)
           .then(response => response.json())
           .then(json => {

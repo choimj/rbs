@@ -5,6 +5,9 @@ import queryString from "query-string";
 import { bindActionCreators } from "redux";
 import * as joinActions from "../Store/Modules/Join";
 
+import dotenv from "dotenv";
+dotenv.config(); //.env 파일 로드
+
 class CallbackContainer extends React.Component {
   componentWillMount = () => {
     const { history, location, match } = this.props;
@@ -22,7 +25,7 @@ class CallbackContainer extends React.Component {
       /**
        * jwt token 발급
        */
-      const url = "http://localhost:4000/auth/jwt";
+      const url = process.env.REACT_APP_HEROKU_URL + "/auth/jwt";
       fetch(url, obj)
         .then(response => response.json())
         .then(json => {
@@ -41,7 +44,8 @@ class CallbackContainer extends React.Component {
         history.push("/join");
       } else {
         alert("구글 인증 후 회원가입이 가능합니다.");
-        window.location.href = "http://localhost:4000/auth/google";
+        window.location.href =
+          process.env.REACT_APP_HEROKU_URL + "/auth/google";
       }
     }
   };
