@@ -37,7 +37,6 @@ const Edit = ({ editValues, setEditValues }) => {
   const classes = useStyles();
 
   const handleChange = e => {
-    // console.log(e.target.value);
     setEditValues({ ...editValues, [e.target.name]: e.target.value });
   };
 

@@ -43,7 +43,7 @@ const ListContents = ({
   handleGroupEditClick,
   handleGroupDeleteClick
 }) => {
-  console.log(groupList);
+  // console.log(groupList);
   const { refetch } = useQuery(GET_GROUPS, {
     onCompleted: data => {
       if (data) {

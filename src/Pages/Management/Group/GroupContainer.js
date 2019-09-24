@@ -104,7 +104,7 @@ const GroupContainer = () => {
 
   const [deleteGroup] = useMutation(DELETE_GROUP, {
     onCompleted: data => {
-      console.log("deleteGroup", data);
+      // console.log("deleteGroup", data);
       alert("삭제 되었습니다.");
       setGroupId("delete");
       setInputEdit();

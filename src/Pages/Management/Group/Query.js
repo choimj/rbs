@@ -56,6 +56,12 @@ export const UPDATE_GROUP = gql`
     updateGroup(data: $data) {
       id
       name
+      groupParticipants {
+        userId {
+          value: id
+          label: name
+        }
+      }
     }
   }
 `;
