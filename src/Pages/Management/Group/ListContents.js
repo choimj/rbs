@@ -28,9 +28,6 @@ const useStyles = makeStyles(theme => ({
   listItem: {
     paddingRight: "70px"
   },
-  listItemText: {
-    // cursor: "pointer"
-  },
   button: {
     padding: "7px"
   }

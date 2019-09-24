@@ -33,12 +33,16 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = ({ editValues, setEditValues }) => {
+const EditPresenter = ({
+  users,
+  editValues,
+  handleCategorySubmit,
+  handleChange,
+  selectParticipantOption,
+  setSelectParticipantOption,
+  handleSelectChange
+}) => {
   const classes = useStyles();
-
-  const handleChange = e => {
-    setEditValues({ ...editValues, [e.target.name]: e.target.value });
-  };
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
@@ -60,14 +64,20 @@ const Edit = ({ editValues, setEditValues }) => {
       <Button
         variant="contained"
         className={classes.button}
-        type="submit"
         color="primary"
+        onClick={handleCategorySubmit}
       >
         Submit
       </Button>
-      <InputChip />
+      <InputChip
+        participants={editValues.participants}
+        users={users}
+        selectParticipantOption={selectParticipantOption}
+        setSelectParticipantOption={setSelectParticipantOption}
+        handleSelectChange={handleSelectChange}
+      />
     </form>
   );
 };
 
-export default Edit;
+export default EditPresenter;

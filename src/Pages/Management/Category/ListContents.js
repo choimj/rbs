@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -13,6 +13,9 @@ import Grid from "@material-ui/core/Grid";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import CategoryIcon from "@material-ui/icons/Category";
+
+import { useQuery } from "react-apollo";
+import { GET_CATEGORIES } from "./Query";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -33,39 +36,60 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ListContents = ({ categoryList }) => {
+const ListContents = ({
+  category,
+  handleCategoryEditClick,
+  handleCategoryDeleteClick
+}) => {
   const classes = useStyles();
+
+  const { data, refetch } = useQuery(GET_CATEGORIES, {
+    onCompleted: data => {}
+  });
+
+  useMemo(() => {
+    if (category) {
+      refetch();
+    }
+  }, [category, refetch]);
+
   return (
     <Grid item xs={12}>
       <div className={classes.root}>
         <List dense={true}>
-          {categoryList.categories ? (
-            categoryList.categories.map(item => (
-              <ListItem className={classes.listItem} key={item.id}>
-                <ListItemAvatar className={classes.avatar}>
-                  <Avatar>
-                    <CategoryIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText primary={item.name} />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="edit"
-                    className={classes.button}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    className={classes.button}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))
+          {data ? (
+            data.categories ? (
+              data.categories.map(item => (
+                <ListItem className={classes.listItem} key={item.id}>
+                  <ListItemAvatar className={classes.avatar}>
+                    <Avatar>
+                      <CategoryIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText primary={item.name} />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      className={classes.button}
+                      onClick={e => handleCategoryEditClick(e, item.id)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      className={classes.button}
+                      onClick={e => handleCategoryDeleteClick(e, item.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))
+            ) : (
+              ""
+            )
           ) : (
             <ListItem className={classes.listItem}>No Data</ListItem>
           )}

@@ -8,9 +8,10 @@ import Grid from "@material-ui/core/Grid";
 import Tooltip from "@material-ui/core/Tooltip";
 import Fab from "@material-ui/core/Fab";
 import ListContents from "./ListContents";
-import Edit from "./Edit";
+import EditContainer from "./EditContainer";
 import TitleBar from "../../../Components/TitleBar";
 import AddIcon from "@material-ui/icons/Add";
+import DialogBox from "../../../Components/DialogBox";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,10 +37,16 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryPresenter = ({
-  categoryList,
+  users,
+  category,
+  setCategory,
   editValues,
+  setEditValues,
   handleAddCategory,
-  setEditValues
+  handleCategoryEditClick,
+  handleCategoryDeleteClick,
+  handleConfirm,
+  dialogOpen
 }) => {
   const classes = useStyles();
   return (
@@ -62,18 +69,34 @@ const CategoryPresenter = ({
                       <AddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents categoryList={categoryList} />
+                  <ListContents
+                    category={category}
+                    handleCategoryEditClick={handleCategoryEditClick}
+                    handleCategoryDeleteClick={handleCategoryDeleteClick}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit editValues={editValues} setEditValues={setEditValues} />
+                  <EditContainer
+                    users={users}
+                    category={category}
+                    editValues={editValues}
+                    setEditValues={setEditValues}
+                    setCategory={setCategory}
+                  />
                 </Paper>
               </Grid>
             </Grid>
           </div>
         </Typography>
       </Container>
+      <DialogBox
+        open={dialogOpen}
+        title="정말로 삭제하시겠습니까?"
+        text="삭제 시 복구가 불가합니다."
+        handleConfirm={handleConfirm}
+      />
     </React.Fragment>
   );
 };
