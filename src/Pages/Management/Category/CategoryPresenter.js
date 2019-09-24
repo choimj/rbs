@@ -35,7 +35,12 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Category = () => {
+const CategoryPresenter = ({
+  categoryList,
+  editValues,
+  handleAddCategory,
+  setEditValues
+}) => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -51,17 +56,18 @@ const Category = () => {
                     title="카테고리 등록"
                     aria-label="add"
                     className={classes.tooltip}
+                    onClick={handleAddCategory}
                   >
                     <Fab color="primary" className={classes.fab}>
                       <AddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents />
+                  <ListContents categoryList={categoryList} />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit />
+                  <Edit editValues={editValues} setEditValues={setEditValues} />
                 </Paper>
               </Grid>
             </Grid>
@@ -72,4 +78,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CategoryPresenter;

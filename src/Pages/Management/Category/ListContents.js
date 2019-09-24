@@ -19,7 +19,6 @@ const useStyles = makeStyles(theme => ({
     flexGrow: 1,
     maxWidth: 752,
     maxHeight: "60vh",
-    // minHeight: "533px",
     position: "relative",
     overflow: "auto"
   },
@@ -34,67 +33,42 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ListContents = () => {
+const ListContents = ({ categoryList }) => {
   const classes = useStyles();
-
   return (
     <Grid item xs={12}>
       <div className={classes.root}>
         <List dense={true}>
-          <ListItem className={classes.listItem}>
-            <ListItemAvatar className={classes.avatar}>
-              <Avatar>
-                <CategoryIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="신규사원"
-              // secondary={false ? "Secondary text" : null}
-            />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="edit"
-                className={classes.button}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                className={classes.button}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
-          <ListItem className={classes.listItem}>
-            <ListItemAvatar className={classes.avatar}>
-              <Avatar>
-                <CategoryIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText
-              primary="스터디"
-              // secondary={false ? "Secondary text" : null}
-            />
-            <ListItemSecondaryAction>
-              <IconButton
-                edge="end"
-                aria-label="edit"
-                className={classes.button}
-              >
-                <EditIcon />
-              </IconButton>
-              <IconButton
-                edge="end"
-                aria-label="delete"
-                className={classes.button}
-              >
-                <DeleteIcon />
-              </IconButton>
-            </ListItemSecondaryAction>
-          </ListItem>
+          {categoryList.categories ? (
+            categoryList.categories.map(item => (
+              <ListItem className={classes.listItem} key={item.id}>
+                <ListItemAvatar className={classes.avatar}>
+                  <Avatar>
+                    <CategoryIcon />
+                  </Avatar>
+                </ListItemAvatar>
+                <ListItemText primary={item.name} />
+                <ListItemSecondaryAction>
+                  <IconButton
+                    edge="end"
+                    aria-label="edit"
+                    className={classes.button}
+                  >
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton
+                    edge="end"
+                    aria-label="delete"
+                    className={classes.button}
+                  >
+                    <DeleteIcon />
+                  </IconButton>
+                </ListItemSecondaryAction>
+              </ListItem>
+            ))
+          ) : (
+            <ListItem className={classes.listItem}>No Data</ListItem>
+          )}
         </List>
       </div>
     </Grid>

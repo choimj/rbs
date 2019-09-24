@@ -33,26 +33,24 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = () => {
+const Edit = ({ editValues, setEditValues }) => {
   const classes = useStyles();
-  const [values, setValues] = React.useState({
-    groupName: "",
-    participant: []
-  });
 
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
+  const handleChange = e => {
+    // console.log(e.target.value);
+    setEditValues({ ...editValues, [e.target.name]: e.target.value });
   };
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
         id="standard-name"
+        name="categoryName"
         label="카테고리 명"
-        value={values.name}
+        value={editValues.categoryName}
         fullWidth
         required
-        onChange={handleChange("name")}
+        onChange={handleChange}
         margin="normal"
         InputLabelProps={{ shrink: true }}
         className={classes.title}
