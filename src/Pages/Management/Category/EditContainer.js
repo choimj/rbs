@@ -40,9 +40,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
   });
 
   const [createCategoryParticipant] = useMutation(CREATE_CATEGORY_PARTICIPANT, {
-    onCompleted: data => {
-      console.log(data);
-    },
+    onCompleted: data => {},
     onError: err => {
       alert("카테고리 멤버 등록에 실패했습니다. 다시 시도해주세요.");
       console.log("createGroupParticipant error!! ", err);
