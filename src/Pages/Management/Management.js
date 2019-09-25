@@ -1,7 +1,7 @@
 import React from "react";
 import GroupContainer from "./Group/GroupContainer";
 import CategoryContainer from "./Category/CategoryContainer";
-import Room from "./Room";
+import RoomContainer from "./Room/RoomContainer";
 import BookForm from "./BookForm";
 
 const Management = ({ match }) => {
@@ -11,7 +11,7 @@ const Management = ({ match }) => {
     case "category":
       return <CategoryContainer />;
     case "room":
-      return <Room />;
+      return <RoomContainer />;
     case "bookform":
       return <BookForm />;
     default:

@@ -1,6 +1,6 @@
 import React from "react";
 import ListContents from "./ListContents";
-import Edit from "./Edit";
+import EditContainer from "./EditContainer";
 
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -36,7 +36,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Room = () => {
+const RoomPresenter = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -62,7 +62,7 @@ const Room = () => {
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <Edit />
+                  <EditContainer />
                 </Paper>
               </Grid>
             </Grid>
@@ -73,4 +73,4 @@ const Room = () => {
   );
 };
 
-export default Room;
+export default RoomPresenter;

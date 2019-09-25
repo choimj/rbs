@@ -31,7 +31,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const Edit = () => {
+const EditPresenter = () => {
   const classes = useStyles();
   const curDate = new Date();
   const [selectedDate, setSelectedDate] = React.useState({
@@ -137,4 +137,4 @@ const Edit = () => {
   );
 };
 
-export default Edit;
+export default EditPresenter;
