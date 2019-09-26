@@ -34,7 +34,7 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const ListContents = ({ room }) => {
+const ListContents = ({ room, handleRoomEditClick, handleRoomDeleteClick }) => {
   const classes = useStyles();
 
   const { data, refetch } = useQuery(GET_ROOMS, {
@@ -66,13 +66,16 @@ const ListContents = ({ room }) => {
                       edge="end"
                       aria-label="edit"
                       className={classes.button}
+                      onClick={e => handleRoomEditClick(e, item.id)}
                     >
                       <EditIcon />
                     </IconButton>
                     <IconButton
                       edge="end"
                       aria-label="delete"
+                      id={item.id}
                       className={classes.button}
+                      onClick={e => handleRoomDeleteClick(e, item.id)}
                     >
                       <DeleteIcon />
                     </IconButton>

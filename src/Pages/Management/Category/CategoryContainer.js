@@ -5,7 +5,6 @@ import { useQuery, useMutation } from "react-apollo";
 import { GET_CATEGORY, GET_USERS, DELETE_CATEGORY } from "./Query";
 
 const CategoryContainer = () => {
-  const [categories, setCategories] = useState({});
   const [category, setCategory] = useState({});
   const [editValues, setEditValues] = useState({
     categoryId: "",
@@ -17,7 +16,7 @@ const CategoryContainer = () => {
 
   const [deleteCategory] = useMutation(DELETE_CATEGORY, {
     onCompleted: data => {
-      alert("삭제 되었습니다.");
+      alert("삭제되었습니다.");
       setInputEdit();
       setCategory({});
     },
@@ -98,8 +97,6 @@ const CategoryContainer = () => {
     <>
       <CategoryPresenter
         users={users}
-        categories={categories}
-        setCategories={setCategories}
         category={category}
         setCategory={setCategory}
         editValues={editValues}

@@ -16,8 +16,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
       alert(name + " 생성되었습니다.");
       setEditValues({
         ...editValues,
-        categoryId: id,
-        categoryName: name
+        categoryId: id
       });
       setCategory(data.createCategory);
 
@@ -49,7 +48,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
 
   const [updateCateogry] = useMutation(UPDATE_CATEGORY, {
     onCompleted: data => {
-      alert("수정 되었습니다.");
+      alert("수정되었습니다.");
       // console.log("updateCateogry", data);
     }
   });

@@ -31,43 +31,23 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const EditPresenter = () => {
+const EditPresenter = ({
+  editValues,
+  handleInputChange,
+  handleTimeChange,
+  handleRoomSubmit
+}) => {
   const classes = useStyles();
-  const curDate = new Date();
-  const [selectedDate, setSelectedDate] = React.useState({
-    startTime: curDate,
-    endTime: curDate
-  });
-
-  const handleStartTimeChange = date => {
-    setSelectedDate({ ...selectedDate, startTime: date });
-  };
-  const handleEndTimeChange = date => {
-    setSelectedDate({ ...selectedDate, endTime: date });
-  };
-
-  const [values, setValues] = React.useState({
-    roomTitle: "",
-    startTime: "",
-    endTime: "",
-    minPerson: 0,
-    location: "",
-    participants: []
-  });
-
-  const handleChange = name => event => {
-    setValues({ ...values, [name]: event.target.value });
-  };
 
   return (
     <form className={classes.container} noValidate autoComplete="off">
       <TextField
-        id="standard-name"
         label="회의실 명"
-        value={values.name}
         fullWidth
         required
-        onChange={handleChange("roomTitle")}
+        name="roomName"
+        value={editValues.roomName}
+        onChange={handleInputChange}
         margin="normal"
         InputLabelProps={{ shrink: true }}
         className={classes.title}
@@ -78,11 +58,11 @@ const EditPresenter = () => {
       >
         <KeyboardTimePicker
           margin="normal"
-          id="startTime"
           label="운영 시작 시간"
           required
-          value={selectedDate.startTime}
-          onChange={handleStartTimeChange}
+          name="roomStartTime"
+          value={editValues.roomStartTime}
+          onChange={date => handleTimeChange(date, "roomStartTime")}
           KeyboardButtonProps={{
             "aria-label": "change time"
           }}
@@ -90,11 +70,11 @@ const EditPresenter = () => {
         />
         <KeyboardTimePicker
           margin="normal"
-          id="endTime"
           label="운영 종료 시간"
           required
-          value={selectedDate.endTime}
-          onChange={handleEndTimeChange}
+          name="roomEndTime"
+          value={editValues.roomEndTime}
+          onChange={date => handleTimeChange(date, "roomEndTime")}
           KeyboardButtonProps={{
             "aria-label": "change time"
           }}
@@ -102,11 +82,11 @@ const EditPresenter = () => {
         />
       </MuiPickersUtilsProvider>
       <TextField
-        id="standard-number"
         label="수용 인원"
         required
-        value={values.minPerson}
-        onChange={handleChange("minPerson")}
+        name="minPerson"
+        value={editValues.minPerson}
+        onChange={handleInputChange}
         type="number"
         InputLabelProps={{
           shrink: true
@@ -115,12 +95,12 @@ const EditPresenter = () => {
         className={classes.title}
       />
       <TextField
-        id="standard-name"
         label="위치"
-        value={values.name}
         fullWidth
         required
-        onChange={handleChange("roomTitle")}
+        name="location"
+        value={editValues.location}
+        onChange={handleInputChange}
         margin="normal"
         InputLabelProps={{ shrink: true }}
         className={classes.title}
@@ -128,8 +108,8 @@ const EditPresenter = () => {
       <Button
         variant="contained"
         className={classes.button}
-        type="submit"
         color="primary"
+        onClick={handleRoomSubmit}
       >
         Submit
       </Button>

@@ -94,7 +94,7 @@ const GroupContainer = () => {
 
   const [updateGroup] = useMutation(UPDATE_GROUP, {
     onCompleted: data => {
-      alert("수정 되었습니다.");
+      alert("수정되었습니다.");
       // console.log("UPDATE_GROUP completed!! ", data);
     },
     onError: err => {
@@ -105,7 +105,7 @@ const GroupContainer = () => {
   const [deleteGroup] = useMutation(DELETE_GROUP, {
     onCompleted: data => {
       // console.log("deleteGroup", data);
-      alert("삭제 되었습니다.");
+      alert("삭제되었습니다.");
       setGroupId("delete");
       setInputEdit();
     },

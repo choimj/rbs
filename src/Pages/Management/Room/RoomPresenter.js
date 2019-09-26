@@ -1,7 +1,6 @@
 import React from "react";
 import ListContents from "./ListContents";
 import EditContainer from "./EditContainer";
-
 import { makeStyles } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -12,6 +11,7 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Fab from "@material-ui/core/Fab";
 import TitleBar from "../../../Components/TitleBar";
 import AddIcon from "@material-ui/icons/Add";
+import DialogBox from "../../../Components/DialogBox";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -36,7 +36,17 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const RoomPresenter = () => {
+const RoomPresenter = ({
+  dialogOpen,
+  room,
+  setRoom,
+  editValues,
+  setEditValues,
+  handleAddRoom,
+  handleRoomEditClick,
+  handleRoomDeleteClick,
+  handleConfirm
+}) => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -52,23 +62,39 @@ const RoomPresenter = () => {
                     title="회의실 추가"
                     aria-label="add"
                     className={classes.tooltip}
+                    onClick={handleAddRoom}
                   >
                     <Fab color="primary" className={classes.fab}>
                       <AddIcon />
                     </Fab>
                   </Tooltip>
-                  <ListContents />
+                  <ListContents
+                    room={room}
+                    setRoom={setRoom}
+                    handleRoomEditClick={handleRoomEditClick}
+                    handleRoomDeleteClick={handleRoomDeleteClick}
+                  />
                 </Paper>
               </Grid>
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
-                  <EditContainer />
+                  <EditContainer
+                    setRoom={setRoom}
+                    editValues={editValues}
+                    setEditValues={setEditValues}
+                  />
                 </Paper>
               </Grid>
             </Grid>
           </div>
         </Typography>
       </Container>
+      <DialogBox
+        open={dialogOpen}
+        title="정말로 삭제하시겠습니까?"
+        text="삭제 시 복구가 불가합니다."
+        handleConfirm={handleConfirm}
+      />
     </React.Fragment>
   );
 };
