@@ -7,11 +7,13 @@ import { GET_CATEGORY, GET_USERS, DELETE_CATEGORY } from "./Query";
 const CategoryContainer = () => {
   const [category, setCategory] = useState({});
   const [editValues, setEditValues] = useState({
+    groupId: "",
+    groupName: "",
     categoryId: "",
     categoryName: "",
     participants: []
   });
-  const [users, setUsers] = useState({});
+
   const [dialogOpen, setDialogOpen] = useState(false);
 
   const [deleteCategory] = useMutation(DELETE_CATEGORY, {
@@ -25,38 +27,10 @@ const CategoryContainer = () => {
     }
   });
 
-  useQuery(GET_CATEGORY, {
-    variables: {
-      id: editValues.categoryId
-    },
-    onCompleted: data => {
-      if (data.category) {
-        const { id, name, categoryParticipants } = data.category;
-        setEditValues({
-          ...editValues,
-          categoryId: id,
-          categoryName: name,
-          participants: categoryParticipants
-        });
-      }
-    },
-    onError: err => {
-      console.log("error !!", err);
-    }
-  });
-  useQuery(GET_USERS, {
-    onCompleted: data => {
-      setUsers(data.users);
-    }
-  });
-
-  const handleAddCategory = e => {
-    e.preventDefault();
-    setInputEdit();
-  };
-
   const setInputEdit = () => {
     setEditValues({
+      groupId: "",
+      groupName: "",
       categoryId: "",
       categoryName: "",
       participants: []
@@ -68,12 +42,8 @@ const CategoryContainer = () => {
     setEditValues({ ...editValues, categoryId: id });
   };
 
-  const handleCategoryDeleteClick = (e, id) => {
+  const handleCategoryDeleteClick = e => {
     e.preventDefault();
-    setEditValues({
-      ...editValues,
-      categoryId: id
-    });
     setDialogOpen(true);
   };
 
@@ -82,9 +52,7 @@ const CategoryContainer = () => {
       setDialogOpen(false);
       const opts = {
         variables: {
-          data: {
-            id: editValues.categoryId
-          }
+          id: editValues.categoryId
         }
       };
       deleteCategory(opts);
@@ -93,19 +61,29 @@ const CategoryContainer = () => {
     }
   };
 
+  const handleGroupClick = (e, groupId) => {
+    e.preventDefault();
+    setEditValues({
+      ...editValues,
+      groupId: groupId,
+      categoryId: "",
+      categoryName: "",
+      participants: []
+    });
+  };
+
   return (
     <>
       <CategoryPresenter
-        users={users}
         category={category}
         setCategory={setCategory}
         editValues={editValues}
         setEditValues={setEditValues}
-        handleAddCategory={handleAddCategory}
         handleCategoryEditClick={handleCategoryEditClick}
         handleCategoryDeleteClick={handleCategoryDeleteClick}
         handleConfirm={handleConfirm}
         dialogOpen={dialogOpen}
+        handleGroupClick={handleGroupClick}
       />
     </>
   );

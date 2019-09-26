@@ -5,12 +5,9 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fab from "@material-ui/core/Fab";
 import ListContents from "./ListContents";
 import EditContainer from "./EditContainer";
 import TitleBar from "../../../Components/TitleBar";
-import AddIcon from "@material-ui/icons/Add";
 import DialogBox from "../../../Components/DialogBox";
 
 const useStyles = makeStyles(theme => ({
@@ -27,7 +24,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    minHeight: "70vh"
+    minHeight: "73vh"
   },
   tooltip: {
     width: "46px",
@@ -38,15 +35,16 @@ const useStyles = makeStyles(theme => ({
 
 const CategoryPresenter = ({
   users,
+  setUsers,
   category,
   setCategory,
   editValues,
   setEditValues,
-  handleAddCategory,
   handleCategoryEditClick,
   handleCategoryDeleteClick,
   handleConfirm,
-  dialogOpen
+  dialogOpen,
+  handleGroupClick
 }) => {
   const classes = useStyles();
   return (
@@ -59,20 +57,11 @@ const CategoryPresenter = ({
               <TitleBar title="카테고리 관리" />
               <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
-                  <Tooltip
-                    title="카테고리 등록"
-                    aria-label="add"
-                    className={classes.tooltip}
-                    onClick={handleAddCategory}
-                  >
-                    <Fab color="primary" className={classes.fab}>
-                      <AddIcon />
-                    </Fab>
-                  </Tooltip>
                   <ListContents
                     category={category}
                     handleCategoryEditClick={handleCategoryEditClick}
                     handleCategoryDeleteClick={handleCategoryDeleteClick}
+                    handleGroupClick={handleGroupClick}
                   />
                 </Paper>
               </Grid>
@@ -80,10 +69,12 @@ const CategoryPresenter = ({
                 <Paper className={classes.paper}>
                   <EditContainer
                     users={users}
+                    setUsers={setUsers}
                     category={category}
                     editValues={editValues}
                     setEditValues={setEditValues}
                     setCategory={setCategory}
+                    handleCategoryDeleteClick={handleCategoryDeleteClick}
                   />
                 </Paper>
               </Grid>

@@ -1,14 +1,73 @@
 import React, { useState } from "react";
 import EditPresenter from "./EditPresenter";
-import { useMutation } from "react-apollo";
+import { useQuery, useMutation } from "react-apollo";
 import {
+  GET_GROUP,
+  GET_CATEGORY,
   CREATE_CATEGORY,
   CREATE_CATEGORY_PARTICIPANT,
   UPDATE_CATEGORY
 } from "./Query";
 
-const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
+const EditContainer = ({
+  category,
+  editValues,
+  setEditValues,
+  setCategory,
+  handleCategoryDeleteClick
+}) => {
+  const [users, setUsers] = useState({});
   const [selectParticipantOption, setSelectParticipantOption] = useState([]);
+
+  useQuery(GET_GROUP, {
+    variables: {
+      id: editValues.groupId
+    },
+    onCompleted: data => {
+      if (data.group) {
+        const { id, name, groupParticipants } = data.group;
+        let tmpParticipants = [];
+        if (groupParticipants.length > 0) {
+          groupParticipants.forEach(element => {
+            tmpParticipants = [...tmpParticipants, element.userId];
+          });
+        }
+        setUsers(tmpParticipants);
+        setEditValues({
+          ...editValues,
+          groupId: id,
+          groupName: name,
+          categoryId: "",
+          categoryName: "",
+          participants: []
+        });
+      }
+    },
+    onError: err => {
+      console.log("GET_GROUP error !!", err);
+    }
+  });
+
+  useQuery(GET_CATEGORY, {
+    variables: {
+      id: editValues.categoryId
+    },
+    onCompleted: data => {
+      if (data.category) {
+        const { id, name, categoryParticipants } = data.category;
+        setCategory(data.category);
+        setEditValues({
+          ...editValues,
+          categoryId: id,
+          categoryName: name,
+          participants: categoryParticipants
+        });
+      }
+    },
+    onError: err => {
+      console.log("error !!", err);
+    }
+  });
 
   const [createCategory] = useMutation(CREATE_CATEGORY, {
     onCompleted: data => {
@@ -54,7 +113,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
   });
 
   const handleCategorySubmit = e => {
-    const { categoryId, categoryName } = editValues;
+    const { groupId, categoryId, categoryName } = editValues;
     const opts = {};
     let action = "";
     let tmpParticipants = [];
@@ -86,6 +145,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
       action = "create";
       opts.variables = {
         data: {
+          groupId: groupId,
           name: categoryName
         }
       };
@@ -116,6 +176,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
   return (
     <EditPresenter
       users={users}
+      category={category}
       editValues={editValues}
       setEditValues={setEditValues}
       handleCategorySubmit={handleCategorySubmit}
@@ -123,6 +184,7 @@ const EditContainer = ({ users, editValues, setEditValues, setCategory }) => {
       selectParticipantOption={selectParticipantOption}
       setSelectParticipantOption={setSelectParticipantOption}
       handleSelectChange={handleSelectChange}
+      handleCategoryDeleteClick={handleCategoryDeleteClick}
     />
   );
 };

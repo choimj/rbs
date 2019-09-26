@@ -2,9 +2,13 @@ import gql from "graphql-tag";
 
 export const GET_CATEGORIES = gql`
   query getCategories {
-    categories {
+    groups {
       id
       name
+      categories {
+        id
+        name
+      }
     }
   }
 `;
@@ -14,6 +18,28 @@ export const GET_CATEGORY = gql`
       id
       name
       categoryParticipants {
+        userId {
+          value: id
+          label: name
+        }
+      }
+    }
+  }
+`;
+export const GET_GROUPS = gql`
+  query getGroups {
+    groups {
+      id
+      name
+    }
+  }
+`;
+export const GET_GROUP = gql`
+  query getGroup($id: ID) {
+    group(id: $id) {
+      id
+      name
+      groupParticipants {
         userId {
           value: id
           label: name
@@ -63,8 +89,8 @@ export const UPDATE_CATEGORY = gql`
 `;
 
 export const DELETE_CATEGORY = gql`
-  mutation deleteCategory($data: CategoryWhereUniqueInput!) {
-    deleteCategory(data: $data) {
+  mutation deleteCategory($id: ID!) {
+    deleteCategory(id: $id) {
       id
       name
     }
