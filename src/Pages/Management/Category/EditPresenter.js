@@ -30,7 +30,6 @@ const useStyles = makeStyles(theme => ({
     fontSize: "20px"
   },
   group: {
-    color: "#3f51b5",
     fontSize: "12px",
     textAlign: "left",
     "& > div": {
@@ -75,7 +74,6 @@ const EditPresenter = ({
         <TextField
           name="groupName"
           value={editValues.groupName}
-          onChange={handleChange}
           margin="normal"
           InputProps={{
             readOnly: true

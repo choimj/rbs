@@ -1,40 +1,37 @@
 import React, { useMemo } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import List from "@material-ui/core/List";
-import ListItem from "@material-ui/core/ListItem";
-import ListItemAvatar from "@material-ui/core/ListItemAvatar";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Avatar from "@material-ui/core/Avatar";
-import IconButton from "@material-ui/core/IconButton";
-import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
+import TreeView from "@material-ui/lab/TreeView";
+import Label from "@material-ui/icons/Label";
+import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowRightIcon from "@material-ui/icons/ArrowRight";
+import StyledTreeItem from "../../../Components/StyledTreeItem";
 import Grid from "@material-ui/core/Grid";
-import EditIcon from "@material-ui/icons/Edit";
-import DeleteIcon from "@material-ui/icons/Delete";
+import CategoryIcon from "@material-ui/icons/Category";
+import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
 
 import { useQuery } from "react-apollo";
 import { GET_ROOMS } from "./Query";
 
 const useStyles = makeStyles(theme => ({
+  container: {
+    padding: "15px 0"
+  },
   root: {
     flexGrow: 1,
     maxWidth: 752,
     maxHeight: "60vh",
     position: "relative",
-    overflow: "auto"
-  },
-  avatar: {
-    minWidth: "50px"
-  },
-  listItem: {
-    paddingRight: "70px"
-  },
-  button: {
-    padding: "7px"
+    overflow: "auto",
+    textAlign: "left"
   }
 }));
 
-const ListContents = ({ room, handleRoomEditClick, handleRoomDeleteClick }) => {
+const ListContents = ({
+  room,
+  handleGroupClick,
+  handleCategoryClick,
+  handleRoomClick
+}) => {
   const classes = useStyles();
 
   const { data, refetch } = useQuery(GET_ROOMS, {
@@ -49,46 +46,71 @@ const ListContents = ({ room, handleRoomEditClick, handleRoomDeleteClick }) => {
 
   return (
     <Grid item xs={12}>
-      <div className={classes.root}>
-        <List dense={true}>
-          {data ? (
-            data.rooms ? (
-              data.rooms.map(item => (
-                <ListItem className={classes.listItem} key={item.id}>
-                  <ListItemAvatar className={classes.avatar}>
-                    <Avatar>
-                      <MeetingRoomIcon />
-                    </Avatar>
-                  </ListItemAvatar>
-                  <ListItemText primary={item.name} />
-                  <ListItemSecondaryAction>
-                    <IconButton
-                      edge="end"
-                      aria-label="edit"
-                      className={classes.button}
-                      onClick={e => handleRoomEditClick(e, item.id)}
-                    >
-                      <EditIcon />
-                    </IconButton>
-                    <IconButton
-                      edge="end"
-                      aria-label="delete"
-                      id={item.id}
-                      className={classes.button}
-                      onClick={e => handleRoomDeleteClick(e, item.id)}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </ListItemSecondaryAction>
-                </ListItem>
-              ))
-            ) : (
-              ""
-            )
+      <div className={classes.container}>
+        {data ? (
+          data.groups ? (
+            <TreeView
+              className={classes.root}
+              defaultCollapseIcon={<ArrowDropDownIcon />}
+              defaultExpandIcon={<ArrowRightIcon />}
+              defaultEndIcon={<div style={{ width: 24 }} />}
+            >
+              {data.groups.map((item, i) =>
+                item.categories.length > 0 ? (
+                  <StyledTreeItem
+                    key={item.id}
+                    nodeId={String(i)}
+                    labelText={item.name}
+                    labelIcon={Label}
+                    onClick={e => handleGroupClick(e, item.id)}
+                  >
+                    {item.categories.map((cItem, j) =>
+                      cItem.rooms.length > 0 ? (
+                        <StyledTreeItem
+                          key={cItem.id}
+                          nodeId={"c" + j}
+                          labelText={cItem.name}
+                          labelIcon={CategoryIcon}
+                          onClick={e => handleCategoryClick(e, cItem.id)}
+                        >
+                          {cItem.rooms.map((rItem, k) => (
+                            <StyledTreeItem
+                              key={"r" + k}
+                              nodeId={"r" + k}
+                              labelText={rItem.name}
+                              labelIcon={MeetingRoomIcon}
+                              onClick={e => handleRoomClick(e, rItem.id)}
+                            />
+                          ))}
+                        </StyledTreeItem>
+                      ) : (
+                        <StyledTreeItem
+                          key={cItem.id}
+                          nodeId={"c" + j}
+                          labelText={cItem.name}
+                          labelIcon={CategoryIcon}
+                          onClick={e => handleCategoryClick(e, cItem.id)}
+                        />
+                      )
+                    )}
+                  </StyledTreeItem>
+                ) : (
+                  <StyledTreeItem
+                    key={item.id}
+                    nodeId={String(i)}
+                    labelText={item.name}
+                    labelIcon={Label}
+                    onClick={e => handleGroupClick(e, item.id)}
+                  />
+                )
+              )}
+            </TreeView>
           ) : (
-            <ListItem className={classes.listItem}>No Data</ListItem>
-          )}
-        </List>
+            ""
+          )
+        ) : (
+          ""
+        )}
       </div>
     </Grid>
   );

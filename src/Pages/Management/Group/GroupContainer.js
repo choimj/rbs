@@ -95,7 +95,6 @@ const GroupContainer = () => {
   const [updateGroup] = useMutation(UPDATE_GROUP, {
     onCompleted: data => {
       alert("수정되었습니다.");
-      // console.log("UPDATE_GROUP completed!! ", data);
     },
     onError: err => {
       console.log("UPDATE_GROUP error!! ", err);
@@ -104,7 +103,6 @@ const GroupContainer = () => {
 
   const [deleteGroup] = useMutation(DELETE_GROUP, {
     onCompleted: data => {
-      // console.log("deleteGroup", data);
       alert("삭제되었습니다.");
       setGroupId("delete");
       setInputEdit();
@@ -150,9 +148,9 @@ const GroupContainer = () => {
 
     if (!groupName || groupName === "") {
       alert("그룹 명을 입력하세요.");
+    } else {
+      submitAction(action, opts);
     }
-
-    submitAction(action, opts);
   };
 
   const submitAction = (action, opts) => {
@@ -180,9 +178,7 @@ const GroupContainer = () => {
       setDialogOpen(false);
       const opts = {
         variables: {
-          data: {
-            id: editValues.groupId
-          }
+          id: groupId
         }
       };
       deleteGroup(opts);

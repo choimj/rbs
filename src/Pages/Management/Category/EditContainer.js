@@ -176,9 +176,7 @@ const EditContainer = ({
   return (
     <EditPresenter
       users={users}
-      category={category}
       editValues={editValues}
-      setEditValues={setEditValues}
       handleCategorySubmit={handleCategorySubmit}
       handleChange={handleChange}
       selectParticipantOption={selectParticipantOption}

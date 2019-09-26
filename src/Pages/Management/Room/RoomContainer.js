@@ -8,6 +8,10 @@ const RoomContainer = () => {
   const [room, setRoom] = useState({});
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editValues, setEditValues] = useState({
+    groupId: "",
+    groupName: "",
+    categoryId: "",
+    categoryName: "",
     roomId: "",
     roomName: "",
     roomStartTime: curDate,
@@ -29,6 +33,10 @@ const RoomContainer = () => {
 
   const setInputEdit = () => {
     setEditValues({
+      groupId: "",
+      groupName: "",
+      categoryId: "",
+      categoryName: "",
       roomId: "",
       roomName: "",
       roomStartTime: curDate,
@@ -38,22 +46,8 @@ const RoomContainer = () => {
     });
   };
 
-  const handleAddRoom = e => {
-    e.preventDefault();
-    setInputEdit();
-  };
-
-  const handleRoomEditClick = (e, id) => {
-    e.preventDefault();
-    setEditValues({ ...editValues, roomId: id });
-  };
-
   const handleRoomDeleteClick = (e, id) => {
     e.preventDefault();
-    setEditValues({
-      ...editValues,
-      roomId: id
-    });
     setDialogOpen(true);
   };
 
@@ -71,6 +65,47 @@ const RoomContainer = () => {
     }
   };
 
+  const handleGroupClick = (e, groupId) => {
+    e.preventDefault();
+
+    setEditValues({
+      ...editValues,
+      groupId: groupId,
+      groupName: "",
+      categoryId: "",
+      categoryName: "",
+      roomId: "",
+      roomName: "",
+      roomStartTime: curDate,
+      roomEndTime: curDate,
+      minPerson: 0,
+      location: ""
+    });
+  };
+
+  const handleCategoryClick = (e, categoryId) => {
+    e.preventDefault();
+    setEditValues({
+      ...editValues,
+      categoryId: categoryId,
+      roomId: "",
+      roomName: "",
+      roomStartTime: curDate,
+      roomEndTime: curDate,
+      minPerson: 0,
+      location: ""
+    });
+  };
+
+  const handleRoomClick = (e, roomId) => {
+    e.preventDefault();
+    setEditValues({
+      ...editValues,
+      roomId: roomId,
+      participants: []
+    });
+  };
+
   return (
     <RoomPresenter
       dialogOpen={dialogOpen}
@@ -78,10 +113,11 @@ const RoomContainer = () => {
       setRoom={setRoom}
       editValues={editValues}
       setEditValues={setEditValues}
-      handleAddRoom={handleAddRoom}
-      handleRoomEditClick={handleRoomEditClick}
       handleRoomDeleteClick={handleRoomDeleteClick}
       handleConfirm={handleConfirm}
+      handleGroupClick={handleGroupClick}
+      handleCategoryClick={handleCategoryClick}
+      handleRoomClick={handleRoomClick}
     />
   );
 };

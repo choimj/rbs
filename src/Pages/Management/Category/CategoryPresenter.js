@@ -34,8 +34,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const CategoryPresenter = ({
-  users,
-  setUsers,
   category,
   setCategory,
   editValues,
@@ -60,7 +58,6 @@ const CategoryPresenter = ({
                   <ListContents
                     category={category}
                     handleCategoryEditClick={handleCategoryEditClick}
-                    handleCategoryDeleteClick={handleCategoryDeleteClick}
                     handleGroupClick={handleGroupClick}
                   />
                 </Paper>
@@ -68,8 +65,6 @@ const CategoryPresenter = ({
               <Grid item xs={12} sm={8}>
                 <Paper className={classes.paper}>
                   <EditContainer
-                    users={users}
-                    setUsers={setUsers}
                     category={category}
                     editValues={editValues}
                     setEditValues={setEditValues}

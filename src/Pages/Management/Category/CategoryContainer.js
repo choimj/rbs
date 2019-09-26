@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import CategoryPresenter from "./CategoryPresenter";
 
-import { useQuery, useMutation } from "react-apollo";
-import { GET_CATEGORY, GET_USERS, DELETE_CATEGORY } from "./Query";
+import { useMutation } from "react-apollo";
+import { DELETE_CATEGORY } from "./Query";
 
 const CategoryContainer = () => {
   const [category, setCategory] = useState({});

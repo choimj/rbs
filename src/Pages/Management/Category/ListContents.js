@@ -6,12 +6,9 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import StyledTreeItem from "./StyledTreeItem";
 import Grid from "@material-ui/core/Grid";
-import IconButton from "@material-ui/core/IconButton";
 import CategoryIcon from "@material-ui/icons/Category";
-import DeleteIcon from "@material-ui/icons/Delete";
 import { useQuery } from "react-apollo";
 import { GET_CATEGORIES } from "./Query";
-import SvgIcon from "@material-ui/core/SvgIcon";
 
 const useStyles = makeStyles({
   container: {
@@ -20,9 +17,7 @@ const useStyles = makeStyles({
   root: {
     height: 264,
     flexGrow: 1,
-    maxWidth: 400
-  },
-  treeItem: {
+    maxWidth: 400,
     textAlign: "left"
   }
 });
@@ -57,7 +52,6 @@ const ListContents = ({
               defaultCollapseIcon={<ArrowDropDownIcon />}
               defaultExpandIcon={<ArrowRightIcon />}
               defaultEndIcon={<div style={{ width: 24 }} />}
-              className={classes.treeItem}
             >
               {data.groups.map((item, i) =>
                 item.categories.length > 0 ? (

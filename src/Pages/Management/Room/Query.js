@@ -2,13 +2,20 @@ import gql from "graphql-tag";
 
 export const GET_ROOMS = gql`
   query getRooms {
-    rooms {
+    groups {
       id
       name
+      categories {
+        id
+        name
+        rooms {
+          id
+          name
+        }
+      }
     }
   }
 `;
-
 export const GET_ROOM = gql`
   query getRoom($id: ID) {
     room(id: $id) {
@@ -18,6 +25,26 @@ export const GET_ROOM = gql`
       endTime
       minPerson
       location
+      groupId {
+        id
+        name
+      }
+      categoryId {
+        id
+        name
+      }
+    }
+  }
+`;
+export const GET_CATEGORY = gql`
+  query getCategory($id: ID) {
+    category(id: $id) {
+      id
+      name
+      groupId {
+        id
+        name
+      }
     }
   }
 `;

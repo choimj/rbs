@@ -7,10 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
-import Tooltip from "@material-ui/core/Tooltip";
-import Fab from "@material-ui/core/Fab";
 import TitleBar from "../../../Components/TitleBar";
-import AddIcon from "@material-ui/icons/Add";
 import DialogBox from "../../../Components/DialogBox";
 
 const useStyles = makeStyles(theme => ({
@@ -42,10 +39,11 @@ const RoomPresenter = ({
   setRoom,
   editValues,
   setEditValues,
-  handleAddRoom,
-  handleRoomEditClick,
   handleRoomDeleteClick,
-  handleConfirm
+  handleConfirm,
+  handleGroupClick,
+  handleCategoryClick,
+  handleRoomClick
 }) => {
   const classes = useStyles();
   return (
@@ -58,21 +56,11 @@ const RoomPresenter = ({
               <TitleBar title="회의실 관리" />
               <Grid item xs={12} sm={4}>
                 <Paper className={classes.paper}>
-                  <Tooltip
-                    title="회의실 추가"
-                    aria-label="add"
-                    className={classes.tooltip}
-                    onClick={handleAddRoom}
-                  >
-                    <Fab color="primary" className={classes.fab}>
-                      <AddIcon />
-                    </Fab>
-                  </Tooltip>
                   <ListContents
                     room={room}
-                    setRoom={setRoom}
-                    handleRoomEditClick={handleRoomEditClick}
-                    handleRoomDeleteClick={handleRoomDeleteClick}
+                    handleGroupClick={handleGroupClick}
+                    handleCategoryClick={handleCategoryClick}
+                    handleRoomClick={handleRoomClick}
                   />
                 </Paper>
               </Grid>
@@ -82,6 +70,7 @@ const RoomPresenter = ({
                     setRoom={setRoom}
                     editValues={editValues}
                     setEditValues={setEditValues}
+                    handleRoomDeleteClick={handleRoomDeleteClick}
                   />
                 </Paper>
               </Grid>

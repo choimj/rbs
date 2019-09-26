@@ -1,16 +1,29 @@
 import React from "react";
 import EditPresenter from "./EditPresenter";
 import { useQuery, useMutation } from "react-apollo";
-import { GET_ROOM, CREATE_ROOM, UPDATE_ROOM } from "./Query";
+import { GET_ROOM, GET_CATEGORY, CREATE_ROOM, UPDATE_ROOM } from "./Query";
 
-const EditContainer = ({ setRoom, editValues, setEditValues }) => {
+const EditContainer = ({
+  setRoom,
+  editValues,
+  setEditValues,
+  handleRoomDeleteClick
+}) => {
   useQuery(GET_ROOM, {
     variables: {
       id: editValues.roomId
     },
     onCompleted: data => {
       if (data.room) {
-        const { name, startTime, endTime, minPerson, location } = data.room;
+        const {
+          name,
+          startTime,
+          endTime,
+          minPerson,
+          location,
+          groupId,
+          categoryId
+        } = data.room;
         const stArr = startTime.split(":");
         const etArr = endTime.split(":");
         const startDate = new Date("", "", "", stArr[0], stArr[1]);
@@ -21,9 +34,34 @@ const EditContainer = ({ setRoom, editValues, setEditValues }) => {
           roomStartTime: startDate,
           roomEndTime: endDate,
           minPerson: minPerson,
-          location: location ? location : ""
+          location: location ? location : "",
+          groupId: groupId.id,
+          groupName: groupId.name,
+          categoryId: categoryId.id,
+          categoryName: categoryId.name
         });
       }
+    }
+  });
+
+  useQuery(GET_CATEGORY, {
+    variables: {
+      id: editValues.categoryId
+    },
+    onCompleted: data => {
+      if (data.category) {
+        const { id, name, groupId } = data.category;
+        setEditValues({
+          ...editValues,
+          categoryId: id,
+          categoryName: name,
+          groupId: groupId.id,
+          groupName: groupId.name
+        });
+      }
+    },
+    onError: err => {
+      console.log("error !!", err);
     }
   });
 
@@ -56,7 +94,9 @@ const EditContainer = ({ setRoom, editValues, setEditValues }) => {
       roomStartTime,
       roomEndTime,
       minPerson,
-      location
+      location,
+      groupId,
+      categoryId
     } = editValues;
     const opts = {};
     const startTime = new Date(roomStartTime).toTimeString().substring(0, 5);
@@ -74,11 +114,11 @@ const EditContainer = ({ setRoom, editValues, setEditValues }) => {
 
     if (roomId && roomId !== "") {
       //수정
-
       updateRoom(opts);
     } else {
       //생성
-
+      opts.variables.data.groupId = groupId;
+      opts.variables.data.categoryId = categoryId;
       createRoom(opts);
     }
   };
@@ -93,10 +133,10 @@ const EditContainer = ({ setRoom, editValues, setEditValues }) => {
   return (
     <EditPresenter
       editValues={editValues}
-      setEditValues={setEditValues}
       handleInputChange={handleInputChange}
       handleRoomSubmit={handleRoomSubmit}
       handleTimeChange={handleTimeChange}
+      handleRoomDeleteClick={handleRoomDeleteClick}
     />
   );
 };

@@ -67,8 +67,8 @@ export const UPDATE_GROUP = gql`
 `;
 
 export const DELETE_GROUP = gql`
-  mutation deleteGroup($data: GroupWhereUniqueInput!) {
-    deleteGroup(data: $data) {
+  mutation deleteGroup($id: ID!) {
+    deleteGroup(id: $id) {
       id
       name
     }
