@@ -14,21 +14,18 @@ export default [
     start: new Date(2019, 9, 7),
     end: new Date(2019, 9, 10)
   },
-
   {
     id: 2,
     title: "DTS STARTS",
     start: new Date(2019, 2, 13, 0, 0, 0),
     end: new Date(2019, 2, 20, 0, 0, 0)
   },
-
   {
     id: 9,
     title: "DTS ENDS",
     start: new Date(2019, 10, 6, 0, 0, 0),
     end: new Date(2019, 10, 13, 0, 0, 0)
   },
-
   {
     id: 4,
     title: "Some Event",
@@ -104,6 +101,18 @@ export default [
     title: "Today",
     start: new Date(new Date().setHours(new Date().getHours() - 9)),
     end: new Date(new Date().setHours(new Date().getHours() + 9))
+  },
+  {
+    id: 15,
+    title: "Point in Time Event",
+    start: now,
+    end: now
+  },
+  {
+    id: 15,
+    title: "Point in Time Event",
+    start: now,
+    end: now
   },
   {
     id: 15,

@@ -45,7 +45,7 @@ class BookingContainer extends React.Component {
 
   render() {
     const { compInfo, compCategoryList, compRoomList, match } = this.props;
-    console.log(match.params.path);
+    // console.log(match.params.path);
     switch (match.params.path) {
       case "step":
         return <Step />;
