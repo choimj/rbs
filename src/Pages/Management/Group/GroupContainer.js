@@ -138,10 +138,12 @@ const GroupContainer = () => {
       };
     } else {
       // 생성
+      const userId = localStorage.getItem("userId");
       action = "create";
       opts.variables = {
         data: {
-          name: groupName
+          name: groupName,
+          userId: userId
         }
       };
     }

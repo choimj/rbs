@@ -44,7 +44,7 @@ const useSideStyles = makeStyles(theme => ({
   }
 }));
 
-const Header = props => {
+const HeaderPresenter = props => {
   const headerClasses = useHeaderStyles();
   const sideClassed = useSideStyles();
   const { isLogin, handleLogout } = props;
@@ -128,4 +128,4 @@ const Header = props => {
   );
 };
 
-export default Header;
+export default HeaderPresenter;

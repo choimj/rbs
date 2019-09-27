@@ -142,20 +142,24 @@ const EditContainer = ({
       };
     } else {
       //생성
+      const userId = localStorage.getItem("userId");
       action = "create";
       opts.variables = {
         data: {
           groupId: groupId,
-          name: categoryName
+          name: categoryName,
+          userId: userId
         }
       };
     }
 
-    if (!categoryName || categoryName === "") {
+    if (!groupId || groupId === "") {
+      alert("그룹을 선택하세요.");
+    } else if (!categoryName || categoryName === "") {
       alert("카테고리 명을 입력하세요.");
+    } else {
+      submitAction(action, opts);
     }
-
-    submitAction(action, opts);
   };
 
   const submitAction = (action, opts) => {

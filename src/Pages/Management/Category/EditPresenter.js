@@ -92,7 +92,7 @@ const EditPresenter = ({
         className={classes.title}
       />
       <div className={classes.particiBox}>
-        <label>카테고리 멤버*</label>
+        <label>카테고리 멤버</label>
       </div>
       <InputChip
         participants={editValues.participants}

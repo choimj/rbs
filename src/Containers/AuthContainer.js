@@ -28,9 +28,7 @@ class AuthContainer extends React.Component {
   };
 
   googleOauthLogin = () => {
-    // window.location.href = "http://localhost:4000/auth/google";
     const url = process.env.REACT_APP_HEROKU_URL + "/auth/google";
-    // const url = process.env.REACT_APP_LOCAL_URL + ":5000/auth/google";
     window.location.href = url;
   };
 
@@ -49,14 +47,14 @@ class AuthContainer extends React.Component {
       /**
        * jwt token 발급
        */
-      // const url = "http://localhost:4000/auth/jwt";
       const url = process.env.REACT_APP_HEROKU_URL + "/auth/jwt";
       fetch(url, obj)
         .then(response => response.json())
         .then(json => {
-          const { flag, jwtToken } = json;
+          const { flag, jwtToken, user } = json;
           if (flag) {
             localStorage.setItem("jwtToken", jwtToken);
+            localStorage.setItem("userId", user.user.id);
             window.location.href = "/main";
           }
         })

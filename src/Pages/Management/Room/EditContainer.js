@@ -112,14 +112,24 @@ const EditContainer = ({
       }
     };
 
-    if (roomId && roomId !== "") {
-      //수정
-      updateRoom(opts);
+    if (!groupId || groupId === "") {
+      alert("그룹을 선택하세요.");
+    } else if (!categoryId || categoryId === "") {
+      alert("카테고리를 선택하세요.");
+    } else if (!roomName || roomName === "") {
+      alert("회의실명을 입력하세요.");
     } else {
-      //생성
-      opts.variables.data.groupId = groupId;
-      opts.variables.data.categoryId = categoryId;
-      createRoom(opts);
+      if (roomId && roomId !== "") {
+        //수정
+        updateRoom(opts);
+      } else {
+        //생성
+        const userId = localStorage.getItem("userId");
+        opts.variables.data.groupId = groupId;
+        opts.variables.data.categoryId = categoryId;
+        opts.variables.data.userId = userId;
+        createRoom(opts);
+      }
     }
   };
 

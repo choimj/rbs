@@ -1,7 +1,7 @@
 import React from "react";
-import GroupContainer from "./Group/GroupContainer";
-import CategoryContainer from "./Category/CategoryContainer";
-import RoomContainer from "./Room/RoomContainer";
+import GroupContainer from "./Group";
+import CategoryContainer from "./Category";
+import RoomContainer from "./Room";
 import BookForm from "./BookForm";
 
 const Management = ({ match }) => {

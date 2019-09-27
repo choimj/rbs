@@ -1,6 +1,7 @@
 import React from "react";
 import Status from "./Status";
 import Step from "./Step";
+import MonthContainer from "./Status/Month";
 
 class BookingContainer extends React.Component {
   state = {
@@ -44,9 +45,12 @@ class BookingContainer extends React.Component {
 
   render() {
     const { compInfo, compCategoryList, compRoomList, match } = this.props;
+    console.log(match.params.path);
     switch (match.params.path) {
       case "step":
         return <Step />;
+      case "month":
+        return <MonthContainer />;
       default:
         return (
           <Status

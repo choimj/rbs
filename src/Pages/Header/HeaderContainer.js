@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
-import Header from "./Header";
+import HeaderPresenter from "./HeaderPresenter";
 import * as authActions from "../../Store/Modules/Auth";
 
 import dotenv from "dotenv";
@@ -10,6 +10,7 @@ class HeaderContainer extends React.Component {
   componentDidMount = async () => {
     const { location, history } = this.props;
     const jwtToken = localStorage.getItem("jwtToken");
+    // console.log(localStorage.getItem("userId"));
     if (jwtToken) {
       await authActions.checkUserSuccess();
     }
@@ -37,7 +38,9 @@ class HeaderContainer extends React.Component {
         fetch(url, obj)
           .then(response => response.json())
           .then(json => {
-            // console.log("fetch Result >>> ", json);
+            // console.log(json);
+            const { user } = json;
+            localStorage.setItem("userId", user.id);
           })
           .catch(err => {
             console.log(err);
@@ -69,7 +72,7 @@ class HeaderContainer extends React.Component {
   render() {
     const jwtToken = localStorage.getItem("jwtToken");
     return (
-      <Header
+      <HeaderPresenter
         isLogin={jwtToken ? true : false}
         handleLogout={this.handleLogout}
       />
