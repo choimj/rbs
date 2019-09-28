@@ -1,22 +1,23 @@
 import React, { useState } from "react";
+import * as Utils from "../../../../Utils/Date";
 import MonthPresenter from "./MonthPresenter";
-// import events from "./events";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_BOOKINGS } from "./Query";
 
 const MonthContainer = () => {
+  // const curDate = new Date();
   const [state, setState] = useState({ events: [] });
   const [editValues, setEditValues] = useState({
     groupId: "",
     categoryId: "",
     bookingId: "",
     bookingTitle: "",
-    bookingDate: "",
-    bookingStartTime: "",
-    bookingEndTime: "",
+    bookingDate: new Date(),
+    bookingStartTime: new Date(),
+    bookingEndTime: Utils.getAfterDate("h", new Date(), 1),
     bookingDepartment: "",
     bookingName: "",
-    bookingParticipants: [],
+    participants: [],
     bookingCreateUser: ""
   });
 
@@ -81,7 +82,6 @@ const MonthContainer = () => {
   };
 
   const handleClickEvent = ele => {
-    console.log(ele.id);
     setEditValues({
       ...editValues,
       bookingId: ele.id

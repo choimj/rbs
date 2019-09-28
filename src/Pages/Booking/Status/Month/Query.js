@@ -23,3 +23,37 @@ export const GET_BOOKINGS = gql`
     }
   }
 `;
+export const GET_BOOKING = gql`
+  query getBooking($id: ID) {
+    booking(id: $id) {
+      id
+      title
+      date
+      startTime
+      endTime
+      department
+      name
+      bookingParticipants {
+        value: id
+        label: name
+      }
+      groupId {
+        id
+        name
+      }
+      categoryId {
+        id
+        name
+        categoryParticipants {
+          value: id
+          label: name
+        }       
+      }
+      createUser {
+        id
+        name
+      }
+    }
+  }
+`;
+

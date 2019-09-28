@@ -35,16 +35,17 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const EditPresenter = ({
+  users,
   editValues,
-  selectedDate,
-  handleDateChange,
-  handleChange
+  handleChange,
+  handleTimeChange,
+  selectParticipantOption,
+  setSelectParticipantOption,
+  handleSelectChange,
 }) => {
   const classes = useStyles();
-  console.log(editValues);
   return (
     <React.Fragment>
-      <TitleBar title="시간 선택" />
       <Paper className={classes.paper}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <Grid container justify="space-around">
@@ -54,8 +55,9 @@ const EditPresenter = ({
               format="yyyy/MM/dd"
               margin="normal"
               label="일자"
-              value={selectedDate.date}
-              onChange={handleDateChange}
+              value={editValues.bookingDate}
+              name="bookingDate"
+              onChange={date => handleTimeChange(date, "bookingDate")}
               KeyboardButtonProps={{
                 "aria-label": "change date"
               }}
@@ -63,8 +65,9 @@ const EditPresenter = ({
             <KeyboardTimePicker
               margin="normal"
               label="시작시간"
-              value={selectedDate.startTime}
-              onChange={handleDateChange}
+              value={editValues.bookingStartTime}
+              name="bookingStartTime"
+              onChange={date => handleTimeChange(date, "bookingStartTime")}
               KeyboardButtonProps={{
                 "aria-label": "change time"
               }}
@@ -72,8 +75,9 @@ const EditPresenter = ({
             <KeyboardTimePicker
               margin="normal"
               label="종료시간"
-              value={selectedDate.endTime}
-              onChange={handleDateChange}
+              value={editValues.bookingEndTime}
+              name="bookingEndTime"
+              onChange={date => handleTimeChange(date, "bookingEndTime")}
               KeyboardButtonProps={{
                 "aria-label": "change time"
               }}
@@ -81,7 +85,6 @@ const EditPresenter = ({
           </Grid>
         </MuiPickersUtilsProvider>
       </Paper>
-      <TitleBar title="예약폼 작성" />
       <Paper className={classes.paper}>
         <TextField
           label="회의제목"
@@ -118,7 +121,9 @@ const EditPresenter = ({
         />
         <div className={classes.particiBox}>
           <label>참석자*</label>
-          {/* <InputChip /> */}
+          <InputChip users={users} participants={editValues.participants} selectParticipantOption={selectParticipantOption}
+        setSelectParticipantOption={setSelectParticipantOption}
+        handleSelectChange={handleSelectChange}/>
         </div>
       </Paper>
     </React.Fragment>
