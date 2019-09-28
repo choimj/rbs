@@ -51,10 +51,9 @@ class AuthContainer extends React.Component {
       fetch(url, obj)
         .then(response => response.json())
         .then(json => {
-          const { flag, jwtToken, user } = json;
+          const { flag, jwtToken } = json;
           if (flag) {
             localStorage.setItem("jwtToken", jwtToken);
-            localStorage.setItem("userId", user.user.id);
             window.location.href = "/main";
           }
         })
