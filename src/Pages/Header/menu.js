@@ -1,15 +1,15 @@
 export const loginMenu = [
   { title: "Home", url: "/main", sub: [] },
-  {
-    title: "예약",
-    url: "/book",
-    sub: [{ title: "예약", url: "/book/step" }]
-  },
+  // {
+  //   title: "예약",
+  //   url: "/book",
+  //   sub: [{ title: "예약", url: "/book/step" }]
+  // },
   {
     title: "예약 현황",
     url: "/book",
     sub: [
-      { title: "월별", url: "/book/month" }
+      { title: "캘린더", url: "/book/month" }
       // { title: "주별", url: "/book/week" },
       // { title: "일별", url: "/book/day" }
     ]

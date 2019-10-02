@@ -1,10 +1,67 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_BOOKINGS } from "./Query";
 
-const BigCalendar = ({ state, handleSelect, handleClickEvent }) => {
+const BigCalendar = ({
+  booking,
+  state,
+  setState,
+  handleClickEvent,
+  minDate
+}) => {
   const localizer = momentLocalizer(moment);
+
+  const { refetch } = useQuery(GET_BOOKINGS, {
+    onCompleted: data => {
+      if (data) {
+        if (data.bookings) {
+          let tmpEvents = [];
+          data.bookings.forEach(element => {
+            const dateArr = element.date.split("-");
+            const startTimeArr = element.startTime.split(":");
+            const endTimeArr = element.endTime.split(":");
+            tmpEvents = [
+              ...tmpEvents,
+              {
+                id: element.id,
+                title: element.title,
+                start: new Date(
+                  dateArr[0],
+                  Number(dateArr[1]) - 1,
+                  dateArr[2],
+                  startTimeArr[0],
+                  startTimeArr[1],
+                  0
+                ),
+                end: new Date(
+                  dateArr[0],
+                  Number(dateArr[1]) - 1,
+                  dateArr[2],
+                  endTimeArr[0],
+                  endTimeArr[1],
+                  0
+                )
+              }
+            ];
+          });
+          setState({
+            ...state,
+            events: tmpEvents
+          });
+        }
+      }
+    }
+  });
+
+  useMemo(() => {
+    if (booking) {
+      refetch();
+    }
+  }, [booking, refetch]);
+
   return (
     <div style={{ height: "70vh" }}>
       <Calendar
@@ -19,7 +76,7 @@ const BigCalendar = ({ state, handleSelect, handleClickEvent }) => {
         // onSelectSlot={handleSelect}
         onSelectEvent={handleClickEvent}
         // timeslots={1}
-        // min={new Date()}
+        min={minDate}
       />
     </div>
   );

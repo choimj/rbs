@@ -38,12 +38,10 @@ const CategoryContainer = () => {
   };
 
   const handleCategoryEditClick = (e, id) => {
-    e.preventDefault();
     setEditValues({ ...editValues, categoryId: id });
   };
 
   const handleCategoryDeleteClick = e => {
-    e.preventDefault();
     setDialogOpen(true);
   };
 

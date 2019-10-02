@@ -28,11 +28,15 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const MonthPresenter = ({
+  booking,
+  setBooking,
   state,
+  setState,
   editValues,
   setEditValues,
   handleSelect,
-  handleClickEvent
+  handleClickEvent,
+  minDate
 }) => {
   const classes = useStyles();
 
@@ -44,18 +48,22 @@ const MonthPresenter = ({
           <div className={classes.root}>
             <Grid container spacing={0}>
               <TitleBar title="예약 현황" />
-              <Grid item xs={12} sm={9}>
+              <Grid item xs={12} sm={9} lg={10}>
                 <Paper className={classes.paper}>
                   <BigCalendar
+                    booking={booking}
                     state={state}
+                    setState={setState}
                     handleSelect={handleSelect}
                     handleClickEvent={handleClickEvent}
+                    minDate={minDate}
                   />
                 </Paper>
               </Grid>
-              <Grid item xs={12} sm={3}>
+              <Grid item xs={12} sm={3} lg={2}>
                 <Paper className={classes.paper}>
                   <EditContainer
+                    setBooking={setBooking}
                     editValues={editValues}
                     setEditValues={setEditValues}
                   />

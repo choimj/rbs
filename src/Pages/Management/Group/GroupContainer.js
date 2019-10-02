@@ -16,7 +16,7 @@ const GroupContainer = () => {
   const [groupId, setGroupId] = useState("");
   const [groupItem, setGroupItem] = useState({});
   const [groupList, setGroupList] = useState({});
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([{}]);
   const [editValues, setEditValues] = useState({
     groupId: "",
     groupName: "",
@@ -45,11 +45,9 @@ const GroupContainer = () => {
   });
 
   const handleGroupEditClick = (e, id) => {
-    e.preventDefault();
     setGroupId(id);
   };
   const handleGroupDeleteClick = (e, id) => {
-    e.preventDefault();
     setGroupId(id);
     setDialogOpen(true);
   };

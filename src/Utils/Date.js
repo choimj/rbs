@@ -60,6 +60,7 @@ export const getAfterDate = (op, date, num) => {
     case "h":
       return new Date(date.setHours(date.getHours() + num));
     case "m":
+      return new Date(date.setMonth(date.getMonth() + num));
     case "s":
     default:
       return;

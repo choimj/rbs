@@ -16,7 +16,7 @@ const EditContainer = ({
   setCategory,
   handleCategoryDeleteClick
 }) => {
-  const [users, setUsers] = useState({});
+  const [users, setUsers] = useState([{}]);
   const [selectParticipantOption, setSelectParticipantOption] = useState([]);
 
   useQuery(GET_GROUP, {

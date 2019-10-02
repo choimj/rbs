@@ -66,8 +66,6 @@ const RoomContainer = () => {
   };
 
   const handleGroupClick = (e, groupId) => {
-    e.preventDefault();
-
     setEditValues({
       ...editValues,
       groupId: groupId,
@@ -84,7 +82,6 @@ const RoomContainer = () => {
   };
 
   const handleCategoryClick = (e, categoryId) => {
-    e.preventDefault();
     setEditValues({
       ...editValues,
       categoryId: categoryId,
@@ -98,7 +95,6 @@ const RoomContainer = () => {
   };
 
   const handleRoomClick = (e, roomId) => {
-    e.preventDefault();
     setEditValues({
       ...editValues,
       roomId: roomId,

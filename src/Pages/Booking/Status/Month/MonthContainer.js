@@ -1,66 +1,28 @@
 import React, { useState } from "react";
 import * as Utils from "../../../../Utils/Date";
 import MonthPresenter from "./MonthPresenter";
-import { useQuery } from "@apollo/react-hooks";
-import { GET_BOOKINGS } from "./Query";
 
 const MonthContainer = () => {
-  // const curDate = new Date();
+  const curDate = new Date();
+  const minDate = Utils.getAfterDate("m", new Date(), -1);
+  const [booking, setBooking] = useState([{}]);
   const [state, setState] = useState({ events: [] });
   const [editValues, setEditValues] = useState({
     groupId: "",
+    groupName: "",
     categoryId: "",
+    categoryName: "",
+    roomId: "",
+    roomName: "",
     bookingId: "",
     bookingTitle: "",
-    bookingDate: new Date(),
-    bookingStartTime: new Date(),
+    bookingDate: curDate,
+    bookingStartTime: curDate,
     bookingEndTime: Utils.getAfterDate("h", new Date(), 1),
     bookingDepartment: "",
     bookingName: "",
     participants: [],
     bookingCreateUser: ""
-  });
-
-  useQuery(GET_BOOKINGS, {
-    onCompleted: data => {
-      if (data) {
-        if (data.bookings) {
-          let tmpEvents = [];
-          data.bookings.forEach(element => {
-            const dateArr = element.date.split("-");
-            const startTimeArr = element.startTime.split(":");
-            const endTimeArr = element.endTime.split(":");
-            tmpEvents = [
-              ...tmpEvents,
-              {
-                id: element.id,
-                title: element.title,
-                start: new Date(
-                  dateArr[0],
-                  Number(dateArr[1]) - 1,
-                  dateArr[2],
-                  startTimeArr[0],
-                  startTimeArr[1],
-                  0
-                ),
-                end: new Date(
-                  dateArr[0],
-                  Number(dateArr[1]) - 1,
-                  dateArr[2],
-                  endTimeArr[0],
-                  endTimeArr[1],
-                  0
-                )
-              }
-            ];
-          });
-          setState({
-            ...state,
-            events: tmpEvents
-          });
-        }
-      }
-    }
   });
 
   const handleSelect = ele => {
@@ -89,11 +51,15 @@ const MonthContainer = () => {
   };
   return (
     <MonthPresenter
+      booking={booking}
+      setBooking={setBooking}
       state={state}
+      setState={setState}
       editValues={editValues}
       setEditValues={setEditValues}
       handleSelect={handleSelect}
       handleClickEvent={handleClickEvent}
+      minDate={minDate}
     />
   );
 };
