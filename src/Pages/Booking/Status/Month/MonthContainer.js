@@ -4,7 +4,6 @@ import MonthPresenter from "./MonthPresenter";
 
 const MonthContainer = () => {
   const curDate = new Date();
-  const minDate = Utils.getAfterDate("m", new Date(), -1);
   const [booking, setBooking] = useState([{}]);
   const [state, setState] = useState({ events: [] });
   const [editValues, setEditValues] = useState({
@@ -59,7 +58,6 @@ const MonthContainer = () => {
       setEditValues={setEditValues}
       handleSelect={handleSelect}
       handleClickEvent={handleClickEvent}
-      minDate={minDate}
     />
   );
 };

@@ -5,13 +5,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_BOOKINGS } from "./Query";
 
-const BigCalendar = ({
-  booking,
-  state,
-  setState,
-  handleClickEvent,
-  minDate
-}) => {
+const BigCalendar = ({ booking, state, setState, handleClickEvent }) => {
   const localizer = momentLocalizer(moment);
 
   const { refetch } = useQuery(GET_BOOKINGS, {
@@ -75,8 +69,8 @@ const BigCalendar = ({
         // onSelectEvent={e => alert(e.title)}
         // onSelectSlot={handleSelect}
         onSelectEvent={handleClickEvent}
-        // timeslots={1}
-        min={minDate}
+        step={30}
+        timeslots={1}
       />
     </div>
   );

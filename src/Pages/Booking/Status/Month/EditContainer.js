@@ -9,8 +9,7 @@ import {
   GET_GROUPS,
   GET_GROUP,
   GET_CATEGORY,
-  DELETE_BOOKING,
-  DUPLICATED_CHECK_CREATE_BOOKING
+  DELETE_BOOKING
 } from "./Query";
 import * as Utils from "../../../../Utils/Date";
 
@@ -156,7 +155,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
   });
   const [createBooking] = useMutation(CREATE_BOOKING, {
     onCompleted: data => {
-      console.log(data);
+      // console.log(data);
       const {
         booking: { id, title },
         flag
@@ -235,26 +234,28 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
   };
 
   const handleTimeChange = (selDate, name) => {
-    const { startTime, endTime } = bookTime;
-    if (startTime && startTime !== "") {
-      const year = selDate.getFullYear();
-      const month = selDate.getMonth();
-      const date = selDate.getDate();
-      const stArr = startTime.split(":");
-      const etArr = endTime.split(":");
-      const startDate = new Date(year, month, date, stArr[0], stArr[1]);
-      const endDate = new Date(year, month, date, etArr[0], etArr[1]);
+    if (selDate.toTimeString() !== "Invalid Date") {
+      const { startTime, endTime } = bookTime;
+      if (startTime && startTime !== "") {
+        const year = selDate.getFullYear();
+        const month = selDate.getMonth();
+        const date = selDate.getDate();
+        const stArr = startTime.split(":");
+        const etArr = endTime.split(":");
+        const startDate = new Date(year, month, date, stArr[0], stArr[1]);
+        const endDate = new Date(year, month, date, etArr[0], etArr[1] + 1);
 
-      if (startDate <= selDate && endDate >= selDate) {
-        setEditValues(oldValues => ({
-          ...oldValues,
-          [name]: selDate
-        }));
+        if (startDate <= selDate && endDate >= selDate) {
+          setEditValues(oldValues => ({
+            ...oldValues,
+            [name]: selDate
+          }));
+        } else {
+          alert("운영시간 내로 선택해주세요");
+        }
       } else {
-        alert("운영시간 내로 선택해주세요");
+        alert("회의실을 먼저 선택하세요");
       }
-    } else {
-      alert("회의실을 먼저 선택하세요");
     }
   };
 
@@ -352,13 +353,15 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
               fDate: {
                 contains: year + "-" + month + "-" + date
               },
-              fStartTime: { st: startTime },
-              fEndTime: { et: endTime }
+              fStartTime: { time: startTime },
+              fEndTime: { time: endTime }
             }
           };
-          console.log(opts);
           const { data } = await createBooking(opts);
-          console.log("createBooking", data);
+          const { flag } = data.createBooking;
+          if (!flag) {
+            alert("예상치 못한 에러발생!!");
+          }
         } catch (e) {
           alert(e.message);
         }

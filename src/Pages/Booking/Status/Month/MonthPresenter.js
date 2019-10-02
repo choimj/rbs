@@ -35,8 +35,7 @@ const MonthPresenter = ({
   editValues,
   setEditValues,
   handleSelect,
-  handleClickEvent,
-  minDate
+  handleClickEvent
 }) => {
   const classes = useStyles();
 
@@ -56,7 +55,6 @@ const MonthPresenter = ({
                     setState={setState}
                     handleSelect={handleSelect}
                     handleClickEvent={handleClickEvent}
-                    minDate={minDate}
                   />
                 </Paper>
               </Grid>
