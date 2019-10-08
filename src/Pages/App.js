@@ -4,7 +4,7 @@ import HeaderContainer from "../Pages/Header";
 import LoginContainer from "../Pages/Login";
 import Logout from "./Logout";
 import NotFound from "./NotFound";
-import Booking from "./Booking";
+import BookingContainer from "./Booking";
 import Management from "./Management";
 import Home from "./Landing/Home";
 import MainContainer from "./Main";
@@ -24,7 +24,7 @@ const App = () => {
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/join" component={JoinContainer} />
           <Route exact path="/callback/:path" component={CallbackContainer} />
-          <Route exact path="/book/:path?" component={Booking} />
+          <Route exact path="/book/:path?" component={BookingContainer} />
           <Route exact path="/management/:path?" component={Management} />
           <Route component={NotFound} />
         </Switch>
