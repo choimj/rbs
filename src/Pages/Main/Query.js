@@ -21,9 +21,42 @@ export const GET_USER_BOOKINGS = gql`
         endTime
         department
         name
+        roomId {
+          name
+        }
       }
       allBookings {
         id
+        roomId {
+          id
+          name
+        }
+      }
+    }
+  }
+`;
+
+export const GET_TODAY_BOOKINGS = gql`
+  query getTodayBookings($filter: BookingFilterInput) {
+    todayBookings(filter: $filter) {
+      title
+      roomId {
+        name
+      }
+      startTime
+      endTime
+      department
+    }
+  }
+`;
+
+export const GET_ROOMS_GROUPBY = gql`
+  query getRoomsGroupBy {
+    rooms {
+      id
+      name
+      bookingCount {
+        count
       }
     }
   }

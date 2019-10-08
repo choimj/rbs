@@ -242,8 +242,8 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
         const date = selDate.getDate();
         const stArr = startTime.split(":");
         const etArr = endTime.split(":");
-        const startDate = new Date(year, month, date, stArr[0], stArr[1]);
-        const endDate = new Date(year, month, date, etArr[0], etArr[1] + 1);
+        const startDate = new Date(year, month, date, stArr[0], stArr[1], 0);
+        const endDate = new Date(year, month, date, etArr[0], etArr[1], 0);
 
         if (startDate <= selDate && endDate >= selDate) {
           setEditValues(oldValues => ({
@@ -302,7 +302,8 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
     const year = tmpDate.getFullYear();
     const month =
       (Number(tmpDate.getMonth()) < 9 ? "0" : "") + (tmpDate.getMonth() + 1);
-    const date = (Number(tmpDate.getDate()) < 9 ? "0" : "") + tmpDate.getDate();
+    const date =
+      (Number(tmpDate.getDate()) < 10 ? "0" : "") + tmpDate.getDate();
     const startTime = new Date(bookingStartTime).toTimeString().substring(0, 5);
     const endTime = new Date(bookingEndTime).toTimeString().substring(0, 5);
     opts.variables = {
