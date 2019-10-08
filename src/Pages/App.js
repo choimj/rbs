@@ -1,7 +1,7 @@
 import React from "react";
 import { Route, BrowserRouter, Switch } from "react-router-dom";
-import HeaderContainer from "../Pages/Header/HeaderContainer";
-import AuthContainer from "../Containers/AuthContainer";
+import HeaderContainer from "../Pages/Header";
+import LoginContainer from "../Pages/Login";
 import Logout from "./Logout";
 import NotFound from "./NotFound";
 import Booking from "./Booking";
@@ -11,7 +11,7 @@ import MainContainer from "./Main";
 import JoinContainer from "../Pages/Join/JoinContainer";
 import CallbackContainer from "../Containers/CallbackContainer";
 
-const App = props => {
+const App = () => {
   return (
     <>
       <BrowserRouter>
@@ -20,7 +20,7 @@ const App = props => {
           <Route exact path="/" component={Home} />
           <Route exact path="/home" component={Home} />
           <Route exact path="/main" component={MainContainer} />
-          <Route exact path="/login" component={AuthContainer} />
+          <Route exact path="/login" component={LoginContainer} />
           <Route exact path="/logout" component={Logout} />
           <Route exact path="/join" component={JoinContainer} />
           <Route exact path="/callback/:path" component={CallbackContainer} />

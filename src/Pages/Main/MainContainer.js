@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import MainPresenter from "./MainPresenter";
 import { useQuery } from "react-apollo";
 import {
@@ -6,10 +6,9 @@ import {
   GET_ROOMS_GROUPBY,
   GET_TODAY_BOOKINGS
 } from "./Query";
-// import * as DB_func from "../../Utils/Database";
 
 const MainContainer = () => {
-  const userId = localStorage.getItem("userId");
+  const [userId, setUserId] = useState("");
   const [bookingCount, setBookingCount] = useState({
     prev: 0,
     next: 0,
@@ -25,6 +24,10 @@ const MainContainer = () => {
     today.getMonth() < 9 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
   const date = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
   const [todayBookings, setTodayBookings] = useState({});
+
+  useEffect(() => {
+    setUserId(localStorage.getItem("userId"));
+  }, [userId]);
 
   useQuery(GET_ROOMS_GROUPBY, {
     onCompleted: data => {
@@ -65,13 +68,11 @@ const MainContainer = () => {
       }
     },
     onCompleted: data => {
-      // console.log(data);
       if (data.todayBookings) {
         setTodayBookings(data.todayBookings);
       }
     }
   });
-
   return (
     <MainPresenter
       bookingCount={bookingCount}

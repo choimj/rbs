@@ -8,67 +8,29 @@ import Container from "@material-ui/core/Container";
 import { useStyles } from "./style";
 import googleLogo from "../../Images/google/logo.png";
 
-import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
-
-const COMPARE_PASSWORD = gql`
-  mutation comparePassword($email: String!, $password: String!) {
-    comparePassword(email: $email, password: $password) {
-      id
-      email
-      message
-      flag
-    }
-  }
-`;
-
-const Login = props => {
-  const {
-    email,
-    password,
-    handleChangeInput,
-    handleComparePassword,
-    googleOauthLogin
-  } = props;
+const LoginPresenter = ({
+  email,
+  password,
+  handleChangeInput,
+  googleOauthLogin,
+  loginFormCheck
+}) => {
   const classes = useStyles();
 
-  const [comparePassword] = useMutation(COMPARE_PASSWORD, {
-    onCompleted: data => {
-      handleComparePassword(data);
-    },
-    onError: err => {
-      console.log(err);
-    }
-  });
-
-  const opts = {
-    variables: { email, password }
-  };
-
-  const loginFormCheck = (email, password, opts) => {
-    if (email === "") {
-      alert("Email을 입력하세요.");
-      return false;
-    } else if (password === "") {
-      alert("Password를 입력하세요.");
-      return false;
-    }
-    comparePassword(opts);
-  };
   return (
     <React.Fragment>
       <CssBaseline />
       <Container maxWidth="sm" className={classes.container}>
         <Typography component="div" className={classes.loginBox}>
           <div className={classes.title}>Login</div>
-          <form noValidate autoComplete="off">
+          <form noValidate autoComplete="on">
             <div>
               <TextField
-                id="outlined-email-input"
                 label="Email"
                 className={classes.textField}
                 type="email"
                 name="email"
+                value={email}
                 autoComplete="email"
                 margin="normal"
                 variant="outlined"
@@ -77,11 +39,11 @@ const Login = props => {
             </div>
             <div>
               <TextField
-                id="outlined-password-input"
                 label="Password"
                 className={classes.textField}
                 type="password"
                 name="password"
+                value={password}
                 autoComplete="current-password"
                 margin="normal"
                 variant="outlined"
@@ -97,7 +59,7 @@ const Login = props => {
                   variant="outlined"
                   color="primary"
                   className={classes.button}
-                  onClick={() => loginFormCheck(email, password, opts)}
+                  onClick={loginFormCheck}
                 >
                   Login
                 </Button>
@@ -130,4 +92,4 @@ const Login = props => {
   );
 };
 
-export default Login;
+export default LoginPresenter;

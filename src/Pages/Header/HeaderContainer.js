@@ -1,7 +1,6 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import HeaderPresenter from "./HeaderPresenter";
-import * as authActions from "../../Store/Modules/Auth";
 
 import dotenv from "dotenv";
 dotenv.config(); //.env 파일 로드
@@ -10,10 +9,7 @@ class HeaderContainer extends React.Component {
   componentDidMount = async () => {
     const { location, history } = this.props;
     const jwtToken = localStorage.getItem("jwtToken");
-    // console.log(localStorage.getItem("userId"));
-    if (jwtToken) {
-      await authActions.checkUserSuccess();
-    }
+
     const re = /(login|join|callback)/;
     let isAuthPath = re.test(location.pathname);
 
@@ -24,7 +20,7 @@ class HeaderContainer extends React.Component {
         history.push("/");
       }
     } else {
-      // 인증이 불필요한 페이지
+      // 인증이 필요한 페이지
       const obj = {
         method: "POST",
         headers: {
@@ -35,10 +31,9 @@ class HeaderContainer extends React.Component {
       if (jwtToken) {
         //token 이 있는 경우
         const url = process.env.REACT_APP_HEROKU_URL + "/auth/jwt/check";
-        fetch(url, obj)
+        await fetch(url, obj)
           .then(response => response.json())
           .then(json => {
-            // console.log(json);
             const { user } = json;
             localStorage.setItem("userId", user.id);
           })
