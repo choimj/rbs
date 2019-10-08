@@ -12,14 +12,15 @@ import {
   DELETE_BOOKING
 } from "./Query";
 import * as Utils from "../../../../Utils/Date";
+import PropTypes from "prop-types";
 
 const EditContainer = ({ editValues, setEditValues, setBooking }) => {
   const { groupId, categoryId, bookingId } = editValues;
-  const [users, setUsers] = useState([{}]);
+  const [users, setUsers] = useState([]);
   const [selectParticipantOption, setSelectParticipantOption] = useState([]);
-  const [groups, setGroups] = useState({});
-  const [categories, setCategories] = useState({});
-  const [rooms, setRooms] = useState({});
+  const [groups, setGroups] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [rooms, setRooms] = useState([]);
   const [dialogOpen, setDialogOpen] = useState(false);
   // 회의실별 운영시간 state
   const [roomTime, setRoomTime] = useState(["회의실을 선택하세요"]);
@@ -201,7 +202,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
     onCompleted: data => {
       alert("삭제되었습니다.");
       setBooking({});
-      setBookTime([]);
+      setBookTime({});
       setInputEdit();
     }
   });
@@ -265,10 +266,10 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
 
   const handleBookingNewClick = e => {
     setInputEdit();
-    setUsers([{}]);
+    setUsers([]);
     setRooms([]);
     setCategories([]);
-    setBookTime([]);
+    setBookTime({});
   };
   const handleBookingSubmit = async e => {
     const {
@@ -382,9 +383,9 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
       ...oldValues,
       [e.target.name]: e.target.value
     }));
-    setUsers([{}]);
+    setUsers([]);
     setRooms([]);
-    setBookTime([]);
+    setBookTime({});
   };
 
   const handleRoomChange = e => {
@@ -440,6 +441,10 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
       bookTime={bookTime}
     />
   );
+};
+
+EditContainer.propTypes = {
+  editValues: PropTypes.object.isRequired
 };
 
 export default EditContainer;

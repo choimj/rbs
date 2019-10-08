@@ -11,6 +11,7 @@ import ListContents from "./ListContents";
 import Edit from "./Edit";
 import TitleBar from "../../../Components/TitleBar";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -104,6 +105,15 @@ const GroupPresenter = ({
       </Container>
     </React.Fragment>
   );
+};
+
+GroupPresenter.propTypes = {
+  groupId: PropTypes.string.isRequired,
+  groupItem: PropTypes.object.isRequired,
+  groupList: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
+  editValues: PropTypes.object.isRequired,
+  selectParticipantOption: PropTypes.array.isRequired
 };
 
 export default GroupPresenter;

@@ -1,4 +1,5 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -8,14 +9,21 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Link from "@material-ui/core/Link";
+import PropTypes from "prop-types";
 
-const LoginLeftMenu = ({
-  loginMenu,
-  headerClasses,
-  sideClassed,
-  handleClick,
-  open
-}) => {
+const useSideStyles = makeStyles(theme => ({
+  root: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
+  }
+}));
+
+const LoginLeftMenu = ({ loginMenu, headerClasses, handleClick, open }) => {
+  const sideClassed = useSideStyles();
   return (
     <div className={headerClasses.list} role="presentation">
       <List
@@ -72,6 +80,11 @@ const LoginLeftMenu = ({
       </List>
     </div>
   );
+};
+
+LoginLeftMenu.propTypes = {
+  loginMenu: PropTypes.array.isRequired,
+  open: PropTypes.object.isRequired
 };
 
 export default LoginLeftMenu;

@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
 import { CREATE_USER } from "./Qeury";
+import PropTypes from "prop-types";
 
 const JoinPresenter = props => {
   const {
@@ -106,6 +107,12 @@ const JoinPresenter = props => {
       </Container>
     </React.Fragment>
   );
+};
+
+JoinPresenter.propTypes = {
+  email: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 };
 
 export default JoinPresenter;

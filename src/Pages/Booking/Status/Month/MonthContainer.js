@@ -4,7 +4,7 @@ import MonthPresenter from "./MonthPresenter";
 
 const MonthContainer = () => {
   const curDate = new Date();
-  const [booking, setBooking] = useState([{}]);
+  const [booking, setBooking] = useState({});
   const [state, setState] = useState({ events: [] });
   const [editValues, setEditValues] = useState({
     groupId: "",

@@ -13,6 +13,7 @@ import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_GROUPS } from "./Query";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -40,7 +41,6 @@ const ListContents = ({
   handleGroupEditClick,
   handleGroupDeleteClick
 }) => {
-  // console.log(groupList);
   const { refetch } = useQuery(GET_GROUPS, {
     onCompleted: data => {
       if (data) {
@@ -60,44 +60,53 @@ const ListContents = ({
       <div className={classes.root}>
         <List dense={true}>
           {groupList.groups ? (
-            groupList.groups.map(item => (
-              <ListItem className={classes.listItem} key={item.id}>
-                <ListItemAvatar className={classes.avatar}>
-                  <Avatar>
-                    <GroupIcon />
-                  </Avatar>
-                </ListItemAvatar>
-                <ListItemText
-                  className={classes.listItemText}
-                  primary={item.name}
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    aria-label="edit"
-                    className={classes.button}
-                    onClick={e => handleGroupEditClick(e, item.id)}
-                  >
-                    <EditIcon />
-                  </IconButton>
-                  <IconButton
-                    edge="end"
-                    aria-label="delete"
-                    className={classes.button}
-                    onClick={e => handleGroupDeleteClick(e, item.id)}
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))
+            groupList.groups.length > 0 ? (
+              groupList.groups.map(item => (
+                <ListItem className={classes.listItem} key={item.id}>
+                  <ListItemAvatar className={classes.avatar}>
+                    <Avatar>
+                      <GroupIcon />
+                    </Avatar>
+                  </ListItemAvatar>
+                  <ListItemText
+                    className={classes.listItemText}
+                    primary={item.name}
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      aria-label="edit"
+                      className={classes.button}
+                      onClick={e => handleGroupEditClick(e, item.id)}
+                    >
+                      <EditIcon />
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="delete"
+                      className={classes.button}
+                      onClick={e => handleGroupDeleteClick(e, item.id)}
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))
+            ) : (
+              <ListItem className={classes.listItem}>No Group</ListItem>
+            )
           ) : (
-            <ListItem className={classes.listItem}>No Data</ListItem>
+            ""
           )}
         </List>
       </div>
     </Grid>
   );
+};
+
+ListContents.propTypes = {
+  groupId: PropTypes.string.isRequired,
+  groupList: PropTypes.object.isRequired
 };
 
 export default ListContents;

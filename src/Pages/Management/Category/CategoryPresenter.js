@@ -9,6 +9,7 @@ import ListContents from "./ListContents";
 import EditContainer from "./EditContainer";
 import TitleBar from "../../../Components/TitleBar";
 import DialogBox from "../../../Components/DialogBox";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -85,6 +86,12 @@ const CategoryPresenter = ({
       />
     </React.Fragment>
   );
+};
+
+CategoryPresenter.propTypes = {
+  category: PropTypes.object.isRequired,
+  editValues: PropTypes.object.isRequired,
+  dialogOpen: PropTypes.bool.isRequired
 };
 
 export default CategoryPresenter;

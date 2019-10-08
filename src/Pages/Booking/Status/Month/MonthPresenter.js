@@ -8,6 +8,7 @@ import Container from "@material-ui/core/Container";
 import TitleBar from "../../../../Components/TitleBar";
 import Paper from "@material-ui/core/Paper";
 import EditContainer from "./EditContainer";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -74,6 +75,12 @@ const MonthPresenter = ({
       </Container>
     </React.Fragment>
   );
+};
+
+MonthPresenter.propTypes = {
+  booking: PropTypes.object.isRequired,
+  state: PropTypes.object.isRequired,
+  editValues: PropTypes.object.isRequired
 };
 
 export default MonthPresenter;

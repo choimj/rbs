@@ -14,7 +14,7 @@ const MainContainer = () => {
     next: 0,
     all: 0
   });
-  const [nextBookings, setNextBookings] = useState({});
+  const [nextBookings, setNextBookings] = useState([]);
   const [bookingGroupByData, setBookingGroupByData] = useState([
     ["Task", "Hours per Day"]
   ]);
@@ -23,7 +23,7 @@ const MainContainer = () => {
   const month =
     today.getMonth() < 9 ? "0" + (today.getMonth() + 1) : today.getMonth() + 1;
   const date = today.getDate() < 10 ? "0" + today.getDate() : today.getDate();
-  const [todayBookings, setTodayBookings] = useState({});
+  const [todayBookings, setTodayBookings] = useState([]);
 
   useEffect(() => {
     setUserId(localStorage.getItem("userId"));

@@ -10,6 +10,7 @@ import Link from "@material-ui/core/Link";
 import { loginMenu, notLoginMenu } from "./menu";
 import LoginLeftMenu from "./LoginLeftMenu";
 import NotLoginLeftMenu from "./NotLoginLeftMenu";
+import PropTypes from "prop-types";
 
 const useHeaderStyles = makeStyles(theme => ({
   root: {
@@ -33,21 +34,8 @@ const useHeaderStyles = makeStyles(theme => ({
   }
 }));
 
-const useSideStyles = makeStyles(theme => ({
-  root: {
-    width: "100%",
-    maxWidth: 360,
-    backgroundColor: theme.palette.background.paper
-  },
-  nested: {
-    paddingLeft: theme.spacing(4)
-  }
-}));
-
-const HeaderPresenter = props => {
+const HeaderPresenter = ({ isLogin, handleLogout }) => {
   const headerClasses = useHeaderStyles();
-  const sideClassed = useSideStyles();
-  const { isLogin, handleLogout } = props;
 
   const [state, setState] = React.useState({
     left: false
@@ -110,7 +98,6 @@ const HeaderPresenter = props => {
           <LoginLeftMenu
             loginMenu={loginMenu}
             headerClasses={headerClasses}
-            sideClassed={sideClassed}
             handleClick={handleClick}
             open={open}
           />
@@ -118,7 +105,6 @@ const HeaderPresenter = props => {
           <NotLoginLeftMenu
             notLoginMenu={notLoginMenu}
             headerClasses={headerClasses}
-            sideClassed={sideClassed}
             handleClick={handleClick}
             open={open}
           />
@@ -126,6 +112,10 @@ const HeaderPresenter = props => {
       </Drawer>
     </div>
   );
+};
+
+HeaderPresenter.propTypes = {
+  isLogin: PropTypes.bool.isRequired
 };
 
 export default HeaderPresenter;

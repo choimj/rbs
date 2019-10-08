@@ -9,6 +9,7 @@ import Paper from "@material-ui/core/Paper";
 import Grid from "@material-ui/core/Grid";
 import TitleBar from "../../../Components/TitleBar";
 import DialogBox from "../../../Components/DialogBox";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -86,6 +87,12 @@ const RoomPresenter = ({
       />
     </React.Fragment>
   );
+};
+
+RoomPresenter.propTypes = {
+  dialogOpen: PropTypes.bool.isRequired,
+  room: PropTypes.object.isRequired,
+  editValues: PropTypes.object.isRequired
 };
 
 export default RoomPresenter;

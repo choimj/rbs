@@ -2,6 +2,7 @@ import React from "react";
 import EditPresenter from "./EditPresenter";
 import { useQuery, useMutation } from "react-apollo";
 import { GET_ROOM, GET_CATEGORY, CREATE_ROOM, UPDATE_ROOM } from "./Query";
+import PropTypes from "prop-types";
 
 const EditContainer = ({
   setRoom,
@@ -149,6 +150,10 @@ const EditContainer = ({
       handleRoomDeleteClick={handleRoomDeleteClick}
     />
   );
+};
+
+EditPresenter.propTypes = {
+  editValues: PropTypes.object.isRequired
 };
 
 export default EditContainer;

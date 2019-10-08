@@ -8,6 +8,7 @@ import {
 } from "@material-ui/pickers";
 import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -172,6 +173,10 @@ const EditPresenter = ({
       </Grid>
     </form>
   );
+};
+
+EditPresenter.propTypes = {
+  editValues: PropTypes.object.isRequired
 };
 
 export default EditPresenter;

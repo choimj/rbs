@@ -1,4 +1,5 @@
 import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
@@ -8,14 +9,26 @@ import SendIcon from "@material-ui/icons/Send";
 import ExpandLess from "@material-ui/icons/ExpandLess";
 import ExpandMore from "@material-ui/icons/ExpandMore";
 import Link from "@material-ui/core/Link";
+import PropTypes from "prop-types";
+
+const useSideStyles = makeStyles(theme => ({
+  root: {
+    width: "100%",
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper
+  },
+  nested: {
+    paddingLeft: theme.spacing(4)
+  }
+}));
 
 const NotLoginLeftMenu = ({
   notLoginMenu,
   headerClasses,
-  sideClassed,
   handleClick,
   open
 }) => {
+  const sideClassed = useSideStyles();
   return (
     <div className={headerClasses.list} role="presentation">
       <List
@@ -72,6 +85,11 @@ const NotLoginLeftMenu = ({
       </List>
     </div>
   );
+};
+
+NotLoginLeftMenu.propTypes = {
+  notLoginMenu: PropTypes.array.isRequired,
+  open: PropTypes.object.isRequired
 };
 
 export default NotLoginLeftMenu;

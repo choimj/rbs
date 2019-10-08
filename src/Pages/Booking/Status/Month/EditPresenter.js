@@ -17,6 +17,7 @@ import FormControl from "@material-ui/core/FormControl";
 import DialogBox from "../../../../Components/DialogBox";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -374,6 +375,17 @@ const EditPresenter = ({
       />
     </React.Fragment>
   );
+};
+
+EditPresenter.propTypes = {
+  users: PropTypes.array.isRequired,
+  editValues: PropTypes.object.isRequired,
+  selectParticipantOption: PropTypes.array.isRequired,
+  groups: PropTypes.array.isRequired,
+  categories: PropTypes.array.isRequired,
+  rooms: PropTypes.array.isRequired,
+  dialogOpen: PropTypes.bool.isRequired,
+  bookTime: PropTypes.object.isRequired
 };
 
 export default EditPresenter;

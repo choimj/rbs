@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -88,6 +89,13 @@ const Edit = ({
       />
     </form>
   );
+};
+
+Edit.propTypes = {
+  groupItem: PropTypes.object.isRequired,
+  users: PropTypes.array.isRequired,
+  editValues: PropTypes.object.isRequired,
+  selectParticipantOption: PropTypes.array.isRequired
 };
 
 export default Edit;

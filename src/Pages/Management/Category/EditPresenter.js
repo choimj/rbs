@@ -4,6 +4,7 @@ import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import InputChip from "../../../Components/InputChip";
 import Grid from "@material-ui/core/Grid";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   container: {
@@ -126,6 +127,12 @@ const EditPresenter = ({
       </Grid>
     </form>
   );
+};
+
+EditPresenter.propTypes = {
+  users: PropTypes.array.isRequired,
+  editValues: PropTypes.object.isRequired,
+  selectParticipantOption: PropTypes.array.isRequired
 };
 
 export default EditPresenter;

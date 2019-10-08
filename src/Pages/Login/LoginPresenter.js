@@ -7,6 +7,7 @@ import Typography from "@material-ui/core/Typography";
 import Container from "@material-ui/core/Container";
 import { useStyles } from "./style";
 import googleLogo from "../../Images/google/logo.png";
+import PropTypes from "prop-types";
 
 const LoginPresenter = ({
   email,
@@ -90,6 +91,11 @@ const LoginPresenter = ({
       </Container>
     </React.Fragment>
   );
+};
+
+LoginPresenter.propTypes = {
+  email: PropTypes.string.isRequired,
+  password: PropTypes.string.isRequired
 };
 
 export default LoginPresenter;

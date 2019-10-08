@@ -9,6 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import CategoryIcon from "@material-ui/icons/Category";
 import { useQuery } from "react-apollo";
 import { GET_CATEGORIES } from "./Query";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles({
   container: {
@@ -94,6 +95,10 @@ const ListContents = ({
       </div>
     </Grid>
   );
+};
+
+ListContents.propTypes = {
+  category: PropTypes.object.isRequired
 };
 
 export default ListContents;

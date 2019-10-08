@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 import Select from "react-select";
 import makeAnimated from "react-select/animated";
+import PropTypes from "prop-types";
 
 const animatedComponents = makeAnimated();
 
@@ -31,6 +32,12 @@ const InputChip = ({
       onChange={handleSelectChange}
     />
   );
+};
+
+InputChip.propTypes = {
+  participants: PropTypes.array.isRequired,
+  users: PropTypes.array.isRequired,
+  selectParticipantOption: PropTypes.array.isRequired
 };
 
 export default InputChip;

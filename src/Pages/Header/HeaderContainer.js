@@ -12,15 +12,13 @@ class HeaderContainer extends React.Component {
 
     const re = /(login|join|callback)/;
     let isAuthPath = re.test(location.pathname);
-
+    // 인증이 필요한 페이지
     if (isAuthPath) {
-      // 인증이 필요한 페이지
       if (jwtToken) {
         alert("이미 로그인 되어 있습니다. 로그아웃 후 시도해주세요.");
         history.push("/");
       }
     } else {
-      // 인증이 필요한 페이지
       const obj = {
         method: "POST",
         headers: {

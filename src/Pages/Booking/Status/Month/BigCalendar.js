@@ -4,6 +4,7 @@ import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_BOOKINGS } from "./Query";
+import PropTypes from "prop-types";
 
 const BigCalendar = ({ booking, state, setState, handleClickEvent }) => {
   const localizer = momentLocalizer(moment);
@@ -74,6 +75,11 @@ const BigCalendar = ({ booking, state, setState, handleClickEvent }) => {
       />
     </div>
   );
+};
+
+BigCalendar.propTypes = {
+  booking: PropTypes.object.isRequired,
+  state: PropTypes.object.isRequired
 };
 
 export default BigCalendar;

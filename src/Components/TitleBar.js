@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import PropTypes from "prop-types";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -7,7 +8,6 @@ const useStyles = makeStyles(theme => ({
     position: "relative"
   },
   paper: {
-    // padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary
   },
@@ -33,10 +33,13 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-const TitleBar = props => {
+const TitleBar = ({ title }) => {
   const classes = useStyles();
-  const { title } = props;
   return <div className={classes.title}>{title}</div>;
+};
+
+TitleBar.propTypes = {
+  title: PropTypes.string.isRequired
 };
 
 export default TitleBar;
