@@ -7,15 +7,9 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
 import { useMutation } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+import { CREATE_USER } from "./Qeury";
 
-const CREATE_USER = gql`
-  mutation createUser($email: String!, $name: String!, $password: String!) {
-    createUser(email: $email, name: $name, password: $password)
-  }
-`;
-
-const Join = props => {
+const JoinPresenter = props => {
   const {
     email,
     name,
@@ -114,4 +108,4 @@ const Join = props => {
   );
 };
 
-export default Join;
+export default JoinPresenter;

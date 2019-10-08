@@ -30,7 +30,8 @@
     "redux": "^4.0.4",
     "redux-actions": "^2.6.5",
     "styled-components": "^4.3.2",
-    "styled-reset": "^3.0.3"
+    "styled-reset": "^3.0.3",
+    "use-react-router": "^1.0.7"
   },
   "scripts": {
     "start": "react-scripts start",

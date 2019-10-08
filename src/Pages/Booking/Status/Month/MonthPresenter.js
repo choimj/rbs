@@ -23,7 +23,8 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(2),
     textAlign: "center",
     color: theme.palette.text.secondary,
-    minHeight: "75vh"
+    minHeight: "75vh",
+    fontSize: "13px"
   }
 }));
 
