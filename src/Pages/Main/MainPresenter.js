@@ -35,7 +35,10 @@ const MainPresenter = ({
       color: theme.palette.text.secondary
     },
     table: {
-      width: "100%"
+      width: "100%",
+      "& tr td": {
+        fontSize: "12px"
+      }
     },
     tableWrap: {
       marginTop: theme.spacing(3),
@@ -44,7 +47,7 @@ const MainPresenter = ({
       marginBottom: theme.spacing(2)
     },
     timeIconWrap: {
-      width: "13vh",
+      maxWidth: "13vh",
       background: "linear-gradient(60deg, #ffa726, #fb8c00)",
       boxShadow:
         "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(255, 152, 0,.4)"
@@ -58,7 +61,7 @@ const MainPresenter = ({
       padding: "10px"
     },
     chartIconWrap: {
-      width: "13vh",
+      maxWidth: "13vh",
       background: "linear-gradient(60deg, #66bb6a, #43a047)",
       boxShadow:
         "0 4px 20px 0 rgba(0, 0, 0,.14), 0 7px 10px -5px rgba(76, 175, 80,.4)"
@@ -146,7 +149,7 @@ const MainPresenter = ({
               <Grid item xs={12} sm={7}>
                 <Grid item xs={12} sm={12} style={{ height: "100%" }}>
                   <Paper className={classes.paper} style={{ height: "100%" }}>
-                    <Grid container spacing={0}>
+                    <Grid container spacing={2}>
                       <Grid item xs={12} sm={3}>
                         <Paper className={classes.chartIconWrap}>
                           <EqualizerIcon
@@ -178,9 +181,7 @@ const MainPresenter = ({
                                   todayBookings.length > 0 ? (
                                     todayBookings.map((item, i) => (
                                       <TableRow key={i}>
-                                        <TableCell align="center">
-                                          {item.title}
-                                        </TableCell>
+                                        <TableCell>{item.title}</TableCell>
                                         <TableCell align="center">
                                           {item.roomId.name}
                                         </TableCell>
@@ -196,7 +197,6 @@ const MainPresenter = ({
                                         scope="row"
                                         align="center"
                                         colSpan={4}
-                                        style={{ fontSize: "12px" }}
                                       >
                                         회의 리스트가 존재하지 않습니다.
                                       </TableCell>
@@ -271,7 +271,6 @@ const MainPresenter = ({
                                 scope="row"
                                 align="center"
                                 colSpan={6}
-                                style={{ fontSize: "12px" }}
                               >
                                 회의 리스트가 존재하지 않습니다.
                               </TableCell>
