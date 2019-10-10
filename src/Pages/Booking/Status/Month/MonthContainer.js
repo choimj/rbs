@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import * as Utils from "../../../../Utils/Date";
 import MonthPresenter from "./MonthPresenter";
-
+import * as dateUtils from "../../../../Utils/Date";
 const MonthContainer = () => {
   const curDate = new Date();
+  const day = dateUtils.getDateString(curDate, "-");
+
   const [booking, setBooking] = useState({});
   const [state, setState] = useState({ events: [] });
   const [editValues, setEditValues] = useState({
@@ -15,9 +16,9 @@ const MonthContainer = () => {
     roomName: "",
     bookingId: "",
     bookingTitle: "",
-    bookingDate: curDate,
-    bookingStartTime: curDate,
-    bookingEndTime: Utils.getAfterDate("h", new Date(), 1),
+    bookingDate: day,
+    bookingStartTime: day,
+    bookingEndTime: dateUtils.getAfterDate("h", new Date(), 1),
     bookingDepartment: "",
     bookingName: "",
     participants: [],

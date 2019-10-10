@@ -8,7 +8,7 @@ import StyledTreeItem from "../../../Components/StyledTreeItem";
 import Grid from "@material-ui/core/Grid";
 import CategoryIcon from "@material-ui/icons/Category";
 import MeetingRoomIcon from "@material-ui/icons/MeetingRoom";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_ROOMS } from "./Query";
 import PropTypes from "prop-types";
 

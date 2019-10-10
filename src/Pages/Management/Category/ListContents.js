@@ -7,7 +7,7 @@ import ArrowRightIcon from "@material-ui/icons/ArrowRight";
 import StyledTreeItem from "./StyledTreeItem";
 import Grid from "@material-ui/core/Grid";
 import CategoryIcon from "@material-ui/icons/Category";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_CATEGORIES } from "./Query";
 import PropTypes from "prop-types";
 

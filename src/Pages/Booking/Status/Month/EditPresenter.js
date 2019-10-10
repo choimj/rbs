@@ -18,6 +18,7 @@ import DialogBox from "../../../../Components/DialogBox";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
+import * as dateUtils from "../../../../Utils/Date";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -84,7 +85,9 @@ const EditPresenter = ({
   bookTime
 }) => {
   const classes = useStyles();
-  const disabled = editValues.bookingId !== "" ? false : true;
+  const curDate = new Date();
+  const day = dateUtils.getDateString(curDate, "-");
+
   const { startTime, endTime } = bookTime;
   const {
     groupId,
@@ -98,6 +101,11 @@ const EditPresenter = ({
     bookingTitle,
     participants
   } = editValues;
+
+  const disabled =
+    editValues.bookingId !== "" && day <= bookingDate ? false : true;
+  const updateDisabled = day <= bookingDate ? false : true;
+
   return (
     <React.Fragment>
       <form className={classes.root} autoComplete="off">
@@ -270,7 +278,6 @@ const EditPresenter = ({
             }}
             disablePast={true}
             format="yyyy-MM-dd"
-            autoOk={true}
           />
           <KeyboardTimePicker
             fullWidth
@@ -282,8 +289,6 @@ const EditPresenter = ({
             KeyboardButtonProps={{
               "aria-label": "change time"
             }}
-            autoOk={true}
-            disablePast={true}
           />
           <KeyboardTimePicker
             fullWidth
@@ -295,9 +300,6 @@ const EditPresenter = ({
             KeyboardButtonProps={{
               "aria-label": "change time"
             }}
-            autoOk={true}
-            disablePast={true}
-            minDate={new Date(2019, 10, 1, 10, 0)}
           />
         </Grid>
       </MuiPickersUtilsProvider>
@@ -347,6 +349,7 @@ const EditPresenter = ({
       <Grid container spacing={0} className={classes.buttonArea}>
         <Grid item xs={6} sm={6}>
           <Button
+            disabled={updateDisabled}
             variant="contained"
             className={classes.button}
             color="primary"

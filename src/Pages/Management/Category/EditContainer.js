@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import EditPresenter from "./EditPresenter";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
   GET_GROUP,
   GET_CATEGORY,

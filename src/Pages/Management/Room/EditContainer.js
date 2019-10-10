@@ -1,6 +1,6 @@
 import React from "react";
 import EditPresenter from "./EditPresenter";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { GET_ROOM, GET_CATEGORY, CREATE_ROOM, UPDATE_ROOM } from "./Query";
 import PropTypes from "prop-types";
 

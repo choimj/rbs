@@ -66,3 +66,22 @@ export const getAfterDate = (op, date, num) => {
       return;
   }
 };
+
+export const getDateString = (dateObj, gb) => {
+  if (dateObj) {
+    const year = dateObj.getFullYear();
+    let month = dateObj.getMonth() + 1;
+    let date = dateObj.getDate();
+
+    if (month < 10) {
+      month = "0" + month;
+    }
+    if (date < 10) {
+      date = "0" + date;
+    }
+
+    return year + gb + month + gb + date;
+  } else {
+    return "";
+  }
+};

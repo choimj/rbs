@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import MainPresenter from "./MainPresenter";
-import { useQuery } from "react-apollo";
+import { useQuery } from "@apollo/react-hooks";
 import {
   GET_USER_BOOKINGS,
   GET_ROOMS_GROUPBY,

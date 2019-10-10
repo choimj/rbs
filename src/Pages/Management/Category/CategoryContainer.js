@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CategoryPresenter from "./CategoryPresenter";
 
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 import { DELETE_CATEGORY } from "./Query";
 
 const CategoryContainer = () => {

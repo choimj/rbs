@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import EditPresenter from "./EditPresenter";
-import { useQuery, useMutation } from "react-apollo";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import {
   GET_BOOKING,
   UPDATE_BOOKING,
@@ -11,7 +11,7 @@ import {
   GET_CATEGORY,
   DELETE_BOOKING
 } from "./Query";
-import * as Utils from "../../../../Utils/Date";
+import * as dateUtils from "../../../../Utils/Date";
 import PropTypes from "prop-types";
 
 const EditContainer = ({ editValues, setEditValues, setBooking }) => {
@@ -79,7 +79,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
       }
     }
   });
-  // 캘린더의 예약 클릭 시
+  // 캘린더의 예약 이벤트 클릭 시
   useQuery(GET_BOOKING, {
     variables: {
       id: bookingId
@@ -154,6 +154,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
       console.log("GET_GROUP error !!", err);
     }
   });
+
   const [createBooking] = useMutation(CREATE_BOOKING, {
     onCompleted: data => {
       // console.log(data);
@@ -209,7 +210,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
 
   const setInputEdit = () => {
     const curDate = new Date();
-    const afterHourDate = Utils.getAfterDate("h", new Date(), 1);
+    const afterHourDate = dateUtils.getAfterDate("h", new Date(), 1);
     setEditValues(oldValues => ({
       ...oldValues,
       groupId: "",
@@ -238,14 +239,25 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
     if (selDate.toTimeString() !== "Invalid Date") {
       const { startTime, endTime } = bookTime;
       if (startTime && startTime !== "") {
-        const year = selDate.getFullYear();
-        const month = selDate.getMonth();
-        const date = selDate.getDate();
+        const day = dateUtils.getDateString(selDate, "-").split("-");
         const stArr = startTime.split(":");
         const etArr = endTime.split(":");
-        const startDate = new Date(year, month, date, stArr[0], stArr[1], 0);
-        const endDate = new Date(year, month, date, etArr[0], etArr[1], 0);
-
+        const startDate = new Date(
+          day[0],
+          day[1] - 1,
+          day[2],
+          stArr[0],
+          stArr[1],
+          0
+        );
+        const endDate = new Date(
+          day[0],
+          day[1] - 1,
+          day[2],
+          etArr[0],
+          etArr[1],
+          0
+        );
         if (startDate <= selDate && endDate >= selDate) {
           setEditValues(oldValues => ({
             ...oldValues,

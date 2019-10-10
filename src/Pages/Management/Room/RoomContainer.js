@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import RoomPresenter from "./RoomPresenter";
 import { DELETE_ROOM } from "./Query";
-import { useMutation } from "react-apollo";
+import { useMutation } from "@apollo/react-hooks";
 
 const RoomContainer = () => {
   const curDate = new Date();
