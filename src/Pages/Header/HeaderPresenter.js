@@ -23,12 +23,6 @@ const useHeaderStyles = makeStyles(theme => ({
   title: {
     flexGrow: 1
   },
-  list: {
-    width: 250
-  },
-  fullList: {
-    width: "auto"
-  },
   link: {
     fontSize: "18px"
   }
@@ -45,6 +39,7 @@ const HeaderPresenter = ({ isLogin, handleLogout }) => {
   });
 
   const handleClick = (e, id, length) => {
+    e.preventDefault();
     const openArray = new Array(length);
     openArray.fill(false);
     openArray[id] = true;
@@ -97,14 +92,12 @@ const HeaderPresenter = ({ isLogin, handleLogout }) => {
         {isLogin ? (
           <LoginLeftMenu
             loginMenu={loginMenu}
-            headerClasses={headerClasses}
             handleClick={handleClick}
             open={open}
           />
         ) : (
           <NotLoginLeftMenu
             notLoginMenu={notLoginMenu}
-            headerClasses={headerClasses}
             handleClick={handleClick}
             open={open}
           />

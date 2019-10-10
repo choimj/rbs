@@ -19,13 +19,16 @@ const useSideStyles = makeStyles(theme => ({
   },
   nested: {
     paddingLeft: theme.spacing(4)
+  },
+  list: {
+    width: 250
   }
 }));
 
-const LoginLeftMenu = ({ loginMenu, headerClasses, handleClick, open }) => {
+const LoginLeftMenu = ({ loginMenu, handleClick, open }) => {
   const sideClassed = useSideStyles();
   return (
-    <div className={headerClasses.list} role="presentation">
+    <div className={sideClassed.list} role="presentation">
       <List
         component="nav"
         aria-labelledby="nested-list-subheader"
