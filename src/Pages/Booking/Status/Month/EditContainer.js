@@ -260,7 +260,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
           0
         );
         if (startDate <= selDate && endDate >= selDate) {
-          console.log(bookingStartTime);
+          // console.log(bookingStartTime);
           if (name === "bookingEndTime") {
             if (bookingStartTime > selDate) {
               alert("시작시간은 종료시간보다 클 수 없습니다.");
