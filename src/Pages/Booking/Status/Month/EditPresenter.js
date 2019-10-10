@@ -104,7 +104,8 @@ const EditPresenter = ({
 
   const disabled =
     editValues.bookingId !== "" && day <= bookingDate ? false : true;
-  const updateDisabled = day <= bookingDate ? false : true;
+  const updateDisabled =
+    editValues.bookingId === "" || day <= bookingDate ? false : true;
 
   return (
     <React.Fragment>
@@ -278,6 +279,7 @@ const EditPresenter = ({
             }}
             disablePast={true}
             format="yyyy-MM-dd"
+            autoOk={true}
           />
           <KeyboardTimePicker
             fullWidth
