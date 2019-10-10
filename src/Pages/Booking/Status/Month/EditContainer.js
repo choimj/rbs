@@ -238,6 +238,7 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
   const handleTimeChange = (selDate, name) => {
     if (selDate.toTimeString() !== "Invalid Date") {
       const { startTime, endTime } = bookTime;
+      const { bookingStartTime, bookingEndTime } = editValues;
       if (startTime && startTime !== "") {
         const day = dateUtils.getDateString(selDate, "-").split("-");
         const stArr = startTime.split(":");
@@ -259,6 +260,18 @@ const EditContainer = ({ editValues, setEditValues, setBooking }) => {
           0
         );
         if (startDate <= selDate && endDate >= selDate) {
+          console.log(bookingStartTime);
+          if (name === "bookingEndTime") {
+            if (bookingStartTime > selDate) {
+              alert("시작시간은 종료시간보다 클 수 없습니다.");
+              return false;
+            }
+          } else if (name === "bookingStartTime") {
+            if (bookingEndTime < selDate) {
+              alert("시작시간은 종료시간보다 클 수 없습니다.");
+              return false;
+            }
+          }
           setEditValues(oldValues => ({
             ...oldValues,
             [name]: selDate
